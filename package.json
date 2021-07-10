@@ -1,0 +1,36 @@
+{
+  "name": "planit",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "client-dev": "next dev ./client -p 8080",
+    "client-build": "next build ./client",
+    "client-start": "next start ./client -p 8080",
+    "client-lint": "next lint ./client",
+    "test": "jest --watch"
+  },
+  "dependencies": {
+    "babel-jest": "^27.0.6",
+    "date.js": "^0.3.3",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "express-session": "^1.17.2",
+    "jest": "^27.0.6",
+    "js-cookie": "^2.2.1",
+    "lodash": "^4.17.21",
+    "mongoose": "^5.13.2",
+    "next": "11.0.1",
+    "node.js": "^0.0.1-security",
+    "nodemon": "^2.0.12",
+    "passport": "^0.4.1",
+    "passport-local": "^1.0.0",
+    "react": "^17.0.2",
+    "react-dom": "17.0.2",
+    "sass": "^1.35.2",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "eslint": "7.30.0",
+    "eslint-config-next": "11.0.1"
+  }
+}
