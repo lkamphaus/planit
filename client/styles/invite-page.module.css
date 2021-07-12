@@ -157,3 +157,13 @@
   color: white;
   background-color: #98609c;
 }
+
+/*
+  ========================================
+  Modal
+  ========================================
+*/
+
+.modal {
+  background-color: white;
+}

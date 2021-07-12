@@ -1,23 +1,32 @@
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
 import styles from '../styles/invite-page.module.css';
-import Image from 'next/image';
-import Modal from '@material-ui/core/Modal';
 
+import React, { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { makeStyles } from '@material-ui/core/styles';
+import Modal from '@material-ui/core/Modal';
+import Backdrop from '@material-ui/core/Backdrop';
+import Fade from '@material-ui/core/Fade';
+
+import Image from 'next/image';
 
 import eventData from '../../MockData/EventData.js'
 const sampleImg = 'https://wallpaperaccess.com/full/632782.jpg';
 
-console.log(eventData.SingleEventData);
+console.log('event data:', eventData.SingleEventData);
 const event = eventData.SingleEventData;
 
 const InvitePage = () => {
-  const [modal, setModal] = useState(false);
+  const [open, setOpen] = useState(false);
   const [avail, setAvail] = useState([]); // pass this down to modal
 
-  const toggleModal = () => {
-    setModal(true);
-  }
+  const handleOpen = (e) => {
+    e.preventDefault();
+    setOpen(true);
+  };
+
+  const handleClose = (e) => {
+    setOpen(false);
+  };
 
   return (
     <div className={styles.window}>
@@ -51,7 +60,26 @@ const InvitePage = () => {
             <input className={styles.input} required></input>
             <label>Email:</label>
             <input className={styles.input} required></input>
-            <button className={styles.submit_form} onClick={toggleModal}>Add Availability</button>
+            <button className={styles.submit_form} onClick={handleOpen}>Add Availability</button>
+              <Modal
+                aria-labelledby="transition-modal-title"
+                aria-describedby="transition-modal-description"
+                open={open}
+                className={styles.modal}
+                onClose={handleClose}
+                closeAfterTransition
+                BackdropComponent={Backdrop}
+                BackdropProps={{
+                  timeout: 500,
+                }}
+              >
+                <Fade in={open}>
+                  <div>
+                    <h2 id="transition-modal-title">Transition modal</h2>
+                    <p id="transition-modal-description">react-transition-group animates me.</p>
+                  </div>
+                </Fade>
+              </Modal>
             <button className={styles.rsvp_btn}>RSVP</button>
           </form>
         </div>
