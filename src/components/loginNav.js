@@ -1,16 +1,39 @@
 import Link from 'next/link';
+import styles from '../styles/Login.module.css';
 
-const LoginNav = () => {
+const LoginNav = ({ currentPage }) => {
+
+  const links = [
+    {
+      href: '/login',
+      label: 'Log in',
+    },
+    {
+      href: '/signup',
+      label: 'Sign up',
+    }];
+
+  const linksHTML = links.map((link, index) => {
+    if (currentPage === link.href) {
+      return <a><h3 key={`link_${index}`}>{link.label}</h3></a>;
+    } else {
+      return (
+        <Link href={link.href} passHref>
+          <a>
+
+          <h3 key={`link_${index}`}>{link.label}</h3>
+          </a>
+        </Link>
+      );
+    }
+  });
+
+  console.log('linksHTML:', linksHTML);
 
   return (
-    <>
-      <Link href="/login" passHref>
-        <h3>Log in</h3>
-      </Link>
-      <Link href="/signup" passHref>
-        <h3>Sign up</h3>
-      </Link>
-    </>
+    <div className={styles.navContainer}>
+      {linksHTML}
+    </div>
   );
 };
 

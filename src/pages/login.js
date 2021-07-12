@@ -6,7 +6,7 @@ const Login = () => {
 
   return (
     <LoginLayout>
-      <LoginNav />
+      <LoginNav currentPage='/login' />
       <LoginForm />
     </LoginLayout>
   );
