@@ -1,14 +1,30 @@
-const { app } = require('./index.js');
-const { eventRouter } = require('./routes/events.js');
-const { loginRouter } = require('./routes/login.js');
+const { app: httpServer } = require('./index.js');
+const { session, cors } = require('./middleware');
+const { parse } = require('url');
+const next = require('next');
 
-app.use('/events', eventRouter);
-app.use('/login', loginRouter);
+const dev = true;
+const nextServer = next({ dev });
+const handle = nextServer.getRequestHandler();
 
-app.get('/logout', (req, res) => {
-  res.send('<h1>Logout</h1>')
-})
+nextServer.prepare().then(() => {
+  httpServer.use(cors.corsPolicy);
+  httpServer.use(session.sessionParser);
+  httpServer.use(session.sessionManager);
+  // server-sided rendering
+  httpServer.use((req, res, next) => {
+    const parsedUrl = parse(req.url, true);
+    const { pathname, query } = parsedUrl;
 
-app.listen(3000, () => {
-  console.log('Listening on localhost:3000');
-})
+    if (!pathname.startsWith('/api')) {
+      nextServer.render(req, res, pathname, query);
+    } else {
+      next();
+    }
+  })
+
+
+  httpServer.listen(3000, () => {
+    console.log('Listening on localhost:3000');
+  })
+});
