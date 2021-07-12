@@ -9,8 +9,7 @@
     "client-lint": "next lint ./src",
     "server": "node ./server/app",
     "dev": "nodemon ./server/app",
-    "test": "jest --watch",
-    "seed": "node ./database/seed"
+    "test": "jest --watch"
   },
   "dependencies": {
     "babel-jest": "^27.0.6",
