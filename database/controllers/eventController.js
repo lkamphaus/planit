@@ -40,7 +40,7 @@ const addEvent = async (event, userId) => {
     Event.create(event)
     .then(({ _id }) => {
       let condition = { _id: userId };
-      User.update(condition, { $push: { events: _id }})
+      User.updateOne(condition, { $push: { events: _id }})
       .then(() => {
         resolve('Event Added');
       })

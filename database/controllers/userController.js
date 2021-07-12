@@ -23,7 +23,20 @@ const addUser = (user) => {
   })
 }
 
+const deleteUser = (email) => {
+  return new Promise((resolve, reject) => {
+    User.deleteOne({}).where('email').equals(email)
+    .then((res) => {
+      resolve(res);
+    }).catch((err) => {
+      console.error(err);
+      reject(err);
+    })
+  })
+}
+
 module.exports = {
   fetchUser,
   addUser,
+  deleteUser
 }
