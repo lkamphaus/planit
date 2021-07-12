@@ -11,6 +11,8 @@ yarn.lock
 
 # next.js
 client/.next/
+./.next/
+./out/
 client/out/
 
 # production

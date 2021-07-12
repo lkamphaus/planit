@@ -7,7 +7,8 @@
     "client-build": "next build ./client",
     "client-start": "next start ./client -p 8080",
     "client-lint": "next lint ./client",
-    "server-start:dev": "nodemon ./server/app",
+    "server": "node ./server/app",
+    "dev": "nodemon ./server/app",
     "test": "jest --watch",
     "seed": "node ./database/seed"
   },
