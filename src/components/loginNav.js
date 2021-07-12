@@ -28,8 +28,6 @@ const LoginNav = ({ currentPage }) => {
     }
   });
 
-  console.log('linksHTML:', linksHTML);
-
   return (
     <div className={styles.navContainer}>
       {linksHTML}

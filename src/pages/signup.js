@@ -1,4 +1,4 @@
-import LoginLayout from '../components/LoginLayout';
+import LoginLayout from '../components/loginLayout';
 import LoginNav from '../components/loginNav';
 import SignupForm from '../components/signupForm';
 
