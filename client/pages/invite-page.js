@@ -13,7 +13,7 @@ const InvitePage = () => {
       <div className={styles.info}>
         <div className={styles.invite_title}>NAME invites you to join his EVENT</div>
         <div className={styles.subtitle}>
-          <div>Pending</div>
+          <div className={styles.status}>Pending</div>
           <div className={styles.location}>Location</div>
         </div>
         <div className={styles.body}>

@@ -1,3 +1,9 @@
+/*
+  ========================================
+  Containers
+  ========================================
+*/
+
 .container {
   display: flex;
   flex-flow: column;
@@ -29,12 +35,17 @@
   padding-bottom: 30px;
 }
 
+/*
+  ========================================
+  Event Title
+  ========================================
+*/
+
 .subtitle {
   display: flex;
   flex-flow: row;
   padding-bottom: 30px;
   font-size: 20px;
-  text-decoration: underline;
 }
 
 .invite_title {
@@ -45,8 +56,19 @@
 }
 
 .location {
-  padding-left: 50px;
+  padding-left: 30px;
 }
+
+.location:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+/*
+  ========================================
+  Event Body
+  ========================================
+*/
 
 .body {
   display: flex;
@@ -68,6 +90,12 @@
   background-color: rgb(196, 223, 196)
 }
 
+/*
+  ========================================
+  Event Form
+  ========================================
+*/
+
 .form {
   font-size: 18px;
   padding-left: 30px;
@@ -83,7 +111,7 @@
 }
 
 .submit_form {
-  margin-top: 15px;
+  margin-top: 10px;
   width: 100%;
   padding: 3px;
   opacity: .8;
@@ -92,4 +120,12 @@
 .submit_form:hover {
   cursor: pointer;
   opacity: 1;
+}
+
+.status {
+  background-color: rgb(155, 155, 155);
+  border-radius: 5px;
+  font-size: 15px;
+  padding: 5px;
+  color: white;
 }
