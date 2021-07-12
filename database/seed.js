@@ -96,10 +96,9 @@ const seed = async () => {
     console.log('User deleted');
     await addUser(mockUser);
     console.log('User added successfully');
-    await addEvent(mockEvent, '60ec9ccf28c54f891c97b28d');
+    let user = await fetchUser('tarrinneal@gmail.com');
+    await addEvent(mockEvent, user[0]._id);
     console.log('Event added successfully');
-    // let user = await fetchUser('tarrinneal@gmail.com');
-    // console.log(user)
     // let events = await fetchEvents({ where: { property: 'name', value: 'Tarvent'}, count: 1});
     // console.log(events);
     // await addSession(mockSession);
