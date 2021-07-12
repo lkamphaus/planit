@@ -11,10 +11,15 @@ yarn.lock
 
 # next.js
 client/.next/
+src/.next
+.next
+./out/
 client/out/
+src/out/
 
 # production
 client/build
+src/build
 
 # misc
 .DS_Store
@@ -34,3 +39,4 @@ yarn-error.log*
 # vercel
 .vercel
 client/.vercel
+src/.vercel
