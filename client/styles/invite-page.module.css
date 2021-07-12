@@ -4,59 +4,82 @@
   ========================================
 */
 
-.container {
+.window {
   display: flex;
   flex-flow: column;
   border: solid 3px;
-  background: #bff8bf;
+  background: #f4e3f5;
+}
+
+.container {
+  display: flex;
+  flex-flow: column;
+  align-self: center;
+  width: 100vh;
 }
 
 .title {
   font-size: 50px;
-  font-style: italic;
-  font-weight: bold;
-  color: rgb(48, 48, 48);
+  color: white;
   padding-top: 10px;
   padding-left: 55px;
   padding-bottom: 30px;
-  background-color: #e1ffe1;
+  background-color: #98609c;
 }
 
 .photo {
   align-self: center;
-  width: 75%;
+  width: 100%;
   height: 175px;
+  border-radius: 5px;
+  margin-top: 30px;
+  margin-bottom: 30px;
 }
 
 .info {
   align-self: center;
   width: 65%;
-  padding-top: 30px;
   padding-bottom: 30px;
+  margin-right: 30px;
 }
 
 /*
   ========================================
-  Event Title
+  Event Header
   ========================================
 */
+
+.header {
+  background-color: white;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  padding: 30px 30px 30px 30px;
+  opacity: .88;
+}
 
 .subtitle {
   display: flex;
   flex-flow: row;
-  padding-bottom: 30px;
   font-size: 20px;
 }
 
 .invite_title {
-  align-self: flex-start;
-  font-size: 25px;
+  display: flex;
+  align-self: center;
+  font-size: 30px;
   font-weight: bold;
-  padding-bottom: 5px;
+  margin-bottom: 10px;
 }
 
-.location {
-  margin-left: 10px;
+
+.status {
+  background-color: rgb(155, 155, 155);
+  border-radius: 5px;
+  font-size: 13px;
+  padding: 5px;
+  margin-right: 5px;
+  color: white;
+  opacity: .88;
 }
 
 .location:hover {
@@ -66,32 +89,30 @@
 
 /*
   ========================================
-  Event Body
+  Event Details
   ========================================
 */
 
 .body {
   display: flex;
+  flex-grow: 1;
+  justify-content: center;
+}
+
+.details {
+  display: flex;
+  flex-flow: column;
+  width: 700px;
 }
 
 .description {
-  padding-bottom: 30px;
+  padding: 30px;
   min-height: 150px;
   min-width: 430px;
   max-width: 720px;
-}
-
-.rsvp_btn {
-  margin-top: 30px;
-  width: 100%;
-  padding: 10px;
-  background-color: rgb(233, 250, 233);
-  font-size: 20px;
-}
-
-.rsvp_btn:hover {
-  cursor: pointer;
-  background-color: rgb(196, 223, 196)
+  background-color: white;
+  opacity: .88;
+  border-radius: 5px;
 }
 
 /*
@@ -102,14 +123,16 @@
 
 .form {
   font-size: 18px;
-  padding-left: 30px;
+  padding: 15px;
+  background-color: white;
+  opacity: .88;
+  border-radius: 5px;
+  max-height: 250px;
 }
 
 .input {
   width: 100%;
-  background-color: rgb(233, 250, 233);
   padding: 5px;
-  border: 0px;
   border-radius: 3px;
   margin-top: 5px;
   margin-bottom: 5px;
@@ -119,18 +142,18 @@
   margin-top: 10px;
   width: 100%;
   padding: 3px;
-  opacity: .8;
+  opacity: .88;
 }
 
-.submit_form:hover {
+.rsvp_btn {
+  margin-top: 20px;
+  width: 100%;
+  padding: 10px;
+}
+
+.submit_form:hover,
+.rsvp_btn:hover {
   cursor: pointer;
-  opacity: 1;
-}
-
-.status {
-  background-color: rgb(155, 155, 155);
-  border-radius: 5px;
-  font-size: 15px;
-  padding: 5px;
   color: white;
+  background-color: #98609c;
 }
