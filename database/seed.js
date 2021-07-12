@@ -1,6 +1,7 @@
 const db = require('./index.js');
-const { Event } = require('./models/eventSchema.js');
-const { fetchEvents, addEvent } = require('./controllers/eventController.js');
+const { fetchEvents, addEvent, deleteAllEvents } = require('./controllers/eventController.js');
+const { addUser, fetchUser } = require('./controllers/userController.js');
+const { addSession, fetchSession, deleteSession } = require('./controllers/sessionController.js');
 
 const mockEvent = {
   name: 'Tarvent',
@@ -76,12 +77,33 @@ const mockEvent = {
   ]
 }
 
+const mockUser = {
+  name: 'Tarrin',
+  email: 'tarrinneal@gmail.com',
+  events: []
+}
+
+const mockSession = {
+  session_id: '1',
+  user: '60ec9ccf28c54f891c97b28d'
+}
+
 const seed = async () => {
   try {
-    // await(addEvent(mockEvent));
+    // await deleteAllEvents();
+    // console.log('Events Deleted');
+    // await addUser(mockUser);
+    // console.log('User added successfully');
+    // let user = await fetchUser('tarrinneal@gmail.com');
+    // console.log(user)
+    // await addEvent(mockEvent, '60ec9ccf28c54f891c97b28d');
     // console.log('Event added successfully');
-    let events = await fetchEvents({ where: { property: 'name', value: 'Tarvent'}, count: 1});
-    console.log(events);
+    // let events = await fetchEvents({ where: { property: 'name', value: 'Tarvent'}, count: 1});
+    // console.log(events);
+    await addSession(mockSession);
+    console.log('Session added');
+    let session = await fetchSession('1');
+    console.log(session);
   } catch(err) {
     console.error('Seed Failed', err);
   }
