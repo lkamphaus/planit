@@ -11,20 +11,20 @@ const InvitePage = () => {
       <div className={styles.title}>plan.it</div>
       <img className={styles.photo} src={sampleImg}></img>
       <div className={styles.info}>
-        <div className={styles.invite_title}>NAME invites you to join his EVENT</div>
+        <div className={styles.invite_title}>{'[NAME]'} invites you to join {'[EVENT]!'}</div>
         <div className={styles.subtitle}>
           <div className={styles.status}>Pending</div>
           <div className={styles.location}>Location</div>
         </div>
         <div className={styles.body}>
           <div className={styles.description}>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed faucibus cursus dictum. Integer volutpat fringilla consequat. Nullam blandit mauris eget diam dapibus, nec imperdiet nisi vestibulum.Nullam blandit mauris eget diam dapibus, nec imperdiet nisi vestibulum.Nullam blandit mauris eget diam dapibus, nec imperdiet nisi vestibulum.Nullam blandit mauris eget diam dapibus, nec imperdiet nisi vestibulum.
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed faucibus cursus dictum. Integer volutpat fringilla consequat. Nullam blandit mauris eget diam dapibus, nec imperdiet nisi vestibulum. Nullam blandit mauris eget diam dapibus, nec imperdiet nisi vestibulum. Nullam blandit mauris eget diam dapibus, nec imperdiet nisi vestibulum. Nullam blandit mauris eget diam dapibus, nec imperdiet nisi vestibulum.
           </div>
           <form className={styles.form}>
             <label>Name:</label>
-            <input className={styles.input}></input>
+            <input className={styles.input} required></input>
             <label>Email:</label>
-            <input className={styles.input}></input>
+            <input className={styles.input} required></input>
             <button className={styles.submit_form}>Add Availability</button>
           </form>
         </div>
