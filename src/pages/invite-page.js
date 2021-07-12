@@ -34,7 +34,14 @@ const InvitePage = () => {
 
       <div className={styles.container}>
 
-        <img className={styles.photo} src={sampleImg}></img>
+      <Image
+        src={sampleImg}
+        className={styles.photo}
+        layout="fixed"
+        height={144}
+        width={1050}
+        alt="event-image"
+      />
 
         <div className={styles.body}>
           <div className={styles.info}>
@@ -50,7 +57,7 @@ const InvitePage = () => {
               </div>
 
               <div className={styles.description}>
-              According to all known laws of aviation, there is no way a bee should be able to fly. Its wings are too small to get its fat little body off the ground. The bee, of course, flies anyway because bees don't care what humans think is impossible. Yellow, black. Yellow, black. Yellow, black. Yellow, black. Ooh, black and yellow! Let's shake it up a little. Barry! Breakfast is ready! Coming! Hang on a second. Hello? Barry? Adam? Can you believe this is happening? I can't. I'll pick you up. Looking sharp. Use the stairs, Your father paid good money for those. Sorrgity. I'm excited.
+              According to all known laws of aviation, there is no way a bee should be able to fly. Its wings are too small to get its fat little body off the ground. The bee, of course, flies anyway because bees don&#39;t care what humans think is impossible. Yellow, black. Yellow, black. Yellow, black. Yellow, black. Ooh, black and yellow! Let&#39;s shake it up a little. Barry! Breakfast is ready! Coming! Hang on a second. Hello? Barry? Adam? Can you believe this is happening? I can&#39;t. I&#39;ll pick you up. Looking sharp. Use the stairs, Your father paid good money for those. Sorrgity. I&#39;m excited.
               </div>
             </div>
         </div>
@@ -90,11 +97,3 @@ const InvitePage = () => {
 };
 
 export default InvitePage;
-
-// <Image
-// src={sampleImg}
-// layout="fixed"
-// height={144}
-// width={700}
-// alt="event-image"
-// />
