@@ -5,21 +5,30 @@ import Image from 'next/image';
 const sampleImg = 'https://wallpaperaccess.com/full/632782.jpg';
 
 const InvitePage = () => {
+
   return (
     <div className={styles.container}>
-      <img src={sampleImg} className={styles.photo}/>
-
+      <div className={styles.title}>plan.it</div>
+      <img className={styles.photo} src={sampleImg}></img>
       <div className={styles.info}>
-        <div>Event Name</div>
-        <div>Location</div>
-        <div>Description</div>
-      </div>
-
-      <div className={styles.rsvp}>
-
-        <div>Name</div>
-        <div>Email</div>
-        <button>RSVP</button>
+        <div className={styles.invite_title}>NAME invites you to join his EVENT</div>
+        <div className={styles.subtitle}>
+          <div>Pending</div>
+          <div className={styles.location}>Location</div>
+        </div>
+        <div className={styles.body}>
+          <div className={styles.description}>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed faucibus cursus dictum. Integer volutpat fringilla consequat. Nullam blandit mauris eget diam dapibus, nec imperdiet nisi vestibulum.Nullam blandit mauris eget diam dapibus, nec imperdiet nisi vestibulum.Nullam blandit mauris eget diam dapibus, nec imperdiet nisi vestibulum.Nullam blandit mauris eget diam dapibus, nec imperdiet nisi vestibulum.
+          </div>
+          <form className={styles.form}>
+            <label>Name:</label>
+            <input className={styles.input}></input>
+            <label>Email:</label>
+            <input className={styles.input}></input>
+            <button className={styles.submit_form}>Add Availability</button>
+          </form>
+        </div>
+        <button className={styles.rsvp_btn}>RSVP</button>
       </div>
     </div>
   )
