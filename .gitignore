@@ -5,7 +5,6 @@ yarn.lock
 /node_modules
 /.pnp
 .pnp.js
-package-lock.json
 
 # testing
 /coverage
@@ -41,3 +40,6 @@ yarn-error.log*
 .vercel
 client/.vercel
 src/.vercel
+
+# package-lock
+package-lock.json
