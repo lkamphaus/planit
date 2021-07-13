@@ -1,5 +1,6 @@
 const { app: httpServer } = require('./index.js');
-const { session, cors } = require('./middleware');
+const db = require('../database');
+
 const { parse } = require('url');
 const next = require('next');
 
@@ -8,18 +9,20 @@ const nextServer = next({ dev });
 const handle = nextServer.getRequestHandler();
 
 nextServer.prepare().then(() => {
-  httpServer.use(cors.corsPolicy);
-  httpServer.use(session.sessionParser);
-  httpServer.use(session.sessionManager);
   // server-sided rendering
   httpServer.use((req, res, next) => {
-    const parsedUrl = parse(req.url, true);
-    const { pathname, query } = parsedUrl;
+    const { method } = req;
+    // proxy all get requests to render to the virtual
+    // next.js server.
+    if (method === 'GET') {
+      const parsedUrl = parse(req.url, true);
+      const { pathname, query } = parsedUrl;
 
-    if (!pathname.startsWith('/api')) {
-      nextServer.render(req, res, pathname, query);
-    } else {
-      next();
+      if (!pathname.startsWith('/api')) {
+        nextServer.render(req, res, pathname, query);
+      } else {
+        next();
+      }
     }
   })
 
