@@ -13,7 +13,6 @@ import eventData from '../../MockData/EventData.js'
 const sampleImg = 'https://wallpaperaccess.com/full/632782.jpg';
 
 const event = eventData.SingleEventData['1'];
-console.log('EVENT DATA:', event);
 
 const InvitePage = () => {
   const [open, setOpen] = useState(false);
