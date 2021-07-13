@@ -1,4 +1,4 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { withStyles, makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -6,27 +6,29 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import { SvgIcon } from '@material-ui/icons';
+import PlanitIcon from '../components/PlanitIcon';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
   },
   menuButton: {
-    marginRight: theme.spacing(2),
+    // marginRight: theme.spacing(2),
   },
   title: {
     flexGrow: 1,
   },
 }));
 
-const App = () => {
+export default function ButtonAppBar({ children }) {
   const classes = useStyles();
 
   return (
     <div className={classes.root}>
-      <AppBar position="sticky">
+      <AppBar position="static">
         <Toolbar>
           <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+            <PlanitIcon />
           </IconButton>
           <Typography variant="h6" className={classes.title}>
             P L A N . I T
@@ -34,8 +36,7 @@ const App = () => {
           <Button color="inherit">Login</Button>
         </Toolbar>
       </AppBar>
+      {children}
     </div>
   );
 }
-
-export default App;
