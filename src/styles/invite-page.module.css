@@ -14,6 +14,7 @@
   display: flex;
   flex-flow: column;
   align-self: center;
+  min-height: 45vh;
   width: 100vh;
 }
 
@@ -53,6 +54,7 @@
   position: fixed;
   height: auto;
   width: 3.5%;
+  margin-left: 3%;
 }
 
 .date_banner {
@@ -99,7 +101,6 @@
   margin-bottom: 10px;
 }
 
-
 .status {
   background-color: rgb(155, 155, 155);
   border-radius: 5px;
@@ -108,11 +109,6 @@
   margin-right: 5px;
   color: white;
   opacity: .80;
-}
-
-.location:hover {
-  text-decoration: underline;
-  cursor: pointer;
 }
 
 /*
@@ -165,29 +161,7 @@
   margin-bottom: 5px;
 }
 
-.submit_form,
-.rsvp_btn {
-  width: 100%;
-  transition: 0.3s;
-}
 
-.submit_form {
-  margin-top: 10px;
-  padding: 3px;
-  opacity: 1;
-}
-
-.rsvp_btn {
-  margin-top: 20px;
-  padding: 10px;
-}
-
-.submit_form:hover,
-.rsvp_btn:hover {
-  cursor: pointer;
-  color: white;
-  background-color: #98609c;
-}
 
 /*
   ========================================

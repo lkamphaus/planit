@@ -7,6 +7,7 @@ import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import Box from '@material-ui/core/Box';
+import Button from '@material-ui/core/Button';
 import { shadows } from '@material-ui/system';
 
 import Head from 'next/head';
@@ -15,11 +16,23 @@ import Image from 'next/image';
 import eventData from '../../MockData/EventData.js'
 const sampleImg = 'https://wallpaperaccess.com/full/632782.jpg';
 
-// const event = eventData.SingleEventData['1'];
-const event = eventData.ConfirmedEventData['1'];
-console.log('confirmed event data:', event);
+const event = eventData.SingleEventData['1'];
+// const event = eventData.ConfirmedEventData['1'];
+// console.log('confirmed event data:', event);
+
+const useStyles = makeStyles({
+  button: {
+    width: '100%',
+    margin: '10px 0 5px 0',
+    '&:hover': {
+      color: 'white',
+      background: '#98609c'
+    }
+  },
+})
 
 const InvitePage = () => {
+  const classes = useStyles();
   const [open, setOpen] = useState(false);
   const [avail, setAvail] = useState([]); // pass this down to modal
   const [status, setStatus] = useState('');
@@ -82,10 +95,12 @@ const InvitePage = () => {
           alt="event-image"
         />
 
-        <Box className={styles.date_box} boxshadow={3}>
-          <div className={styles.date_banner}></div>
-          <div className={styles.date}>{dateDay(event.window.start)}</div>
-        </Box>
+        {status === 'confirmed' &&
+          <Box className={styles.date_box} boxshadow={3}>
+            <div className={styles.date_banner}></div>
+            <div className={styles.date}>{dateDay(event.window.start)}</div>
+          </Box>
+        }
 
         <div className={styles.body}>
           <div className={styles.info}>
@@ -96,7 +111,7 @@ const InvitePage = () => {
                   {status === 'pending' &&
                   <div className={styles.status}>Pending</div>
                   }
-                  <div className={styles.location}>{event.location}</div>
+                  <div>{event.location}</div>
                 </div>
               </Box>
               <Box className={styles.description} boxShadow={3}>
@@ -112,7 +127,7 @@ const InvitePage = () => {
               <label>Email:</label>
               <input type="email" className={styles.input} {...register('email', { required: 'Please enter your email.' })}/>
               {status === 'pending' &&
-              <button className={styles.submit_form} onClick={handleOpen}>Add Availability</button>
+              <Button variant="contained" className={classes.button} onClick={handleOpen}>Add Availability</Button>
               }
                 <Modal
                   aria-labelledby="transition-modal-title"
@@ -133,7 +148,7 @@ const InvitePage = () => {
                     </div>
                   </Fade>
                 </Modal>
-              <input type="submit" className={styles.rsvp_btn} value="RSVP"/>
+              <Button type="submit" variant="contained" className={classes.button}>RSVP</Button>
             </form>
           </Box>
         </div>
