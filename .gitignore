@@ -13,7 +13,7 @@ yarn.lock
 # next.js
 client/.next/
 src/.next
-.next
+.next/
 ./out/
 client/out/
 src/out/
