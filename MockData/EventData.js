@@ -1,15 +1,15 @@
 module.exports.SingleEventData = {
   1: {
     name: 'Tarvent',
-    description: 'Hey everybody come to my event, it\'s going to be lit!',
+    description: 'Hey everybody come to my event, it\'s going to be lit! ',
     owner: 'Tarrin',
     location: 'Tarrin\'s house',
     duration: '7200', // <-- This is 2 hours in seconds, seconds is how we will store the duration
     status: 'pending',
     time: null,
     window: {
-      start: '2021-07-10T22:41:02.552Z', // <-- ISO8601 string https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toISOString
-      end: '2021-07-17T22:41:02.552Z',
+      start: '2021-07-10T22:30:00.002Z', // <-- ISO8601 string https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toISOString
+      end: '2021-07-17T22:30:00.002Z',
     },
     rsvps: [
       {
