@@ -1,34 +1,22 @@
-// for each respondant
-// convert to unix
-// check which start times they can make and save it
 
-// make an object that stores all possible start times
-/*
-  {
-
-  }
-*/
 let helpers = {};
-helpers.CheckAvail = (window, rsvps, eventLength) => {
-  // find the avilable windows
+helpers.CheckAvail = (window, rsvps, eventLength) => {s
   const lengthInMS = eventLength * 60 * 60 * 1000;
   let rsvpNum = rsvps.length;
   let startTimes = helpers.allTimes(window, eventLength)
-  //debugger
   rsvps.forEach( rsvp => {
     rsvp.availability.forEach( block => {
       let start = Date.parse(block.start);
       let end = Date.parse(block.end);
       while(start < end) {
         if (start + lengthInMS < end) {
-            //console.log(start)
             if (startTimes[start] === undefined) {
                 start += 0.5 * 60 * 60 * 1000;
                 continue;
             }
           startTimes[start].push(rsvp.name)
         }
-        // add 30 min to the start
+
         start += 0.5 * 60 * 60 * 1000
       }
     })

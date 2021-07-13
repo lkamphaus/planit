@@ -5,14 +5,9 @@ import OptionsButton from './OptionsButton.js'
 const Options = (props) => {
   let availability = helpers.CheckAvail(props.data.window, props.data.rsvps, 2)
   let rsvpNum = props.data.rsvps.length
-  // console.log(props.data.window)
-  // console.log(props.data.rsvps)
-  //console.log(availability)
-  // console.log(availability[rsvpNum])
   let temp = Object.keys(availability).sort((a, b) => {
     return b - a
   })
-  //console.log(temp)
   if (availability[rsvpNum]) {
     return (
       <div>
