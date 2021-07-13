@@ -6,6 +6,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
+import Box from '@material-ui/core/Box';
+import { shadows } from '@material-ui/system';
+
 
 import Head from 'next/head';
 import Image from 'next/image';
@@ -55,7 +58,7 @@ const InvitePage = () => {
       <Image
         src={sampleImg}
         className={styles.photo}
-        layout="fixed"
+        layout="responsive"
         height={144}
         width={1050}
         alt="event-image"
@@ -66,7 +69,7 @@ const InvitePage = () => {
 
             <div className={styles.details}>
 
-              <div className={styles.header}>
+              <Box className={styles.header} boxShadow={3}>
                 <div className={styles.invite_title}>{event.owner} invites you to join {event.name}!</div>
                 <div className={styles.subtitle}>
                   {pending &&
@@ -74,20 +77,22 @@ const InvitePage = () => {
                   }
                   <div className={styles.location}>{event.location}</div>
                 </div>
-              </div>
+              </Box>
 
-              <div className={styles.description}>
+              <Box className={styles.description} boxShadow={3}>
                 {event.description}
-              </div>
+              </Box>
             </div>
         </div>
-
-          <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
+          <Box className={styles.form} boxShadow={3}>
+          <form onSubmit={handleSubmit(onSubmit)}  boxShadow={3}>
             <label>Name:</label>
             <input className={styles.input} {...register('name', { required: 'Please enter your name.' })}/>
             <label>Email:</label>
             <input type="email" className={styles.input} {...register('email', { required: 'Please enter your email.' })}/>
+            {pending &&
             <button className={styles.submit_form} onClick={handleOpen}>Add Availability</button>
+            }
               <Modal
                 aria-labelledby="transition-modal-title"
                 aria-describedby="transition-modal-description"
@@ -109,6 +114,7 @@ const InvitePage = () => {
               </Modal>
             <input type="submit" className={styles.rsvp_btn} value="RSVP"/>
           </form>
+          </Box>
         </div>
       </div>
     </div>
