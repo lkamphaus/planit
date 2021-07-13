@@ -15,9 +15,27 @@ const theme = createTheme({
       main: red.A400,
     },
     background: {
-      default: '#fff',
+      default: '#f4e3f5',
     },
   },
 });
+
+theme.props = {
+  MuiTextField: {
+    size: 'medium',
+  },
+  MuiButton: {
+    color: 'primary',
+  }
+}
+
+theme.overrides = {
+  MuiCardMedia: {
+    root: {
+      height: '150px',
+      postion: 'absolute',
+    }
+  },
+}
 
 export default theme;
