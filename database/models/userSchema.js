@@ -7,7 +7,11 @@ const userSchema = mongoose.Schema({
     unique: true,
   },
   events: [],
+<<<<<<< Updated upstream
   password: String,
+=======
+  password: String
+>>>>>>> Stashed changes
 });
 
 const User = mongoose.model('User', userSchema);

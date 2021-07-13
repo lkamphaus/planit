@@ -111,6 +111,10 @@ const seed = async () => {
   } catch(err) {
     console.error('Seed Failed', err);
   } finally {
+<<<<<<< Updated upstream
+=======
+    console.info('Seeded db successfully. Gracefully exiting.');
+>>>>>>> Stashed changes
     process.exit(0);
   }
 }
