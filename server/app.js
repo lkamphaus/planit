@@ -1,4 +1,5 @@
 const { app: httpServer } = require('./index.js');
+const db = require('../database');
 
 const { parse } = require('url');
 const next = require('next');
@@ -6,8 +7,6 @@ const next = require('next');
 const dev = true;
 const nextServer = next({ dev });
 const handle = nextServer.getRequestHandler();
-
-// console.log('rs')
 
 nextServer.prepare().then(() => {
   // server-sided rendering

@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
 import { Container, TextField, Input, Button } from '@material-ui/core';
+import { useRouter } from 'next/router'
 import axios from 'axios';
 
 const LoginForm = () => {
-
+  const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -17,7 +18,7 @@ const LoginForm = () => {
       axios.post('/login', { email, password })
         .then((data) => {
           console.log('Success:', data);
-          // TODO: implement logic for successful login
+          router.push('/');
         })
         .catch((err) => {
           console.log(err);

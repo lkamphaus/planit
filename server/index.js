@@ -14,7 +14,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use('/events', eventRouter);
-app.use('/login', loginRouter);
+app.use('/', loginRouter);
 
 // express.get('/logout', (req, res) => {
 //   res.send('<h1>Logout</h1>')

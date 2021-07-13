@@ -1,7 +1,7 @@
 const db = require('./index.js');
 const { fetchEvents, addEvent, deleteAllEvents } = require('./controllers/eventController.js');
 const { addUser, fetchUser, deleteUser } = require('./controllers/userController.js');
-const { addSession, fetchSession, deleteSession } = require('./controllers/sessionController.js');
+const { addSession, fetchSession, deleteSession, deleteAllSessions } = require('./controllers/sessionController.js');
 
 const mockEvent = {
   name: 'Tarvent',
@@ -93,6 +93,8 @@ const seed = async () => {
   try {
     await deleteAllEvents();
     console.log('Events Deleted');
+    await deleteAllSessions();
+    console.log('Sessions Deleted');
     await deleteUser('tarrinneal@gmail.com');
     console.log('User deleted');
     await addUser(mockUser);
@@ -111,10 +113,7 @@ const seed = async () => {
   } catch(err) {
     console.error('Seed Failed', err);
   } finally {
-<<<<<<< Updated upstream
-=======
     console.info('Seeded db successfully. Gracefully exiting.');
->>>>>>> Stashed changes
     process.exit(0);
   }
 }

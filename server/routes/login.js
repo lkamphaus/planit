@@ -2,18 +2,22 @@ const express = require('express');
 const loginRouter = express.Router();
 const passport = require('../middleware/').login;
 
-loginRouter.post('/',
-passport.authenticate('local'),
- (req, res) => {
-  //  console.log(passport);
-  const { body, params, data, query } = req;
-  console.log('body', body);
-  console.log('params', params);
-  console.log('data', data);
-  console.log('query', query);
+loginRouter.get('/login', (req, res, next) => {
+  if (req.user) {
+    console.log('got with user - redirecting');
+    redirect('/');
+  } else {
+    next();
+  }
+})
 
-  const {email, password} = body;
-
-  res.status(201).send('Success!');
+loginRouter.post('/login',
+  passport.authenticate('local', {
+    successRedirect: '/',
+    failureRedirect: '/login'
+  }),
+  (req, res) => {
+    const { body, params, data, query } = req;
+    res.status(201).send('Authorization successful.');
 });
 module.exports.loginRouter = loginRouter;

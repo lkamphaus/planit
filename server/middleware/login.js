@@ -1,16 +1,23 @@
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const { fetchUser } = require('../../database/controllers/userController.js');
+const { deleteSession, addSession } = require('../../database/controllers/sessionController.js')
 const { Session } = require('../../database/models/sessionSchema');
+
+const loginRequired = (req, res, next) => {
+  if (req.user) {
+    next();
+  } else {
+    res.render('/login');
+  }
+};
 
 passport.use('local', new LocalStrategy({
   usernameField: 'email',
   passwordField: 'password'
 },
   function(email, password, done) {
-    console.log('login req')
-    console.log(email, password);
-    fetchUser({property: "email", value: email})
+    fetchUser({property: 'email', value: email})
       .then((mongoResult) => {
         const user = mongoResult[0];
         console.log(user);
@@ -32,19 +39,33 @@ passport.use('local', new LocalStrategy({
 ));
 
 passport.serializeUser(function(req, user, done) {
-  console.log(req);
-  console.log(user);
-
+  const { email } = user;
   const session = Session({
-
-  })
-  done(null, user.id);
+    email
+  });
+  addSession(session)
+    .then(() => {
+      done(null, email);
+    })
+    .catch(error => {
+      console.error(error);
+      done(error, email);
+    });
 });
 
-passport.deserializeUser(function(id, done) {
-  User.findById(id, function(err, user) {
-    done(err, user);
-  });
+passport.deserializeUser(function(email, done) {
+  fetchUser({property: 'email', value: email})
+    .then(mongoResponse => {
+      const user = mongoResponse[0];
+      deleteSession(email)
+      .then(() => {
+        done(null, user);
+      });
+    })
+    .catch(error => {
+      console.log(error);
+      done(error, email);
+    });
 });
 
 module.exports = passport;
