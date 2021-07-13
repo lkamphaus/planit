@@ -30,7 +30,7 @@ export default function ButtonAppBar({ children }) {
           <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
             <PlanitIcon />
           </IconButton>
-          <Typography variant="h6" className={classes.title}>
+          <Typography variant="h3" className={classes.title}>
             P L A N . I T
           </Typography>
           <Button color="inherit">Login</Button>
