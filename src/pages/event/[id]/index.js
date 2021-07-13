@@ -6,12 +6,12 @@ import Modal from '@material-ui/core/Modal'
 import IconButton from '@material-ui/core/IconButton';
 import styles from '../../../styles/Event.module.css';
 import SetTimeForm from '../../../components/SetTimeForm.js'
-const Event = () => {
+const Event = ({event}) => {
   // const router = useRouter()
   // const {id} = router.query
   const [open, setOpen] = useState(false);
-  const test = mockData.SingleEventData[1];
-
+  const test = mockData.MultipleEventsData[0][1];
+  console.log(test);
   const handleClose = () => {
     setOpen(false)
   }
@@ -45,18 +45,18 @@ const Event = () => {
             {test.name}
           </h1>
           <div className={styles.flexrows}>
-            <h2>
-              <a href="/">Status</a>
-            </h2>
-            <h2>
-              <a href="/">location</a>
-            </h2>
+            <span>
+              <a href="/event/1">Status</a>
+            </span>
+            <span>
+              <a href="/event/1">location</a>
+            </span>
           </div>
         </div>
         <Button variant="contained" color="primary" component="span">
           Copy to Clipboard
         </Button>
-        <SetTimeForm />
+        <SetTimeForm data={test}/>
         {/* <Button variant="contained" color="primary" component="span" onClick={handleOpen}>
           Set Event Time
         </Button>
@@ -82,7 +82,14 @@ const Event = () => {
 }
 
 // export const getServerSideProps = async (context) => {
-//   const res = await fetch
+//   const res = await fetch('http://localhost:3000/api/event/get/1')
+//   //console.log(res)
+//   //const test = await res.JSON()
+//   return {
+//     props: {
+//       event: 'tf'
+//     }
+//   }
 // }
 
 export default Event

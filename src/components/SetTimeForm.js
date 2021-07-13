@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const SetTimeForm = () => {
+const SetTimeForm = (props) => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   //const test = mockData.SingleEventData[1];
@@ -37,8 +37,7 @@ const SetTimeForm = () => {
           aria-describedby="simple-modal-description"
         >
           <div className={classes.paper} id='test33'>
-            test
-            <Options />
+            <Options data={props.data}/>
           </div>
       </Modal>
     </>
