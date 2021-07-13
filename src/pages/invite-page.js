@@ -49,7 +49,12 @@ const InvitePage = () => {
   }
 
   const dateDay = (date) => {
-    return date.substring(10, 8);
+    date = date.substring(10, 8);
+    if (date[0] === '0') {
+      return date[1]
+    } else {
+      return date;
+    }
   }
   dateDay(event.window.start)
 
