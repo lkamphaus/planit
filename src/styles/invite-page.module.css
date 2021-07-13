@@ -7,7 +7,6 @@
 .window {
   display: flex;
   flex-flow: column;
-  border: solid 3px;
   background: #f4e3f5;
 }
 
@@ -138,16 +137,20 @@
   margin-bottom: 5px;
 }
 
+.submit_form,
+.rsvp_btn {
+  width: 100%;
+  transition: 0.3s;
+}
+
 .submit_form {
   margin-top: 10px;
-  width: 100%;
   padding: 3px;
   opacity: .88;
 }
 
 .rsvp_btn {
   margin-top: 20px;
-  width: 100%;
   padding: 10px;
 }
 
