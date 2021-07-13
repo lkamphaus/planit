@@ -1,9 +1,9 @@
 const express = require('express');
-const { fetchEvents, addEvent } = require('../../database/controllers/eventController');
+const { fetchEvents, addEvent, updateEvent } = require('../../database/controllers/eventController');
 const eventRouter = express.Router();
 
 eventRouter.get('/', async (req, res) => {
-  const { options } = req.body;
+  const { options } = req.body; // object
   try {
     let eventData = await options === undefined ? fetchEvents() : fetchEvents(options);
     res.status(200).send(eventData);
@@ -14,11 +14,18 @@ eventRouter.get('/', async (req, res) => {
 });
 
 eventRouter.put('/', async (req, res) => {
-  res.sendStatus(201);
+  const { updates } = req.body; // Array of update objects
+  try {
+    await updateEvent(updates);
+    res.sendStatus(201);
+  } catch(err) {
+    console.error(err);
+    res.sendStatus(400);
+  }
 })
 
 eventRouter.post('/', async (req, res) => {
-  const { event } = req.body;
+  const { event } = req.body; // event object
   try {
     await addEvent(event);
     res.sendStatus(201);

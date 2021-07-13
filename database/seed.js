@@ -107,9 +107,17 @@ const updateArr = [
     value: 'Tarrin'
   },
   what: {
-    method: '$set',
-    field: 'owner',
-    value: 'Smookie'
+    method: '$push',
+    field: 'rsvps',
+    value: {
+      name: 'Tommy',
+      availability: [
+        {
+          start: 'sometime',
+          end: 'sometime'
+        }
+      ],
+   }
   },
 }
 ];
@@ -138,7 +146,7 @@ const seed = async () => {
     // let res = await updateEvent(updateArr);
     // console.log(res);
     // let events = await fetchEvents();
-    // console.log(events[0]);
+    // console.log(JSON.stringify(events[0].rsvps[0].availability, null, 2));
   } catch(err) {
     console.error('Seed Failed', err);
   } finally {
