@@ -1,8 +1,16 @@
 const { User } = require('../models/userSchema.js');
 
-const fetchUser = (email) => {
+//Takes in an options object that allows you to specify what propert and what value you want to search by
+/**
+ * example:
+ * {
+ *    property: '_id',
+ *    value: '60ecd6fe850cd99c5c552ce4'
+ * }
+ */
+const fetchUser = ({ property, value }) => {
   return new Promise((resolve, reject) => {
-    User.find({}).where('email').equals(email)
+    User.find({}).where(property).equals(value)
     .then((response) => {
       resolve(response);
     }).catch((err) => {
