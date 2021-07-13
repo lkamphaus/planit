@@ -1,0 +1,9 @@
+.timeBlock {
+  border: solid 1px #d3d3d3;
+  padding: 8px;
+  margin: 10px;
+}
+
+.datePicker {
+  margin-right: 20px !important;
+}
