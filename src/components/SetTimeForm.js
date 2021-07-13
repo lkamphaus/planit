@@ -27,7 +27,7 @@ const SetTimeForm = (props) => {
   }
   return (
     <>
-      <Button variant="contained" color="primary" component="span" onClick={handleOpen}>
+      <Button variant="contained" component="span" onClick={handleOpen}>
           Set Event Time
         </Button>
       <Modal
