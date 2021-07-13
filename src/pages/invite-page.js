@@ -13,6 +13,7 @@ import eventData from '../../MockData/EventData.js'
 const sampleImg = 'https://wallpaperaccess.com/full/632782.jpg';
 
 const event = eventData.SingleEventData['1'];
+console.log('EVENT DATA:', event);
 
 const InvitePage = () => {
   const [open, setOpen] = useState(false);
@@ -26,7 +27,8 @@ const InvitePage = () => {
   }, [])
 
   const { register, handleSubmit } = useForm({
-    revalidateMode: 'onSubmit'
+    revalidateMode: 'onSubmit',
+    shouldUseNativeValidation: true
   });
 
   const onSubmit = (data) => {
@@ -80,9 +82,9 @@ const InvitePage = () => {
 
           <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
             <label>Name:</label>
-            <input className={styles.input} required></input>
+            <input className={styles.input} {...register('name', { required: 'Please enter your name.' })}/>
             <label>Email:</label>
-            <input className={styles.input} type="email" required></input>
+            <input type="email" className={styles.input} {...register('email', { required: 'Please enter your email.' })}/>
             <button className={styles.submit_form} onClick={handleOpen}>Add Availability</button>
               <Modal
                 aria-labelledby="transition-modal-title"
