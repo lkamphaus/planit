@@ -50,7 +50,7 @@ const InvitePage = () => {
 
   return (
     <div className={styles.window}>
-      <div className={styles.title}>P L A N . I T</div>
+      {/* <div className={styles.title}>P L A N . I T</div> */}
 
       <div className={styles.container}>
 
