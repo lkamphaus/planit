@@ -7,13 +7,13 @@ const Options = (props) => {
   let rsvpNum = props.data.rsvps.length
   // console.log(props.data.window)
   // console.log(props.data.rsvps)
-  console.log(availability)
+  //console.log(availability)
   // console.log(availability[rsvpNum])
   let temp = Object.keys(availability).sort((a, b) => {
     return b - a
   })
-  console.log(temp)
-  if (availability[rsvpNum] === 5) {
+  //console.log(temp)
+  if (availability[rsvpNum]) {
     return (
       <div>
         <span>All RSVPers can attend at: </span>
@@ -25,6 +25,8 @@ const Options = (props) => {
   } else {
       return (
       <div>
+        <p>{rsvpNum} people have responded to the event!</p>
+        <p>Select a time</p>
         <span> {temp[0]} can make it at</span>
         {availability[temp[0]].map( (time, key) => {
         return <OptionsButton time={time} key={key}/>
@@ -37,27 +39,5 @@ const Options = (props) => {
     )
     }
   }
-  // return (
-  //   <>
-  //   {/* <div>
-  //     {availability[rsvpNum].map( (time, key) => {
-  //       return <OptionsButton time={time} key={key}/>
-  //     })}
-  //   </div> */}
-  //     <ul>
-  //       Everyone can go:
-  //       {availability[rsvpNum].map( (time, key) => {
-  //       return <OptionsButton time={time} key={key}/>
-  //     })}
-  //     </ul>
-  //     <ul>
-  //       All but 1 can go:
-  //       {availability[rsvpNum - 1].map( (time, key) => {
-  //       return <OptionsButton time={time} key={key}/>
-  //     })}
-  //     </ul>
-  //   </>
-  // )
-//}
 
 export default Options;

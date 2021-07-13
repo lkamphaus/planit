@@ -45,11 +45,10 @@ const Event = ({event}) => {
             {test.name}
           </h1>
           <div className={styles.flexrows}>
-            <span>
-              <a href="/event/1">Status</a>
+            <span> {test.status}
             </span>
             <span>
-              <a href="/event/1">location</a>
+              {test.location}
             </span>
           </div>
         </div>
@@ -74,6 +73,9 @@ const Event = ({event}) => {
         <div className={styles.desBox}>
           <h3>Description</h3>
           <p>{test.description}</p>
+        </div>
+        <div className={styles.desBox}>
+          <p>Proposed event length: {test.duration/(3600)} hours</p>
         </div>
       </div>
     </div>
