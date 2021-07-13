@@ -11,6 +11,7 @@ import { shadows } from '@material-ui/system';
 
 import Head from 'next/head';
 import Image from 'next/image';
+import AvailabilitySelection from '.././components/AvailabilitySelection.js';
 
 import eventData from '../../MockData/EventData.js'
 const sampleImg = 'https://wallpaperaccess.com/full/632782.jpg';
@@ -50,7 +51,7 @@ const InvitePage = () => {
 
   return (
     <div className={styles.window}>
-      <div className={styles.title}>P L A N . I T</div>
+      {/* <div className={styles.title}>P L A N . I T</div> */}
 
       <div className={styles.container}>
 
@@ -68,7 +69,7 @@ const InvitePage = () => {
 
             <div className={styles.details}>
 
-              <Box className={styles.header} boxShadow={3}>
+              <Box className={styles.header} boxshadow={3}>
                 <div className={styles.invite_title}>{event.owner} invites you to join {event.name}!</div>
                 <div className={styles.subtitle}>
                   {pending &&
@@ -78,13 +79,13 @@ const InvitePage = () => {
                 </div>
               </Box>
 
-              <Box className={styles.description} boxShadow={3}>
+              <Box className={styles.description} boxshadow={3}>
                 {event.description}
               </Box>
             </div>
         </div>
-          <Box className={styles.form} boxShadow={3}>
-          <form onSubmit={handleSubmit(onSubmit)}  boxShadow={3}>
+          <Box className={styles.form} boxshadow={3}>
+          <form onSubmit={handleSubmit(onSubmit)}  boxshadow={3}>
             <label>Name:</label>
             <input className={styles.input} {...register('name', { required: 'Please enter your name.' })}/>
             <label>Email:</label>
@@ -92,7 +93,8 @@ const InvitePage = () => {
             {pending &&
             <button className={styles.submit_form} onClick={handleOpen}>Add Availability</button>
             }
-              <Modal
+            <AvailabilitySelection handleClose={handleClose} handleClickOpen={handleOpen} open={open}/>
+              {/* <Modal
                 aria-labelledby="transition-modal-title"
                 aria-describedby="transition-modal-description"
                 open={open}
@@ -110,7 +112,7 @@ const InvitePage = () => {
                     <p id="transition-modal-description">react-transition-group animates me.</p>
                   </div>
                 </Fade>
-              </Modal>
+              </Modal> */}
             <input type="submit" className={styles.rsvp_btn} value="RSVP"/>
           </form>
           </Box>
