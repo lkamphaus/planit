@@ -10,7 +10,7 @@
     "server": "node ./server/app",
     "dev": "nodemon ./server/app",
     "test": "jest --watch",
-    "seed": "node ./database/seed"
+    "seed": "node ./database/seed.js"
   },
   "dependencies": {
     "@date-io/date-fns": "1.x",
