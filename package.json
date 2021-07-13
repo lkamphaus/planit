@@ -14,7 +14,11 @@
   },
   "dependencies": {
     "@material-ui/core": "^4.12.1",
+<<<<<<< HEAD
     "@material-ui/icons": "^4.11.2",
+=======
+    "axios": "^0.21.1",
+>>>>>>> main
     "babel-jest": "^27.0.6",
     "date.js": "^0.3.3",
     "dotenv": "^10.0.0",
