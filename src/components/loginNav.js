@@ -15,20 +15,15 @@ const LoginNav = ({ currentPage }) => {
 
   const linksHTML = links.map((link, index) => {
     if (currentPage === link.href) {
-      return <a><h3 key={`link_${index}`}>{link.label}</h3></a>;
+      return <h3 key={`link_${index}`}>{link.label}</h3>;
     } else {
       return (
-        <Link href={link.href} passHref>
-          <a>
-
-          <h3 key={`link_${index}`}>{link.label}</h3>
-          </a>
+        <Link key={`link_${index}`} href={link.href}>
+          <a><h3 >{link.label}</h3></a>
         </Link>
       );
     }
   });
-
-  console.log('linksHTML:', linksHTML);
 
   return (
     <div className={styles.navContainer}>
