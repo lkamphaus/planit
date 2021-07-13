@@ -46,7 +46,7 @@ const Event = ({event}) => {
             type="file"
             />
           <label htmlFor="contained-button-file">
-            <Button variant="contained" className={generalStyles.submit_form} component="span">  Upload
+            <Button variant="contained" component="span">  Upload
             </Button>
           </label>
         </div>
@@ -91,16 +91,5 @@ const Event = ({event}) => {
   </div>
   )
 }
-
-// export const getServerSideProps = async (context) => {
-//   const res = await fetch('http://localhost:3000/api/event/get/1')
-//   //console.log(res)
-//   //const test = await res.JSON()
-//   return {
-//     props: {
-//       event: 'tf'
-//     }
-//   }
-// }
 
 export default Event
