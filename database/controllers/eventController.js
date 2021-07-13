@@ -63,8 +63,56 @@ const deleteAllEvents = async () => {
   })
 }
 
+//This will take in an array of options objects, and do all of the updates asynchronously
+/*
+  [
+    {
+      where: {
+        property: 'some_property',
+        value: 'some_value'
+      },
+      what: {
+        method: '$set', <-- $push will probably be what you want for adding new availability
+        field: 'some_field <-- ie. name || email || rsvps'
+        value: 'New_Value'
+      }
+    }
+  ]
+*/
+const updateEvent = (updateArr) => {
+  return new Promise((resolve, reject) => {
+    const promiseArray = [];
+    for (let i = 0; i < updateArr.length; i++) {
+      let { where, what } = updateArr[i];
+      let whereParam = {};
+      whereParam[where.property] = where.value;
+      let whatParam = {};
+      whatParam[what.method] = {};
+      whatParam[what.method][what.field] = what.value;
+      let currentPromise = new Promise((resolve, reject) => {
+        Event.updateOne(whereParam, whatParam)
+        .then((res) => {
+          resolve(res);
+        }).catch((err) => {
+          console.error(err);
+          reject(err);
+        })
+      })
+      promiseArray.push(currentPromise);
+    }
+    Promise.all(promiseArray)
+    .then((res) => {
+      resolve(res);
+    }).catch((err) => {
+      console.error(err);
+      reject(err);
+    })
+  })
+}
+
 module.exports = {
   fetchEvents,
   addEvent,
   deleteAllEvents,
+  updateEvent,
 };

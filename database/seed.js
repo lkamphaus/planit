@@ -1,5 +1,5 @@
 const db = require('./index.js');
-const { fetchEvents, addEvent, deleteAllEvents } = require('./controllers/eventController.js');
+const { fetchEvents, addEvent, deleteAllEvents, updateEvent } = require('./controllers/eventController.js');
 const { addUser, fetchUser, deleteUser } = require('./controllers/userController.js');
 const { addSession, fetchSession, deleteSession, deleteAllSessions } = require('./controllers/sessionController.js');
 
@@ -89,6 +89,39 @@ const mockSession = {
   user: '60ec9ccf28c54f891c97b28d'
 }
 
+const updateArr = [
+  {
+  where: {
+    property: 'owner',
+    value: 'Tarrin'
+  },
+  what: {
+    method: '$set',
+    field: 'name',
+    value: 'Testing'
+  },
+},
+{
+  where: {
+    property: 'owner',
+    value: 'Tarrin'
+  },
+  what: {
+    method: '$push',
+    field: 'rsvps',
+    value: {
+      name: 'Tommy',
+      availability: [
+        {
+          start: 'sometime',
+          end: 'sometime'
+        }
+      ],
+   }
+  },
+}
+];
+
 const seed = async () => {
   try {
     await deleteAllEvents();
@@ -110,6 +143,10 @@ const seed = async () => {
     // console.log('Session added');
     // let session = await fetchSession('1');
     // console.log(session);
+    // let res = await updateEvent(updateArr);
+    // console.log(res);
+    // let events = await fetchEvents();
+    // console.log(JSON.stringify(events[0].rsvps[0].availability, null, 2));
   } catch(err) {
     console.error('Seed Failed', err);
   } finally {
