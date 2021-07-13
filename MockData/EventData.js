@@ -1,7 +1,7 @@
 module.exports.SingleEventData = {
   1: {
     name: 'Tarvent',
-    description: 'Hey everybody come to my event, it\'s going to be lit!',
+    description: 'Hey everybody come to my event, it\'s going to be lit! ',
     owner: 'Tarrin',
     location: 'Tarrin\'s house',
     duration: '7200', // <-- This is 2 hours in seconds, seconds is how we will store the duration

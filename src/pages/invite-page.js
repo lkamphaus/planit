@@ -9,7 +9,6 @@ import Fade from '@material-ui/core/Fade';
 import Box from '@material-ui/core/Box';
 import { shadows } from '@material-ui/system';
 
-
 import Head from 'next/head';
 import Image from 'next/image';
 
