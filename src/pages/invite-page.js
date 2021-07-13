@@ -7,6 +7,7 @@ import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 
+import Head from 'next/head';
 import Image from 'next/image';
 
 import eventData from '../../MockData/EventData.js'
@@ -32,6 +33,9 @@ const InvitePage = () => {
   });
 
   const onSubmit = (data) => {
+    if (avail.length === 0) {
+      alert('Please provide your availability!');
+    }
     console.log('data:', data)
   }
 
