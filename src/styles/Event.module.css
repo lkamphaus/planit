@@ -1,0 +1,63 @@
+
+
+.container {
+  width: 600px;
+  background-color: beige;
+}
+/*
+  ========================================
+  Body Structure
+  ========================================
+*/
+.mainsection {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 35px;
+}
+.col {
+  width: 47%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-bottom: 25px;
+}
+.col >* {
+  margin-top: 15px;
+}
+.info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/*
+  ========================================
+  Box Styles
+  ========================================
+*/
+
+.header {
+  background-color: white;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  padding: 0px 30px 30px 30px;
+  opacity: .80;
+}
+
+/* More style to be added to modal*/
+.tempModal {
+  position: 'absolute';
+  width: 400;
+  border: '2px solid #000';
+}
+
+/*
+  ========================================
+  Button
+  ========================================
+*/
+
+.hidden{
+  display: none
+}
