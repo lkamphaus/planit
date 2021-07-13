@@ -16,8 +16,8 @@ import Image from 'next/image';
 import eventData from '../../MockData/EventData.js'
 const sampleImg = 'https://wallpaperaccess.com/full/632782.jpg';
 
-const event = eventData.SingleEventData['1'];
-// const event = eventData.ConfirmedEventData['1'];
+// const event = eventData.SingleEventData['1'];
+const event = eventData.ConfirmedEventData['1'];
 // console.log('confirmed event data:', event);
 
 const useStyles = makeStyles({
