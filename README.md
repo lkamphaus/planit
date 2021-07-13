@@ -55,9 +55,8 @@ returns
 `200 // - if successful `
 
 POST - */api/events*
-```
+```javascript
 event: {
-	javascript
  	name: String,
  	description: String,
  	owner: String,
