@@ -41,7 +41,7 @@ const addEvent = async (event, userId) => {
     .then(({ _id }) => {
       let condition = { _id: userId };
       User.updateOne(condition, { $push: { events: _id }})
-      .then(() => {
+      .then((res) => {
         resolve('Event Added');
       })
     }).catch((err) => {
