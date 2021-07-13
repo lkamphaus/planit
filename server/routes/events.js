@@ -5,7 +5,7 @@ const eventRouter = express.Router();
 eventRouter.get('/', async (req, res) => {
   const { options } = req.body; // object
   try {
-    let eventData = await options === undefined ? fetchEvents() : fetchEvents(options);
+    let eventData = await fetchEvents(options);
     res.status(200).send(eventData);
   } catch(err) {
     console.error(err);
