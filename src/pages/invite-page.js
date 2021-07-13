@@ -11,6 +11,7 @@ import { shadows } from '@material-ui/system';
 
 import Head from 'next/head';
 import Image from 'next/image';
+import AvailabilitySelection from '.././components/AvailabilitySelection.js';
 
 import eventData from '../../MockData/EventData.js'
 const sampleImg = 'https://wallpaperaccess.com/full/632782.jpg';
@@ -92,7 +93,8 @@ const InvitePage = () => {
             {pending &&
             <button className={styles.submit_form} onClick={handleOpen}>Add Availability</button>
             }
-              <Modal
+            <AvailabilitySelection handleClose={handleClose} handleClickOpen={handleOpen} open={open}/>
+              {/* <Modal
                 aria-labelledby="transition-modal-title"
                 aria-describedby="transition-modal-description"
                 open={open}
@@ -110,7 +112,7 @@ const InvitePage = () => {
                     <p id="transition-modal-description">react-transition-group animates me.</p>
                   </div>
                 </Fade>
-              </Modal>
+              </Modal> */}
             <input type="submit" className={styles.rsvp_btn} value="RSVP"/>
           </form>
           </Box>
