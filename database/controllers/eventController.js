@@ -76,7 +76,6 @@ const deleteAllEvents = async () => {
         field: 'some_field <-- ie. name || email || rsvps'
         value: 'New_Value'
       }
-
     }
   ]
 */
@@ -91,7 +90,7 @@ const updateEvent = (updateArr) => {
       whatParam[what.method] = {};
       whatParam[what.method][what.field] = what.value;
       let currentPromise = new Promise((resolve, reject) => {
-        Event.updateOne(whereParam, )
+        Event.updateOne(whereParam, whatParam)
         .then((res) => {
           resolve(res);
         }).catch((err) => {

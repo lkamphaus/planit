@@ -89,7 +89,8 @@ const mockSession = {
   user: '60ec9ccf28c54f891c97b28d'
 }
 
-const updateArr = [{
+const updateArr = [
+  {
   where: {
     property: 'owner',
     value: 'Tarrin'
@@ -98,8 +99,20 @@ const updateArr = [{
     method: '$set',
     field: 'name',
     value: 'Testing'
-  }
-}];
+  },
+},
+{
+  where: {
+    property: 'owner',
+    value: 'Tarrin'
+  },
+  what: {
+    method: '$set',
+    field: 'owner',
+    value: 'Smookie'
+  },
+}
+];
 
 const seed = async () => {
   try {
@@ -122,8 +135,8 @@ const seed = async () => {
     // console.log('Session added');
     // let session = await fetchSession('1');
     // console.log(session);
-    let res = await updateEvent(updateArr);
-    console.log(res);
+    // let res = await updateEvent(updateArr);
+    // console.log(res);
     // let events = await fetchEvents();
     // console.log(events[0]);
   } catch(err) {
