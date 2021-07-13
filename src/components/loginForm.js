@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Container, TextField, Input, Button } from '@material-ui/core';
+import axios from 'axios';
 
 const LoginForm = () => {
 
@@ -13,11 +14,16 @@ const LoginForm = () => {
   const submitLogin = (e) => {
     e.preventDefault();
     if (email && password) {
-      console.log('LOGIN SUBMIT');
-      console.log('email:', email);
-      console.log('password:', password);
+      axios.post('/login', { email, password })
+        .then((data) => {
+          console.log('Success:', data);
+          // TODO: implement logic for successful login
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     } else {
-      console.log('LOGIN VALIDATION FAILED');
+      // TODO: logic for when login input is invalid
     }
   }
 
