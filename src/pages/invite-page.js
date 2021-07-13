@@ -69,7 +69,7 @@ const InvitePage = () => {
 
             <div className={styles.details}>
 
-              <Box className={styles.header} boxShadow={3}>
+              <Box className={styles.header} boxshadow={3}>
                 <div className={styles.invite_title}>{event.owner} invites you to join {event.name}!</div>
                 <div className={styles.subtitle}>
                   {pending &&
@@ -79,13 +79,13 @@ const InvitePage = () => {
                 </div>
               </Box>
 
-              <Box className={styles.description} boxShadow={3}>
+              <Box className={styles.description} boxshadow={3}>
                 {event.description}
               </Box>
             </div>
         </div>
-          <Box className={styles.form} boxShadow={3}>
-          <form onSubmit={handleSubmit(onSubmit)}  boxShadow={3}>
+          <Box className={styles.form} boxshadow={3}>
+          <form onSubmit={handleSubmit(onSubmit)}  boxshadow={3}>
             <label>Name:</label>
             <input className={styles.input} {...register('name', { required: 'Please enter your name.' })}/>
             <label>Email:</label>
