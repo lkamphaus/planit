@@ -9,7 +9,8 @@
     "client-lint": "next lint ./src",
     "server": "node ./server/app",
     "dev": "nodemon ./server/app",
-    "test": "jest --watch"
+    "test": "jest --watch",
+    "seed": "node ./database/seed.js"
   },
   "dependencies": {
     "@date-io/date-fns": "1.x",

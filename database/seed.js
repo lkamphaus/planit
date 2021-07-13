@@ -80,7 +80,8 @@ const mockEvent = {
 const mockUser = {
   name: 'Tarrin',
   email: 'tarrinneal@gmail.com',
-  events: []
+  events: [],
+  password: 'bargle'
 }
 
 const mockSession = {
@@ -109,6 +110,8 @@ const seed = async () => {
     // console.log(session);
   } catch(err) {
     console.error('Seed Failed', err);
+  } finally {
+    process.exit(0);
   }
 }
 seed();
