@@ -7,6 +7,9 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import { SvgIcon } from '@material-ui/icons';
 import PlanitIcon from '../components/PlanitIcon';
+import Link from 'next/link'
+import React, { useState } from 'react';
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -22,6 +25,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ButtonAppBar({ children }) {
   const classes = useStyles();
+  const [ account, setAccount ] = useState()
 
   return (
     <div className={classes.root}>
@@ -33,9 +37,12 @@ export default function ButtonAppBar({ children }) {
           <Typography variant="h3" className={classes.title}>
             P L A N . I T
           </Typography>
-          <Button color="inherit">Login</Button>
+          <Button color="inherit"><Link href="/login">Login</Link></Button>
         </Toolbar>
       </AppBar>
+      <br/>
+      <br/>
+      <br/>
       {children}
     </div>
   );
