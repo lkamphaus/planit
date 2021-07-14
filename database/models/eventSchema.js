@@ -5,6 +5,7 @@ const eventSchema = mongoose.Schema({
   description: String,
   owner: String,
   ownerEmail: String,
+  photo_url: String,
   location: String,
   duration: Number,
   status: String,
