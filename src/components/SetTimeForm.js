@@ -70,14 +70,49 @@ const SetTimeForm = (props) => {
   const [open, setOpen] = useState(false);
   //const test = mockData.SingleEventData[1];
   const handleSetTime = (event) => {
-    // const unixTime = Date.parse(event.target.value)
+    let setTime = new Date(event.target.innerText)
     // // put
     // var data = {
-
-    //   }
-    // }
-    //axios.put('/events', config)
-    //  fetch(`http://localhost:3000/event/${props.data.id}`, )
+    var updateData = {
+        "updates": [
+            {
+                "where": {
+                    "property": "_id",
+                    "value": props.data._id
+                },
+                "what": {
+                    "method": "$set",
+                    "field": "time",
+                     "value": setTime.toISOString()
+                }
+            },
+            {
+                "where": {
+                    "property": "_id",
+                    "value": props.data._id
+                },
+                "what": {
+                    "method": "$set",
+                    "field": "status",
+                    "value": "Confirmed"
+                }
+            }
+        ]
+    }
+    var config = {
+      method: 'put',
+      url: 'http://localhost:3000/api/events',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      data : updateData
+    };
+    axios(config).then( res => {
+      setOpen(false);
+      props.refeshData()
+    }).catch(err => {
+      console.log(err)
+    })
 
   }
   const handleClose = () => {

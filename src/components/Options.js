@@ -5,7 +5,6 @@ import OptionsButton from './OptionsButton.js';
 import styles from '../styles/Event.module.css';
 
 const Options = (props) => {
-  console.log(props.data.window, props.data.rsvps)
   let availability = helpers.CheckAvail(props.data.window, props.data.rsvps, props.data.duration/3600)
   let rsvpNum = props.data.rsvps.length
   let temp = Object.keys(availability).sort((a, b) => {
@@ -17,7 +16,7 @@ const Options = (props) => {
       <span>All RSVPers can attend at: </span>
       <div className={styles.buttonlist}>
         {availability[rsvpNum].map( (time, key) => {
-        return <OptionsButton time={time} key={key}/>
+        return <OptionsButton time={time} key={key} handleSetTime={props.handleSetTime}/>
       })}
       </div>
       </>
@@ -30,11 +29,11 @@ const Options = (props) => {
         <p>Select a time</p>
         <span> {temp[0]} can make it at</span>
         {availability[temp[0]].map( (time, key) => {
-        return <OptionsButton time={time} key={key}/>
+        return <OptionsButton time={time} key={key} handleSetTime={props.handleSetTime}/>
       })}
         <span> {temp[1]} can make it at</span>
         {availability[temp[1]].map( (time, key) => {
-        return <OptionsButton time={time} key={key}/>
+        return <OptionsButton time={time} key={key} handleSetTime={props.handleSetTime}/>
       })}
       </div>
     )

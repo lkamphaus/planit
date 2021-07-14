@@ -2,7 +2,6 @@
 let helpers = {};
 helpers.CheckAvail = (window, rsvps, eventLength) => {
   const lengthInMS = eventLength * 60 * 60 * 1000;
-  console.log(rsvps)
   let rsvpNum = rsvps.length;
   let startTimes = helpers.allTimes(window, eventLength)
   rsvps.forEach( rsvp => {

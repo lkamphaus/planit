@@ -1,7 +1,6 @@
 import {useRouter} from 'next/router';
 import React, {useState} from 'react'
 import mockData from '../../../../MockData/EventData.js';
-
 import Button from '@material-ui/core/Button';
 import Modal from '@material-ui/core/Modal';
 import IconButton from '@material-ui/core/IconButton';
@@ -15,11 +14,14 @@ import SetTimeForm from '../../../components/SetTimeForm.js'
 const testImage = 'https://wallpaperaccess.com/full/632782.jpg';
 
 const Event = ({event}) => {
-
+  const router = useRouter();
+  const refeshData = () => {
+    router.replace(router.asPath);
+  }
   const [open, setOpen] = useState(false);
   //console.log(event)
   const test = event[0];
-
+  const formatedDate = new Date(test.time).toLocaleString()
   const handleClose = () => {
     setOpen(false)
   }
@@ -68,7 +70,7 @@ const Event = ({event}) => {
                 Length: {test.duration/(3600)} hours
               </span>
               <span>
-                Event Time: {test.time ? test.time : 'Not set'}
+                Event Time: {test.time ? formatedDate : 'Not set'}
               </span>
             </div>
           </Box>
@@ -78,7 +80,7 @@ const Event = ({event}) => {
             </Button>
           </Box>
           <Box >
-            <SetTimeForm data={test}/>
+            <SetTimeForm data={test} refeshData={refeshData}/>
           </Box>
         </div>
         <div className={styles.col}>
