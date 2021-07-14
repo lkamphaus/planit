@@ -61,3 +61,12 @@
 .hidden{
   display: none
 }
+.buttonlist {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+.test {
+  width: 198px;
+}
