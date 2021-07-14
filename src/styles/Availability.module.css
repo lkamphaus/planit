@@ -7,3 +7,13 @@
 .datePicker {
   margin-right: 20px !important;
 }
+
+.container {
+  width: 100%;
+}
+
+.submit {
+  padding: 10px 0;
+  justify-content: flex-end;
+  display: flex;
+}
