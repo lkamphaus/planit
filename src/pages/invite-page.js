@@ -19,7 +19,6 @@ const sampleImg = 'https://wallpaperaccess.com/full/632782.jpg';
 
 const event = eventData.SingleEventData['1'];
 // const event = eventData.ConfirmedEventData['1'];
-// console.log('confirmed event data:', event);
 
 const useStyles = makeStyles({
   button: {
@@ -55,7 +54,7 @@ const InvitePage = () => {
     if (avail.length === 0 && status === 'pending') {
       alert('Please provide your availability!');
     } else {
-      // POST REQUEST GOES HERE
+      // PUT REQUEST GOES HERE
         // For confirmed RSVP:
           // {name: "jacky", email: "jacky@gmail.com"}
         // For pending RSVP:
@@ -75,6 +74,35 @@ const InvitePage = () => {
               ]
             }
             */
+
+
+      // axios.put('/route', { update })
+
+      // let update = [{
+      //     'where': {
+      //       'property': '_id',
+      //       'value': 'asdf'
+      //     },
+      //     'what': {
+      //       'method': '$push', // adds to the back of the arraylook at update methods on mongodb for more methods
+      //       'field': 'rsvps',
+      //       'value': {
+      //         'name': 'name',
+      //         'availability': [
+      //           {
+      //             start: '2021-07-10T23:00:00.002Z',
+      //             end: '2021-07-11T02:00:00.002Z',
+      //           },
+      //           {
+      //             start: '2021-07-10T03:00:00.002Z',
+      //             end: '2021-07-10T06:00:00.002Z',
+      //           },
+      //         ]
+      //       }
+      //     }
+      //   }
+      // ]
+
     }
   }
 
@@ -99,8 +127,6 @@ const InvitePage = () => {
 
   return (
     <div className={styles.window}>
-      <div className={styles.title}>P L A N . I T</div>
-
       <div className={styles.container}>
 
         <Image
@@ -146,25 +172,7 @@ const InvitePage = () => {
               {status === 'pending' &&
               <Button variant="contained" className={classes.button} onClick={handleOpen}>Add Availability</Button>
               }
-                <Modal
-                  aria-labelledby="transition-modal-title"
-                  aria-describedby="transition-modal-description"
-                  open={open}
-                  className={styles.modal}
-                  onClose={handleClose}
-                  closeAfterTransition
-                  BackdropComponent={Backdrop}
-                  BackdropProps={{
-                    timeout: 500,
-                  }}
-                >
-                  <Fade in={open}>
-                    <div>
-                      <h2 id="transition-modal-title">SAMPLE MODAL</h2>
-                      <p id="transition-modal-description">This is a placeholder for the Add Availability modal window.</p>
-                    </div>
-                  </Fade>
-                </Modal>
+              <AvailabilitySelection handleClose={handleClose} handleClickOpen={handleOpen} open={open}/>
               <Button type="submit" variant="contained" className={classes.button}>RSVP</Button>
             </form>
           </Box>
