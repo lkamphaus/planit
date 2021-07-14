@@ -1,24 +1,27 @@
 import {useRouter} from 'next/router';
 import React, {useState} from 'react'
 import mockData from '../../../../MockData/EventData.js';
-
 import Button from '@material-ui/core/Button';
 import Modal from '@material-ui/core/Modal';
 import IconButton from '@material-ui/core/IconButton';
 import Box from '@material-ui/core/Box';
 import { shadows } from '@material-ui/system';
 import Image from 'next/image';
-
+import axios from 'axios'
 import styles from '../../../styles/Event.module.css';
 import generalStyles from '../../../styles/invite-page.module.css'
 import SetTimeForm from '../../../components/SetTimeForm.js'
 const testImage = 'https://wallpaperaccess.com/full/632782.jpg';
 
 const Event = ({event}) => {
-
+  const router = useRouter();
+  const refeshData = () => {
+    router.replace(router.asPath);
+  }
   const [open, setOpen] = useState(false);
-  const test = mockData.MultipleEventsData[0][1];
-
+  //console.log(event)
+  const test = event[0];
+  const formatedDate = new Date(test.time).toLocaleString()
   const handleClose = () => {
     setOpen(false)
   }
@@ -67,7 +70,7 @@ const Event = ({event}) => {
                 Length: {test.duration/(3600)} hours
               </span>
               <span>
-                Event Time: {test.time ? test.time : 'Not set'}
+                Event Time: {test.time ? formatedDate : 'Not set'}
               </span>
             </div>
           </Box>
@@ -77,7 +80,7 @@ const Event = ({event}) => {
             </Button>
           </Box>
           <Box >
-            <SetTimeForm data={test}/>
+            <SetTimeForm data={test} refeshData={refeshData}/>
           </Box>
         </div>
         <div className={styles.col}>
@@ -91,5 +94,44 @@ const Event = ({event}) => {
   </div>
   )
 }
+
+export async function getServerSideProps(context) {
+  var eventData = JSON.stringify({
+    "options": {
+      "count": 1,
+      "where": {
+        "property": "_id",
+        "value": context.params.id
+      }
+    }
+  })
+  //console.log(eventData)
+  // res = await fetch(`http://localhost:3000/api/events`, {method: 'get', body: eventData})
+  //const data = await res.json()
+  var config = {
+    method: 'get',
+    url: 'http://localhost:3000/api/events',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data : eventData
+  };
+  const response = await axios(config);
+  const data = response.data
+  if (!data) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      },
+    }
+  }
+  //console.log(data)
+
+  return {
+    props: {event: data}, // will be passed to the page component as props
+  }
+}
+
 
 export default Event

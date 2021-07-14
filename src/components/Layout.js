@@ -27,12 +27,17 @@ export default function ButtonAppBar({ children }) {
   const classes = useStyles();
   const [ account, setAccount ] = useState()
 
+
+
+
   return (
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
           <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+          <Link href="/home">
             <PlanitIcon />
+          </Link>
           </IconButton>
           <Typography variant="h3" className={classes.title}>
             P L A N . I T

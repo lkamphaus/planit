@@ -12,8 +12,8 @@ const mockEvent = {
   status: 'pending',
   time: null,
   window: {
-    start: '2021-07-10T22:41:02.552Z',
-    end: '2021-07-17T22:41:02.552Z',
+    start: '2021-07-10T22:30:00.002Z',
+    end: '2021-07-17T22:30:00.002Z',
   },
   rsvps: [
     {
@@ -57,10 +57,6 @@ const mockEvent = {
           end: '2021-07-10T06:00:00.002Z',
         },
         {
-          start: '2021-07-10T23:00:00.002Z',
-          end: '2021-07-11T06:00:00.002Z',
-        },
-        {
           start: '2021-07-12T04:30:00.002Z',
           end: '2021-07-12T10:00:00.002Z',
         },
@@ -91,36 +87,45 @@ const mockSession = {
 
 const updateArr = [
   {
-  where: {
-    property: 'owner',
-    value: 'Tarrin'
+    where: {
+      property: 'owner',
+      value: 'Tarrin'
+    },
+    what: {
+      method: '$set', // <-- go to mongodb update methods for more options
+      field: 'name',
+      value: 'Testing'
+    },
   },
-  what: {
-    method: '$set',
-    field: 'name',
-    value: 'Testing'
-  },
-},
-{
-  where: {
-    property: 'owner',
-    value: 'Tarrin'
-  },
-  what: {
-    method: '$push',
-    field: 'rsvps',
-    value: {
-      name: 'Tommy',
-      availability: [
-        {
-          start: 'sometime',
-          end: 'sometime'
-        }
-      ],
-   }
-  },
-}
+  {
+    where: {
+      property: 'owner',
+      value: 'Tarrin'
+    },
+    what: {
+      method: '$push',
+      field: 'rsvps',
+      value: {
+        name: 'Tommy',
+        availability: [
+          {
+            start: 'sometime',
+            end: 'sometime'
+          }
+        ],
+      }
+    },
+  }
 ];
+let option = { // <--- this is the options for a get request.
+  count: 1,
+  where: {
+    property: '_id',
+    value: 'j432h1ju4h3k2'
+  }
+}
+
+//create mongodb names "planit"
 
 const seed = async () => {
   try {
@@ -146,7 +151,7 @@ const seed = async () => {
     // let res = await updateEvent(updateArr);
     // console.log(res);
     // let events = await fetchEvents();
-    // console.log(JSON.stringify(events[0].rsvps[0].availability, null, 2));
+    // console.log(JSON.stringify(events[0], null, 2));
   } catch(err) {
     console.error('Seed Failed', err);
   } finally {

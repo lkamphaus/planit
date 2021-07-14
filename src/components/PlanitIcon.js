@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import React from 'react';
+=======
+import React from 'react'
+>>>>>>> 996f63fc264c9bcca7c0aec782da57f6cba214fe
 import { SvgIcon } from '@material-ui/core';
 
 const PlanitIcon = (props) => (

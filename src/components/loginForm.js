@@ -17,8 +17,11 @@ const LoginForm = () => {
     if (email && password) {
       axios.post('/login', { email, password })
         .then((data) => {
-          console.log('Success:', data);
-          router.push('/');
+          if (data.status === 200) {
+            router.push('/home');
+          } else {
+            console.log('failure', data);
+          }
         })
         .catch((err) => {
           console.log(err);
