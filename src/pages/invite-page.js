@@ -12,12 +12,13 @@ import { shadows } from '@material-ui/system';
 
 import Head from 'next/head';
 import Image from 'next/image';
+import AvailabilitySelection from '.././components/AvailabilitySelection.js';
 
 import eventData from '../../MockData/EventData.js'
 const sampleImg = 'https://wallpaperaccess.com/full/632782.jpg';
 
-// const event = eventData.SingleEventData['1'];
-const event = eventData.ConfirmedEventData['1'];
+const event = eventData.SingleEventData['1'];
+// const event = eventData.ConfirmedEventData['1'];
 // console.log('confirmed event data:', event);
 
 const useStyles = makeStyles({
@@ -55,9 +56,25 @@ const InvitePage = () => {
       alert('Please provide your availability!');
     } else {
       // POST REQUEST GOES HERE
-      // which endpoint? what format will the object be in?
-        // POST /rsvp: {name: "jacky", email: "jacky@gmail.com"}
-      console.log('submitted data:', data);
+        // For confirmed RSVP:
+          // {name: "jacky", email: "jacky@gmail.com"}
+        // For pending RSVP:
+          /*
+            {
+              name: "jacky",
+              email: "jacky@gmail.com",
+              availability: [
+                {
+                  start: '2021-07-10T23:00:00.002Z',
+                  end: '2021-07-11T02:00:00.002Z',
+                },
+                {
+                  start: '2021-07-10T03:00:00.002Z',
+                  end: '2021-07-10T06:00:00.002Z',
+                },
+              ]
+            }
+            */
     }
   }
 

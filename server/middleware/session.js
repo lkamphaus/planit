@@ -13,18 +13,16 @@ const sessionParser = session({
 });
 
 const sessionManager = (req, res, next) => {
-  let validSession = false;
-  let {uuid, username} = req.session;
-  if (!uuid) {
-    uuid = uuidv4();
-    username = 'USERNAME';
-    sessions[uuid] = username;
+  let { user } = req.session;
+  const loggedIn = !!user;
 
-    req.session.username = username;
-    req.session.uuid = uuid;
+  res.cookie('logged-in', loggedIn)
+  console.log(user);
+  if (loggedIn) {
+    const { email, name } = user;
+    res.cookie('name', name);
+    res.cookie('email', email);
   }
-  res.cookie('uuid', uuid);
-  res.cookie('username', username);
 
   next();
 }

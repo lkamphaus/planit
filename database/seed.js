@@ -1,7 +1,7 @@
 const db = require('./index.js');
-const { fetchEvents, addEvent, deleteAllEvents } = require('./controllers/eventController.js');
+const { fetchEvents, addEvent, deleteAllEvents, updateEvent } = require('./controllers/eventController.js');
 const { addUser, fetchUser, deleteUser } = require('./controllers/userController.js');
-const { addSession, fetchSession, deleteSession } = require('./controllers/sessionController.js');
+const { addSession, fetchSession, deleteSession, deleteAllSessions } = require('./controllers/sessionController.js');
 
 const mockEvent = {
   name: 'Tarvent',
@@ -80,7 +80,8 @@ const mockEvent = {
 const mockUser = {
   name: 'Tarrin',
   email: 'tarrinneal@gmail.com',
-  events: []
+  events: [],
+  password: 'bargle'
 }
 
 const mockSession = {
@@ -88,26 +89,69 @@ const mockSession = {
   user: '60ec9ccf28c54f891c97b28d'
 }
 
+const updateArr = [
+  {
+  where: {
+    property: 'owner',
+    value: 'Tarrin'
+  },
+  what: {
+    method: '$set',
+    field: 'name',
+    value: 'Testing'
+  },
+},
+{
+  where: {
+    property: 'owner',
+    value: 'Tarrin'
+  },
+  what: {
+    method: '$push',
+    field: 'rsvps',
+    value: {
+      name: 'Tommy',
+      availability: [
+        {
+          start: 'sometime',
+          end: 'sometime'
+        }
+      ],
+   }
+  },
+}
+];
+
 const seed = async () => {
   try {
     await deleteAllEvents();
     console.log('Events Deleted');
+    await deleteAllSessions();
+    console.log('Sessions Deleted');
     await deleteUser('tarrinneal@gmail.com');
     console.log('User deleted');
     await addUser(mockUser);
     console.log('User added successfully');
-    await addEvent(mockEvent, '60ec9ccf28c54f891c97b28d');
-    console.log('Event added successfully');
-    // let user = await fetchUser('tarrinneal@gmail.com');
-    // console.log(user)
+    let user = await fetchUser({ property: 'email', value: 'tarrinneal@gmail.com'});
+    await addEvent(mockEvent, user[0]._id);
+    let userbyId = await fetchUser({ property: '_id', value: user[0]._id});
+    // console.log(userbyId)
+    // console.log('Event added successfully');
     // let events = await fetchEvents({ where: { property: 'name', value: 'Tarvent'}, count: 1});
     // console.log(events);
     // await addSession(mockSession);
     // console.log('Session added');
     // let session = await fetchSession('1');
     // console.log(session);
+    // let res = await updateEvent(updateArr);
+    // console.log(res);
+    // let events = await fetchEvents();
+    // console.log(JSON.stringify(events[0].rsvps[0].availability, null, 2));
   } catch(err) {
     console.error('Seed Failed', err);
+  } finally {
+    console.info('Seeded db successfully. Gracefully exiting.');
+    process.exit(0);
   }
 }
 seed();

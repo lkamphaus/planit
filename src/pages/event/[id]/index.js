@@ -27,7 +27,7 @@ const Event = ({event}) => {
   }
   return (
   <div className={generalStyles.window}>
-    <div className={generalStyles.title}>P L A N . I T</div>
+    {/* <div className={generalStyles.title}>P L A N . I T</div> */}
     <div className={generalStyles.container}>
       <div>
         <Image
