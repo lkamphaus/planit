@@ -75,7 +75,7 @@ const Event = ({event}) => {
             </div>
           </Box>
           <Box >
-            <Button variant="contained" component="span">
+            <Button variant="contained" component="span" onClick={() => {navigator.clipboard.writeText('http://localhost:3000/invite-page')}}>
               Copy to Clipboard
             </Button>
           </Box>
