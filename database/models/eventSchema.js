@@ -4,6 +4,7 @@ const eventSchema = mongoose.Schema({
   name: String,
   description: String,
   owner: String,
+  ownerEmail: String,
   location: String,
   duration: Number,
   status: String,
@@ -15,6 +16,7 @@ const eventSchema = mongoose.Schema({
   rsvps: [
     {
       name: String,
+      email: String,
       availability: [
         {
           start: String,
