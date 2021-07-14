@@ -6,7 +6,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
-import Box from '@material-ui/core/Box';
+import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import { shadows } from '@material-ui/system';
 
@@ -75,7 +75,6 @@ const InvitePage = () => {
             }
             */
 
-
       // axios.put('/route', { update })
 
       // let update = [{
@@ -139,16 +138,16 @@ const InvitePage = () => {
         />
 
         {status === 'confirmed' &&
-          <Box className={styles.date_box} boxshadow={3}>
+          <Paper className={styles.date_Paper} Papershadow={3}>
             <div className={styles.date_banner}></div>
             <div className={styles.date}>{dateDay(event.window.start)}</div>
-          </Box>
+          </Paper>
         }
 
         <div className={styles.body}>
           <div className={styles.info}>
             <div className={styles.details}>
-              <Box className={styles.header} boxShadow={3}>
+              <Paper className={styles.header} PaperShadow={3}>
                 <div className={styles.invite_title}>{event.owner} invites you to join {event.name}!</div>
                 <div className={styles.subtitle}>
                   {status === 'pending' &&
@@ -156,15 +155,15 @@ const InvitePage = () => {
                   }
                   <div>{event.location}</div>
                 </div>
-              </Box>
-              <Box className={styles.description} boxShadow={3}>
+              </Paper>
+              <Paper className={styles.description} PaperShadow={3}>
                 {event.description}
-              </Box>
+              </Paper>
             </div>
         </div>
 
-          <Box className={styles.form} boxShadow={3}>
-            <form onSubmit={handleSubmit(onSubmit)}  boxShadow={3}>
+          <Paper className={styles.form} PaperShadow={3}>
+            <form onSubmit={handleSubmit(onSubmit)}  PaperShadow={3}>
               <label>Name:</label>
               <input className={styles.input} {...register('name', { required: 'Please enter your name.' })}/>
               <label>Email:</label>
@@ -175,7 +174,7 @@ const InvitePage = () => {
               <AvailabilitySelection handleClose={handleClose} handleClickOpen={handleOpen} open={open}/>
               <Button type="submit" variant="contained" className={classes.button}>RSVP</Button>
             </form>
-          </Box>
+          </Paper>
         </div>
       </div>
     </div>
