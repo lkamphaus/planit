@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
+import MuiDialog from '@material-ui/core/Dialog';
 import MuiDialogTitle from '@material-ui/core/DialogTitle';
 import MuiDialogContent from '@material-ui/core/DialogContent';
 import MuiDialogActions from '@material-ui/core/DialogActions';
@@ -20,6 +20,7 @@ const styles = (theme) => ({
     padding: theme.spacing(2),
     backgroundColor: '#f1e4f4',
     textAlign: 'center',
+    width: '100%',
   },
   closeButton: {
     position: 'absolute',
@@ -28,6 +29,12 @@ const styles = (theme) => ({
     color: theme.palette.grey[500],
   },
 });
+
+const Dialog = withStyles((theme) => ({
+  paper: {
+    width: '100%'
+  },
+}))(MuiDialog);
 
 const DialogTitle = withStyles(styles)((props) => {
   const { children, classes, onClose, ...other } = props;
@@ -56,31 +63,11 @@ const DialogActions = withStyles((theme) => ({
   },
 }))(MuiDialogActions);
 
-let timeSlotIdx = 0
-
-export default function AvailabilitySelection({
-  timeSlots: prevTimeSlots,
+export default function Availability({
   handleClose,
   open,
 }) {
-  const [ timeSlots, setTimeSlots ] = useState(prevTimeSlots ?? []);
 
-  const handleAddClick = () => {
-    setTimeSlots([...timeSlots, {
-      id: timeSlotIdx++,
-      start: undefined,
-      end: undefined,
-    }]);
-  };
-
-  const handleRemoveClick = (key) => {
-
-    let index = timeSlots.indexOf(index);
-
-    const list = [...timeSlots];
-    list.splice(index, 1);
-    setTimeSlots(list);
-  };
 
   return (
     <div>
@@ -90,35 +77,15 @@ export default function AvailabilitySelection({
           onClose={handleClose}
           aria-labelledby="customized-dialog-title"
           open={open}>
-
-          <DialogTitle id="customized-dialog-title" onClose={
+          <DialogTitle
+            id="customized-dialog-title"
+            onClose={
             handleClose}>
             Add Availability
           </DialogTitle>
           <DialogContent>
-            <Typography gutterBottom component="span">
-              <TimeBlock handleRemoveClick={handleRemoveClick}/>
-            </Typography>
-            <Typography gutterBottom component="span">
-              {timeSlots.map(({id, start, end}) => (
-                <TimeBlock
-                  key={id}
-                  handleRemoveClick={handleRemoveClick}
-                  start={start}
-                  end={end}
-                />
-              ))}
-            </Typography>
+            <TimeBlock onClose={handleClose}/>
           </DialogContent>
-          <DialogActions>
-            <Button onClick={handleAddClick} variant="outlined" color="primary">
-              Add Block
-            </Button>
-            <Button autoFocus onClick={handleClose} variant="outlined" color="primary">
-             Submit
-            </Button>
-          </DialogActions>
-
         </Dialog>
       </ThemeProvider>
     </div>

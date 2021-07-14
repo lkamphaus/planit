@@ -1,3 +1,4 @@
+import React from 'react';
 import { TextField, Grid, makeStyles, Button } from '@material-ui/core';
 import { MultipleEventsData } from '../../MockData/EventData.js';
 import Link from 'next/link'
@@ -25,7 +26,7 @@ import Event from '../components/Event';
 
 
 
-const home = () => {
+const Home = () => {
   const classes = useStyles();
 
   return (
@@ -51,8 +52,8 @@ const home = () => {
           </Grid>
         </Grid>
         {MultipleEventsData.map( event => (
-          <Grid item xs={6}>
-            <Event {...event['1']} />
+          <Grid item key={Math.random()} xs={6}>
+            <Event {...event['1']}/>
           </Grid>
         ))}
       </Grid>
@@ -60,4 +61,4 @@ const home = () => {
   );
 }
 
-export default home;
+export default Home;
