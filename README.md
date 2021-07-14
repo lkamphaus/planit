@@ -25,7 +25,7 @@ options : {
 ```
 returns
 ```javascript
-{
+updates: {
     name: 'Tarvent',
     description: 'Hey everybody come to my event, it\'s going to be lit! ',
     owner: 'Tarrin',
@@ -56,18 +56,20 @@ returns
 
 POST - */api/events*
 ```javascript
- name: String,
- description: String,
- owner: String,
- location: String,
- duration: Number,
- status: String,
- time: String,
- window: {
-   start: String,
-   end: String,
- },
- rsvps: []
+event: {
+ 	name: String,
+ 	description: String,
+ 	owner: String,
+ 	location: String,
+ 	duration: Number,
+ 	status: String,
+ 	time: String,
+	 window: {
+  		 start: String,
+  		 end: String,
+ 	},
+ 	rsvps: []
+}
 ```
 returns `200 // - if successful`
 

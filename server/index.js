@@ -13,7 +13,7 @@ app.use(session.sessionManager);
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use('/events', eventRouter);
+app.use('/api/events', eventRouter);
 app.use('/', loginRouter);
 
 // express.get('/logout', (req, res) => {
