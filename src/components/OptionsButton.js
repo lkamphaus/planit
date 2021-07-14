@@ -1,6 +1,6 @@
 import styles from '../styles/Event.module.css';
 import Button from '@material-ui/core/Button';
-
+import React from 'react';
 const OptionsButton = (props) => {
   let time = new Date (parseInt(props.time))
   return (
