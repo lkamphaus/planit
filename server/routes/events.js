@@ -22,7 +22,7 @@ eventRouter.put('/', async (req, res) => {
     console.error(err);
     res.sendStatus(400);
   }
-})
+});
 
 eventRouter.post('/', async (req, res) => {
   const { event } = req.body; // event object
@@ -33,6 +33,6 @@ eventRouter.post('/', async (req, res) => {
     console.error(err);
     res.sendStatus(400);
   }
-})
+});
 
 module.exports.eventRouter = eventRouter;
