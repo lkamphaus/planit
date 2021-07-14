@@ -94,7 +94,7 @@ const SetTimeForm = (props) => {
                 "what": {
                     "method": "$set",
                     "field": "status",
-                    "value": "Confirmed"
+                    "value": "confirmed"
                 }
             }
         ]

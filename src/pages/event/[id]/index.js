@@ -9,8 +9,10 @@ import { shadows } from '@material-ui/system';
 import Image from 'next/image';
 import axios from 'axios'
 import styles from '../../../styles/Event.module.css';
-import generalStyles from '../../../styles/invite-page.module.css'
-import SetTimeForm from '../../../components/SetTimeForm.js'
+import generalStyles from '../../../styles/invite-page.module.css';
+import SetTimeForm from '../../../components/SetTimeForm.js';
+import UpdateEventForm from '../../../components/UpdateEventForm.js';
+import helpers from '../../../components/tempHelp.js';
 const testImage = 'https://wallpaperaccess.com/full/632782.jpg';
 
 const Event = ({event}) => {
@@ -21,7 +23,8 @@ const Event = ({event}) => {
   const [open, setOpen] = useState(false);
   //console.log(event)
   const test = event[0];
-  const formatedDate = new Date(test.time).toLocaleString()
+  const formatedDate = new Date(test.time).toLocaleString();
+  const rsvpList = helpers.listRSVPs(test.rsvps, 'name')
   const handleClose = () => {
     setOpen(false)
   }
@@ -64,18 +67,15 @@ const Event = ({event}) => {
               <span> Status: {test.status}
               </span>
               <span>
-                Location: {test.location}
-              </span>
-              <span>
-                Length: {test.duration/(3600)} hours
-              </span>
-              <span>
                 Event Time: {test.time ? formatedDate : 'Not set'}
+              </span>
+              <span>
+                Current RSVPs: {rsvpList.join(', ')}
               </span>
             </div>
           </Box>
           <Box >
-            <Button variant="contained" component="span">
+            <Button variant="contained" component="span" onClick={() => {navigator.clipboard.writeText('http://localhost:3000/invite-page')}}>
               Copy to Clipboard
             </Button>
           </Box>
@@ -85,8 +85,7 @@ const Event = ({event}) => {
         </div>
         <div className={styles.col}>
           <Box className={generalStyles.description} boxshadow={3}>
-            <h3>Description</h3>
-            <p>{test.description}</p>
+            <UpdateEventForm data={test} refeshData={refeshData}/>
           </Box>
         </div>
       </div>
