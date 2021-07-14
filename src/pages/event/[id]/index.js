@@ -12,6 +12,7 @@ import styles from '../../../styles/Event.module.css';
 import generalStyles from '../../../styles/invite-page.module.css';
 import SetTimeForm from '../../../components/SetTimeForm.js';
 import UpdateEventForm from '../../../components/UpdateEventForm.js';
+import helpers from '../../../components/tempHelp.js';
 const testImage = 'https://wallpaperaccess.com/full/632782.jpg';
 
 const Event = ({event}) => {
@@ -22,7 +23,8 @@ const Event = ({event}) => {
   const [open, setOpen] = useState(false);
   //console.log(event)
   const test = event[0];
-  const formatedDate = new Date(test.time).toLocaleString()
+  const formatedDate = new Date(test.time).toLocaleString();
+  const rsvpList = helpers.listRSVPs(test.rsvps, 'name')
   const handleClose = () => {
     setOpen(false)
   }
@@ -65,13 +67,10 @@ const Event = ({event}) => {
               <span> Status: {test.status}
               </span>
               <span>
-                Location: {test.location}
-              </span>
-              <span>
-                Length: {test.duration/(3600)} hours
-              </span>
-              <span>
                 Event Time: {test.time ? formatedDate : 'Not set'}
+              </span>
+              <span>
+                Current RSVPs: {rsvpList.join(', ')}
               </span>
             </div>
           </Box>
