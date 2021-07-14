@@ -42,7 +42,7 @@ const addEvent = async (event, email) => {
       let whereParam = { email };
       User.updateOne(whereParam, { $push: { events: _id }})
       .then((res) => {
-        resolve('Event Added');
+        resolve({ message: "Event Added", event_id: _id });
       })
     }).catch((err) => {
       console.error(err);
