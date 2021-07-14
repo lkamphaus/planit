@@ -7,6 +7,7 @@ const mockEvent = {
   name: 'Tarvent',
   description: 'Hey everybody come to my event, it\'s going to be lit!',
   owner: 'Tarrin',
+  ownerEmail: "tarrinneal@gmail.com",
   location: 'Tarrin\'s house',
   duration: 7200,
   status: 'pending',
