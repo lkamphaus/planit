@@ -5,7 +5,7 @@ const eventRouter = express.Router();
 eventRouter.get('/', async (req, res) => {
   const { options } = req.body; // object
   try {
-    let eventData = await options === undefined ? fetchEvents() : fetchEvents(options);
+    let eventData = await fetchEvents(options);
     res.status(200).send(eventData);
   } catch(err) {
     console.error(err);
@@ -27,7 +27,7 @@ eventRouter.put('/', async (req, res) => {
 eventRouter.post('/', async (req, res) => {
   const { event } = req.body; // event object
   try {
-    await addEvent(event);
+    await addEvent(event, req.user.email);
     res.sendStatus(201);
   } catch(err) {
     console.error(err);
