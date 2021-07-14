@@ -11,7 +11,7 @@ import { shadows } from '@material-ui/system';
 
 import Head from 'next/head';
 import Image from 'next/image';
-import AvailabilitySelection from '.././components/AvailabilitySelection.js';
+import Availability from '.././components/Availability.js';
 
 import eventData from '../../MockData/EventData.js'
 const sampleImg = 'https://wallpaperaccess.com/full/632782.jpg';
@@ -45,8 +45,9 @@ const InvitePage = () => {
     setOpen(true);
   };
 
-  const handleClose = (e) => {
+  const handleClose = (e, timeSlots) => {
     setOpen(false);
+    setAvail(timeSlots);
   };
 
   return (
@@ -93,7 +94,7 @@ const InvitePage = () => {
             {pending &&
             <button className={styles.submit_form} onClick={handleOpen}>Add Availability</button>
             }
-            <AvailabilitySelection handleClose={handleClose} handleClickOpen={handleOpen} open={open}/>
+            <Availability handleClose={handleClose} handleClickOpen={handleOpen} open={open}/>
               {/* <Modal
                 aria-labelledby="transition-modal-title"
                 aria-describedby="transition-modal-description"

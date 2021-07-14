@@ -1,3 +1,4 @@
+import React from 'react';
 import { TextField, Grid, makeStyles, Button } from '@material-ui/core';
 import { MultipleEventsData } from '../../MockData/EventData.js';
 import Link from 'next/link'
