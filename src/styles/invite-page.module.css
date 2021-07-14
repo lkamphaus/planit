@@ -41,7 +41,7 @@
   display: flex;
   flex-flow: column;
   text-align: center;
-  position: fixed;
+  position: absolute;
   height: auto;
   width: 4%;
   margin-left: 3%;
