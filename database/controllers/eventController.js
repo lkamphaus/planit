@@ -35,11 +35,11 @@ const fetchEvents = async (options = { count: 30, where: null }) => {
     })
 }
 
-const addEvent = async (event, userId) => {
+const addEvent = async (event, email) => {
   return new Promise((resolve, reject) => {
     Event.create(event)
-    .then(({ email }) => {
-      let whereParam = { email: email };
+    .then(({ _id }) => {
+      let whereParam = { email };
       User.updateOne(whereParam, { $push: { events: _id }})
       .then((res) => {
         resolve('Event Added');
