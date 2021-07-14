@@ -12,7 +12,7 @@ import { shadows } from '@material-ui/system';
 
 import Head from 'next/head';
 import Image from 'next/image';
-import Availability from '.././components/Availability.js';
+import AvailabilitySelection from '../components/Availability.js';
 
 import eventData from '../../MockData/EventData.js'
 const sampleImg = 'https://wallpaperaccess.com/full/632782.jpg';
@@ -54,6 +54,7 @@ const InvitePage = () => {
     if (avail.length === 0 && status === 'pending') {
       alert('Please provide your availability!');
     } else {
+
       // PUT REQUEST GOES HERE
         // For confirmed RSVP:
           // {name: "jacky", email: "jacky@gmail.com"}
@@ -120,9 +121,8 @@ const InvitePage = () => {
     setOpen(true);
   };
 
-  const handleClose = (e, timeSlots) => {
+  const handleClose = (e) => {
     setOpen(false);
-    setAvail(timeSlots);
   };
 
   return (
@@ -162,7 +162,6 @@ const InvitePage = () => {
               </Paper>
             </div>
         </div>
-<<<<<<< HEAD
 
           <Paper className={styles.form} PaperShadow={3}>
             <form onSubmit={handleSubmit(onSubmit)}  PaperShadow={3}>
@@ -177,40 +176,6 @@ const InvitePage = () => {
               <Button type="submit" variant="contained" className={classes.button}>RSVP</Button>
             </form>
           </Paper>
-=======
-          <Box className={styles.form} boxshadow={3}>
-          <form onSubmit={handleSubmit(onSubmit)}  boxshadow={3}>
-            <label>Name:</label>
-            <input className={styles.input} {...register('name', { required: 'Please enter your name.' })}/>
-            <label>Email:</label>
-            <input type="email" className={styles.input} {...register('email', { required: 'Please enter your email.' })}/>
-            {pending &&
-            <button className={styles.submit_form} onClick={handleOpen}>Add Availability</button>
-            }
-            <Availability handleClose={handleClose} handleClickOpen={handleOpen} open={open}/>
-              {/* <Modal
-                aria-labelledby="transition-modal-title"
-                aria-describedby="transition-modal-description"
-                open={open}
-                className={styles.modal}
-                onClose={handleClose}
-                closeAfterTransition
-                BackdropComponent={Backdrop}
-                BackdropProps={{
-                  timeout: 500,
-                }}
-              >
-                <Fade in={open}>
-                  <div>
-                    <h2 id="transition-modal-title">Transition modal</h2>
-                    <p id="transition-modal-description">react-transition-group animates me.</p>
-                  </div>
-                </Fade>
-              </Modal> */}
-            <input type="submit" className={styles.rsvp_btn} value="RSVP"/>
-          </form>
-          </Box>
->>>>>>> 996f63fc264c9bcca7c0aec782da57f6cba214fe
         </div>
       </div>
     </div>
