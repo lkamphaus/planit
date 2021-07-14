@@ -25,7 +25,7 @@ import Event from '../components/Event';
 
 
 
-const home = () => {
+const Home = () => {
   const classes = useStyles();
 
   return (
@@ -51,8 +51,8 @@ const home = () => {
           </Grid>
         </Grid>
         {MultipleEventsData.map( event => (
-          <Grid item xs={6}>
-            <Event {...event['1']} />
+          <Grid item key={Math.random()} xs={6}>
+            <Event {...event['1']}/>
           </Grid>
         ))}
       </Grid>
@@ -60,4 +60,4 @@ const home = () => {
   );
 }
 
-export default home;
+export default Home;
