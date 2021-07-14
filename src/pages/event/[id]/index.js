@@ -9,8 +9,9 @@ import { shadows } from '@material-ui/system';
 import Image from 'next/image';
 import axios from 'axios'
 import styles from '../../../styles/Event.module.css';
-import generalStyles from '../../../styles/invite-page.module.css'
-import SetTimeForm from '../../../components/SetTimeForm.js'
+import generalStyles from '../../../styles/invite-page.module.css';
+import SetTimeForm from '../../../components/SetTimeForm.js';
+import UpdateEventForm from '../../../components/UpdateEventForm.js';
 const testImage = 'https://wallpaperaccess.com/full/632782.jpg';
 
 const Event = ({event}) => {
@@ -85,8 +86,7 @@ const Event = ({event}) => {
         </div>
         <div className={styles.col}>
           <Box className={generalStyles.description} boxshadow={3}>
-            <h3>Description</h3>
-            <p>{test.description}</p>
+            <UpdateEventForm data={test} refeshData={refeshData}/>
           </Box>
         </div>
       </div>
