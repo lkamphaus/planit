@@ -5,7 +5,8 @@ import OptionsButton from './OptionsButton.js';
 import styles from '../styles/Event.module.css';
 
 const Options = (props) => {
-  let availability = helpers.CheckAvail(props.data.window, props.data.rsvps, 2)
+  console.log(props.data.window, props.data.rsvps)
+  let availability = helpers.CheckAvail(props.data.window, props.data.rsvps, props.data.duration/3600)
   let rsvpNum = props.data.rsvps.length
   let temp = Object.keys(availability).sort((a, b) => {
     return b - a

@@ -11,6 +11,8 @@ import MuiDialogActions from '@material-ui/core/DialogActions';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import Typography from '@material-ui/core/Typography';
+import { useRouter } from 'next/router'
+import axios from 'axios';
 
 const styles = (theme) => ({
   root: {
@@ -63,18 +65,18 @@ const DialogActions = withStyles((theme) => ({
   },
 }))(MuiDialogActions);
 const SetTimeForm = (props) => {
+  //console.log(props.data)
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   //const test = mockData.SingleEventData[1];
   const handleSetTime = (event) => {
-    const unixTime = Date.parse(event.target.value)
-    // put
-    var params = {
-      method: 'PUT',
-      headers: {
+    // const unixTime = Date.parse(event.target.value)
+    // // put
+    // var data = {
 
-      }
-    }
+    //   }
+    // }
+    //axios.put('/events', config)
     //  fetch(`http://localhost:3000/event/${props.data.id}`, )
 
   }

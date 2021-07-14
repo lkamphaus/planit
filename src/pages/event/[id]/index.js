@@ -8,7 +8,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Box from '@material-ui/core/Box';
 import { shadows } from '@material-ui/system';
 import Image from 'next/image';
-
+import axios from 'axios'
 import styles from '../../../styles/Event.module.css';
 import generalStyles from '../../../styles/invite-page.module.css'
 import SetTimeForm from '../../../components/SetTimeForm.js'
@@ -17,7 +17,8 @@ const testImage = 'https://wallpaperaccess.com/full/632782.jpg';
 const Event = ({event}) => {
 
   const [open, setOpen] = useState(false);
-  const test = mockData.MultipleEventsData[0][1];
+  //console.log(event)
+  const test = event[0];
 
   const handleClose = () => {
     setOpen(false)
@@ -91,5 +92,44 @@ const Event = ({event}) => {
   </div>
   )
 }
+
+export async function getServerSideProps(context) {
+  var eventData = JSON.stringify({
+    "options": {
+      "count": 1,
+      "where": {
+        "property": "_id",
+        "value": context.params.id
+      }
+    }
+  })
+  //console.log(eventData)
+  // res = await fetch(`http://localhost:3000/api/events`, {method: 'get', body: eventData})
+  //const data = await res.json()
+  var config = {
+    method: 'get',
+    url: 'http://localhost:3000/api/events',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data : eventData
+  };
+  const response = await axios(config);
+  const data = response.data
+  if (!data) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      },
+    }
+  }
+  //console.log(data)
+
+  return {
+    props: {event: data}, // will be passed to the page component as props
+  }
+}
+
 
 export default Event
