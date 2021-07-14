@@ -45,4 +45,12 @@ helpers.allTimes = (window, length) => {
   }
   return obj;
 }
+helpers.listRSVPs = (rsvps, emOrName) => {
+  let list = []
+  rsvps.forEach( rsvp => {
+    list.push(rsvp[emOrName])
+  })
+  return list
+}
+
 export default helpers;
