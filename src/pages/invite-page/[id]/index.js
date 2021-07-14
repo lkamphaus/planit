@@ -14,11 +14,7 @@ import Head from 'next/head';
 import Image from 'next/image';
 import Availability from '../../../components/Availability.js';
 
-// import eventData from '../../MockData/EventData.js'
 const sampleImg = 'https://wallpaperaccess.com/full/632782.jpg';
-
-// const event = eventData.SingleEventData['1'];
-// const event = eventData.ConfirmedEventData['1']
 
 const useStyles = makeStyles({
   button: {
@@ -37,15 +33,7 @@ const InvitePage = ({event}) => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const [avail, setAvail] = useState([]); // pass this down to modal
-  const [status, setStatus] = useState('');
-
-  useEffect(() => {
-    if (event.status === 'pending') {
-      setStatus('pending');
-    } else {
-      setStatus('confirmed');
-    }
-  }, [])
+  const { status } = event;
 
   const { register, handleSubmit } = useForm({
     revalidateMode: 'onSubmit',
@@ -56,69 +44,28 @@ const InvitePage = ({event}) => {
     if (avail.length === 0 && status === 'pending') {
       alert('Please provide your availability!');
     } else {
+      let updates;
       if (status === 'pending') {
         data.availability = avail;
-        let update = [{
+        updates = [{
           'where': {
             'property': '_id',
             'value': event._id
           },
           'what': data
         }]
-        axios.put('/', { update })
-          .then(response => console.log('Success!'))
-          .catch(err => console.error(err));
-
       } else {
-        console.log('data:', data)
+        updates = [{
+          'where': {
+            'property': '_id',
+            'value': event._id
+          },
+          'what': data
+        }]
       }
-
-      // PUT REQUEST GOES HERE
-        // For confirmed RSVP:
-          // {name: "jacky", email: "jacky@gmail.com"}
-        // For pending RSVP:
-          /*
-            {
-              name: "jacky",
-              email: "jacky@gmail.com",
-              availability: [
-                {
-                  start: '2021-07-10T23:00:00.002Z',
-                  end: '2021-07-11T02:00:00.002Z',
-                },
-                {
-                  start: '2021-07-10T03:00:00.002Z',
-                  end: '2021-07-10T06:00:00.002Z',
-                },
-              ]
-            }
-            */
-
-      // axios.put('/route', { update })
-      // let update = [{
-      //     'where': {
-      //       'property': '_id',
-      //       'value': 'asdf'
-      //     },
-      //     'what': {
-      //       'method': '$push', // adds to the back of the arraylook at update methods on mongodb for more methods
-      //       'field': 'rsvps',
-      //       'value': {
-      //         'name': 'name',
-      //         'availability': [
-      //           {
-      //             start: '2021-07-10T23:00:00.002Z',
-      //             end: '2021-07-11T02:00:00.002Z',
-      //           },
-      //           {
-      //             start: '2021-07-10T03:00:00.002Z',
-      //             end: '2021-07-10T06:00:00.002Z',
-      //           },
-      //         ]
-      //       }
-      //     }
-      //   }
-      // ]
+      axios.put('/api/events', { updates })
+        .then(response => console.log('Success!'))
+        .catch(err => console.error(err));
     }
   }
 
@@ -210,11 +157,7 @@ export async function getServerSideProps(context) {
     }
   })
 
-  //console.log(eventData)
-  // res = await fetch(`http://localhost:3000/api/events`, {method: 'get', body: eventData})
-  //const data = await res.json()
-
-  var config = {
+  let config = {
     method: 'get',
     url: 'http://localhost:3000/api/events',
     headers: {
@@ -234,8 +177,6 @@ export async function getServerSideProps(context) {
       },
     }
   }
-
-  // console.log(data)
 
   return {
     props: { event: data }, // will be passed to the page component as props
