@@ -7,6 +7,7 @@ const mockEvent = {
   name: 'Tarvent',
   description: 'Hey everybody come to my event, it\'s going to be lit!',
   owner: 'Tarrin',
+  ownerEmail: "tarrinneal@gmail.com",
   location: 'Tarrin\'s house',
   duration: 7200,
   status: 'pending',
@@ -86,17 +87,17 @@ const mockSession = {
 }
 
 const updateArr = [
-  {
-    where: {
-      property: 'owner',
-      value: 'Tarrin'
-    },
-    what: {
-      method: '$set', // <-- go to mongodb update methods for more options
-      field: 'name',
-      value: 'Testing'
-    },
-  },
+  // {
+  //   where: {
+  //     property: 'owner',
+  //     value: 'Tarrin'
+  //   },
+  //   what: {
+  //     method: '$set', // <-- go to mongodb update methods for more options
+  //     field: 'name',
+  //     value: 'Testing'
+  //   },
+  // },
   {
     where: {
       property: 'owner',
@@ -138,9 +139,9 @@ const seed = async () => {
     await addUser(mockUser);
     console.log('User added successfully');
     let user = await fetchUser({ property: 'email', value: 'tarrinneal@gmail.com'});
-    await addEvent(mockEvent, user[0]._id);
+    await addEvent(mockEvent, 'tarrinneal@gmail.com');
     let userbyId = await fetchUser({ property: '_id', value: user[0]._id});
-    // console.log(userbyId)
+    console.log(userbyId)
     // console.log('Event added successfully');
     // let events = await fetchEvents({ where: { property: 'name', value: 'Tarvent'}, count: 1});
     // console.log(events);
