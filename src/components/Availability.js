@@ -68,7 +68,6 @@ export default function Availability({
   open,
 }) {
 
-
   return (
     <div>
       <ThemeProvider theme={theme}>

@@ -1,4 +1,3 @@
-
 let helpers = {};
 helpers.CheckAvail = (window, rsvps, eventLength) => {
   const lengthInMS = eventLength * 60 * 60 * 1000;

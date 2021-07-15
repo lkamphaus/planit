@@ -132,5 +132,4 @@ export async function getServerSideProps(context) {
   }
 }
 
-
-export default Event
+export default Event;
