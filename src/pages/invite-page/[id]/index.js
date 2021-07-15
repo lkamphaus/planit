@@ -10,6 +10,8 @@ import Fade from '@material-ui/core/Fade';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import { shadows } from '@material-ui/system';
+import { TextField } from '@material-ui/core';
+
 import Head from 'next/head';
 import Image from 'next/image';
 import Availability from '../../../components/Availability.js';
@@ -25,6 +27,9 @@ const useStyles = makeStyles({
       background: '#98609c'
     }
   },
+  input: {
+    margin: '5px 0 5px 0',
+  }
 });
 
 const InvitePage = ({event}) => {
@@ -128,11 +133,9 @@ const InvitePage = ({event}) => {
         </div>
 
           <Paper className={styles.form} PaperShadow={3}>
-            <form onSubmit={handleSubmit(onSubmit)}  PaperShadow={3}>
-              <label>Name:</label>
-              <input className={styles.input} {...register('name', { required: 'Please enter your name.' })}/>
-              <label>Email:</label>
-              <input type="email" className={styles.input} {...register('email', { required: 'Please enter your email.' })}/>
+            <form onSubmit={handleSubmit(onSubmit)} PaperShadow={3}>
+              <TextField id="outlined-basic" label="Name" variant="outlined" className={classes.input} {...register('name', { required: 'Please enter your name.' })} />
+              <TextField id="outlined-basic" label="Email" variant="outlined" type="email" className={classes.input} {...register('email', { required: 'Please enter your email.' })} />
               {status === 'pending' &&
               <Button variant="contained" className={classes.button} onClick={handleOpen}>Add Availability</Button>
               }
@@ -179,7 +182,7 @@ export async function getServerSideProps(context) {
   }
 
   return {
-    props: { event: data }, // will be passed to the page component as props
+    props: { event: data }
   }
 }
 
