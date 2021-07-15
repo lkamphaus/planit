@@ -7,7 +7,7 @@ const mockEvent = {
   name: 'Tarvent',
   description: 'Hey everybody come to my event, it\'s going to be lit!',
   owner: 'Tarrin',
-  ownerEmail: "tarrinneal@gmail.com",
+  owner_email: "tarrinneal@gmail.com",
   location: 'Tarrin\'s house',
   duration: 7200,
   status: 'pending',
@@ -139,9 +139,10 @@ const seed = async () => {
     await addUser(mockUser);
     console.log('User added successfully');
     let user = await fetchUser({ property: 'email', value: 'tarrinneal@gmail.com'});
-    await addEvent(mockEvent, 'tarrinneal@gmail.com');
-    let userbyId = await fetchUser({ property: '_id', value: user[0]._id});
-    console.log(userbyId)
+    let response = await addEvent(mockEvent, 'tarrinneal@gmail.com');
+    console.log(response);
+    // let userbyId = await fetchUser({ property: '_id', value: user[0]._id});
+    // console.log(userbyId)
     // console.log('Event added successfully');
     // let events = await fetchEvents({ where: { property: 'name', value: 'Tarvent'}, count: 1});
     // console.log(events);

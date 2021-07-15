@@ -18,7 +18,7 @@ const fetchUser = ({ property, value }) => {
       reject(err);
     })
   })
-}
+};
 
 const addUser = (user) => {
   return new Promise((resolve, reject) => {
