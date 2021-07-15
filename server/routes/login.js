@@ -1,20 +1,39 @@
 const express = require('express');
 const loginRouter = express.Router();
 const passport = require('../middleware/').login;
+const nextServer = require('../app.js');
+const {addUser} = require('../../database/controllers/userController');
 
 loginRouter.get('/login', (req, res, next) => {
-  if (req.user) {
+  if (req.isAuthenticated()) {
     console.log('got with user - redirecting');
-    res.redirect('/home');
+    res.nextRender('/home');
   } else {
     next();
   }
 })
 
 loginRouter.post('/login',
-  passport.authenticate('local', {
-    successRedirect: '/home',
-    failureRedirect: '/login'
-  }));
+passport.authenticate('local'), (req, res) => {
+  res.send(200);
+});
+
+loginRouter.get('/logout', (req, res) => {
+  req.logout();
+  res.clearCookie('name');
+  res.clearCookie('email');
+  res.redirect('/login');
+});
+
+loginRouter.post('/signup', (req, res) => {
+  req.body.events = [];
+  addUser(req.body)
+    .then(mongo => {
+      res.redirect('/login');
+    })
+    .catch(error => {
+      res.send('Error adding user.');
+    })
+});
 
 module.exports.loginRouter = loginRouter;
