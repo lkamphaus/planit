@@ -7,13 +7,13 @@ import '../styles/globals.css'
 import React, { useContext } from 'react';
 import Layout from '../components/Layout';
 import Head from 'next/head';
-import { ThemeProvider } from '@material-ui/core/styles';
+
 import CssBaseline from '@material-ui/core/CssBaseline';
-import theme from '../theme';
 import Account from '../accountContext';
+import CustomThemeProvider from '../themes/CustomThemeProvider';
 
 export default function MyApp(props) {
-  const { Component, pageProps} = props;
+  const { Component, pageProps } = props;
   const { name } = useContext(Account);
 
   return (
@@ -23,12 +23,12 @@ export default function MyApp(props) {
         <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
       </Head>
 
-      <ThemeProvider theme={theme}>
-        <CssBaseline/>
+      <CustomThemeProvider>
+        <CssBaseline />
         <Layout>
-          <Component {...pageProps}/>
+          <Component {...pageProps} />
         </Layout>
-      </ThemeProvider>
+      </CustomThemeProvider>
 
     </React.Fragment>
   );

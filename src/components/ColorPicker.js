@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import SwipeableDrawer from "@material-ui/core/SwipeableDrawer";
 import Button from "@material-ui/core/Button";
@@ -7,6 +7,12 @@ import Divider from "@material-ui/core/Divider";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import CheckBoxOutlineBlankRoundedIcon from "@material-ui/icons/CheckBoxOutlineBlankRounded";
+import PlanitIcon from '../components/PlanitIcon';
+import IconButton from '@material-ui/core/IconButton';
+import { red, orange, yellow, green, blue, purple } from '@material-ui/core/colors';
+import Theme from '../themes/theme';
+import FlareIcon from '@material-ui/icons/Flare';
+import Brightness3Icon from '@material-ui/icons/Brightness3';
 
 const useStyles = makeStyles({
   list: {
@@ -15,23 +21,20 @@ const useStyles = makeStyles({
   fullList: {
     width: "auto"
   },
-  red: {
-    fill: "red"
-  },
-  green: {
-    fill: "green"
-  },
-  blue: {
-    fill: "blue"
-  },
-  purple: {
-    fill: "purple"
-  }
+  light: { fill: '#000' },
+  dark: { fill: '#000' },
+  red: { fill: red.A700 },
+  orange: { fill: orange.A700 },
+  yellow: { fill: yellow.A700 },
+  green: { fill: green.A700 },
+  blue: { fill: blue.A700 },
+  violet: { fill: purple.A700 },
 });
 
 export default function ColorPicker() {
   const classes = useStyles();
   const [isOpen, setOpen] = React.useState(false);
+  const { setColor } = useContext(Theme);
 
   const toggleDrawer = () => (event) => {
     if (
@@ -45,7 +48,7 @@ export default function ColorPicker() {
     setOpen(!isOpen);
   };
 
-  const list = (anchor) => (
+  const list = () => (
     <div
       className={classes.list}
       // role="presentation"
@@ -53,14 +56,13 @@ export default function ColorPicker() {
       onKeyDown={toggleDrawer()}
     >
       <List>
-        {["red", "green", "blue", "purple"].map((text, index) => (
+        {['light', 'dark', 'red', 'orange', 'yellow', 'green', 'blue', 'violet'].map((text, index) => (
           <>
-            <ListItem button key={text}>
+            <ListItem button key={text} onClick={() => { setColor(text) }} >
               <ListItemIcon>
-                <CheckBoxOutlineBlankRoundedIcon
-                  className={classes[text]}
-                  fontSize="large"
-                />
+                {text === 'light' && <FlareIcon className={classes[text]} fontSize="large" /> }
+                {text === 'dark' && <Brightness3Icon className={classes[text]} fontSize="large" />}
+                {index > 1 && <CheckBoxOutlineBlankRoundedIcon className={classes[text]} fontSize="large"  />}
               </ListItemIcon>
               <br />
               <br />
@@ -75,14 +77,17 @@ export default function ColorPicker() {
 
   return (
     <div>
-      <Button onClick={toggleDrawer()}>{"left"}</Button>
+      <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu" onClick={toggleDrawer()}>
+        <PlanitIcon />
+      </IconButton>
       <SwipeableDrawer
         anchor={"left"}
         open={isOpen}
         onClose={toggleDrawer()}
         onOpen={toggleDrawer()}
+        color="Inherit"
       >
-        {list("left")}
+        {list()}
       </SwipeableDrawer>
     </div>
   );

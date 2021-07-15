@@ -13,8 +13,6 @@ eventRouter.get('/', async (req, res) => {
     JSON.parse(options) :
     options;
 
-  console.log(options);
-  console.log(req.body, req.params, req.query);
   try {
     let eventData = await fetchEvents(options);
     res.status(200).send(eventData);

@@ -9,6 +9,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import EditIcon from '@material-ui/icons/Edit';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import React from 'react';
+import {useRouter} from 'next/router';
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -29,10 +30,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Event = ({
-  name, description, owner, location, duration, status, time, window, rsvps
-}) => {
+const Event = (props) => {
+  const router = useRouter();
 
+  const {
+    name, description, owner, location, duration, status, time, window, rsvps, _id
+  } = props;
+  console.log(props);
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
 
@@ -50,9 +54,9 @@ const Event = ({
         </CardContent>
         <CardActions disableSpacing>
           <IconButton aria-label="share">
-            <ShareIcon />
+            <ShareIcon onClick={() => {navigator.clipboard.writeText(`http://localhost:3000/invite-page/${_id}`)}}/>
           </IconButton>
-          <IconButton aria-label="edit">
+          <IconButton aria-label="edit" onClick={()=>{router.push(`/event/${_id}`)}}>
             <EditIcon />
           </IconButton>
           <IconButton

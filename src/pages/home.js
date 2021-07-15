@@ -24,14 +24,14 @@ const useStyles = makeStyles({
 
 const Home = (props) => {
   const classes = useStyles();
-  const { name } = useContext(Account);
+  const { name, loggedIn } = useContext(Account);
   const [state, setState] = useState({
     initialized: false,
     events: [],
   });
 
   useEffect(() => {
-    if (!state.initialized) {
+    if (!state.initialized && loggedIn) {
 
       let data = {
         "options": {
@@ -54,10 +54,6 @@ const Home = (props) => {
 
       axios(config)
         .then(res => res.data)
-        .then(res => {
-          console.log(res)
-          return res;
-        })
         .then(events => {
           setState({
             initialized: true,
@@ -65,7 +61,7 @@ const Home = (props) => {
           })
         })
     }
-  }, [state]);
+  }, [state, name, loggedIn]);
 
 
   return (
@@ -87,7 +83,7 @@ const Home = (props) => {
             />
           </Grid>
           <Grid item xs={1}>
-            <Button className={classes.button} >Test</Button>
+            <Button className={classes.button} color="primary">Search</Button>
           </Grid>
         </Grid>
         {state.events.map(event => (

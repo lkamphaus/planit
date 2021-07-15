@@ -10,7 +10,7 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import { SvgIcon } from '@material-ui/icons';
 import PlanitIcon from '../components/PlanitIcon';
-
+import ColorPicker from './ColorPicker';
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 
@@ -56,12 +56,11 @@ export default function ButtonAppBar({ children }) {
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
-          <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu" >
-            <PlanitIcon />
-          </IconButton>
+          <ColorPicker />
           <Typography variant="h3" className={classes.title} onClick={() => { router.push('/home') }}>
             P L A N . I T
           </Typography>
+          <Button color="inherit"><Link href="/create-event">Create Event</Link></Button>
           {!cookie.loggedIn && <Button color="inherit"><Link href="/login">Login</Link></Button>}
         </Toolbar>
       </AppBar>
