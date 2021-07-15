@@ -29,6 +29,7 @@ const useStyles = makeStyles({
   },
   input: {
     margin: '5px 0 5px 0',
+    width: '100%'
   }
 });
 
