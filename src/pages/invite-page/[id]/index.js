@@ -58,7 +58,11 @@ const InvitePage = ({event}) => {
             'property': '_id',
             'value': event._id
           },
-          'what': data
+          'what': {
+            method: '$push',
+            field: 'rsvps',
+            value: data,
+          },
         }]
       } else {
         updates = [{
@@ -66,7 +70,11 @@ const InvitePage = ({event}) => {
             'property': '_id',
             'value': event._id
           },
-          'what': data
+          'what': {
+            method: '$push',
+            field: 'rsvps',
+            value: data,
+          },
         }]
       }
       axios.put('/api/events', { updates })
