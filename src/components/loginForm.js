@@ -1,12 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Container, TextField, Input, Button } from '@material-ui/core';
 import { useRouter } from 'next/router'
 import axios from 'axios';
+import Account from '../accountContext';
 
 const LoginForm = () => {
   const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const { update }= useContext(Account);
+
+  console.log(update);
 
   const handleChange = (setStateFunc) => (e) => {
     setStateFunc(e.currentTarget.value);
@@ -18,6 +22,7 @@ const LoginForm = () => {
       axios.post('/login', { email, password })
         .then((data) => {
           if (data.status === 200) {
+            update();
             router.push('/home');
           } else {
             console.log('failure', data);

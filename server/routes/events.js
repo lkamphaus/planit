@@ -5,11 +5,20 @@ const eventRouter = express.Router();
 require('dotenv').config();
 
 eventRouter.get('/', async (req, res) => {
-  const { options } = req.body; // object
+  let { options } = req.body.options === undefined ?
+    req.query :
+    req.body;
+
+  options = typeof options === 'string' ?
+    JSON.parse(options) :
+    options;
+
+  console.log(options);
+  console.log(req.body, req.params, req.query);
   try {
     let eventData = await fetchEvents(options);
     res.status(200).send(eventData);
-  } catch(err) {
+  } catch (err) {
     console.error(err);
     res.sendStatus(400);
   }
@@ -20,7 +29,7 @@ eventRouter.put('/', async (req, res) => {
   try {
     await updateEvent(updates);
     res.sendStatus(201);
-  } catch(err) {
+  } catch (err) {
     console.error(err);
     res.sendStatus(400);
   }
@@ -31,7 +40,7 @@ eventRouter.post('/', async (req, res) => {
   try {
     let response = await addEvent(event, 'tarrinneal@gmail.com');
     res.send(response);
-  } catch(err) {
+  } catch (err) {
     console.error(err);
     res.sendStatus(400);
   }
