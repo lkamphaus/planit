@@ -10,7 +10,7 @@ const mockEvent = {
   ownerEmail: "tarrinneal@gmail.com",
   location: 'Tarrin\'s house',
   duration: 7200,
-  status: 'pending',
+  status: 'confirmed',
   time: null,
   window: {
     start: '2021-07-10T22:30:00.002Z',
