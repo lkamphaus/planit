@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, TextField, Input, Button } from '@material-ui/core';
 import axios from 'axios';
 import { useRouter } from 'next/router'
@@ -36,10 +36,6 @@ const SignupForm = () => {
         .catch(err => {
           console.log('Registration failed');
         });
-      console.log('ACCOUNT SUBMIT');
-      console.log('email:', email);
-      console.log('password:', password);
-      console.log('name:', name);
     } else {
       console.log('FIELD VALIDATION FAILED');
     }
