@@ -8,7 +8,7 @@ const FetchGoogleCalendar = ({
   windowEnd = '2021-07-18T15:00:00-07:00',
   storeGoogleAvailability,
   googleClientId
-}) => {
+}, ...props) => {
 
   // Variables for Google API authentication
   var DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"];

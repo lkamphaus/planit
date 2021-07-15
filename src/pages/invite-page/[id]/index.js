@@ -33,7 +33,7 @@ const useStyles = makeStyles({
   }
 });
 
-const InvitePage = ({event}) => {
+const InvitePage = ({event, googleClientId}, ...props) => {
   event = event[0]
 
   const classes = useStyles();
@@ -149,7 +149,7 @@ const InvitePage = ({event}) => {
               <Button variant="contained" className={classes.button} onClick={handleOpen}>Add Availability</Button>
               }
               <Availability
-                googleClientId={props['GOOGLE_CLIENT_ID']}
+                googleClientId={googleClientId}
                 handleClose={handleClose}
                 handleClickOpen={handleOpen}
                 open={open}
@@ -196,16 +196,11 @@ export async function getServerSideProps(context) {
   }
 
   return {
-    props: { event: data }
-  }
-}
-
-export async function getStaticProps(context) {
-  return {
     props: {
-      'GOOGLE_CLIENT_ID': process.env.GOOGLE_CLIENT_ID,
+      event: data,
+      googleClientId: process.env.GOOGLE_CLIENT_ID,
     }
   }
-}
+};
 
 export default InvitePage;
