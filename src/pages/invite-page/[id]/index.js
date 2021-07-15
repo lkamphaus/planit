@@ -1,5 +1,5 @@
 import styles from '../../../styles/invite-page.module.css';
-
+import Script from 'next/script';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useForm } from 'react-hook-form';
@@ -33,7 +33,7 @@ const useStyles = makeStyles({
   }
 });
 
-const InvitePage = ({event}) => {
+const InvitePage = ({event, googleClientId}, ...props) => {
   event = event[0]
 
   const classes = useStyles();
@@ -106,7 +106,7 @@ const InvitePage = ({event}) => {
   return (
     <div className={styles.window}>
       <div className={styles.container}>
-
+        <Script src="https://apis.google.com/js/api.js" strategy="beforeInteractive" />
         <Image
           src={sampleImg}
           className={styles.photo}
@@ -148,7 +148,12 @@ const InvitePage = ({event}) => {
               {status === 'pending' &&
               <Button variant="contained" className={classes.button} onClick={handleOpen}>Add Availability</Button>
               }
-              <Availability handleClose={handleClose} handleClickOpen={handleOpen} open={open}/>
+              <Availability
+                googleClientId={googleClientId}
+                handleClose={handleClose}
+                handleClickOpen={handleOpen}
+                open={open}
+              />
               <Button type="submit" variant="contained" className={classes.button}>RSVP</Button>
             </form>
           </Paper>
@@ -191,8 +196,11 @@ export async function getServerSideProps(context) {
   }
 
   return {
-    props: { event: data }
+    props: {
+      event: data,
+      googleClientId: process.env.GOOGLE_CLIENT_ID,
+    }
   }
-}
+};
 
 export default InvitePage;
