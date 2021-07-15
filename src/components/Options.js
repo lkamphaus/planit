@@ -10,6 +10,13 @@ const Options = (props) => {
   let temp = Object.keys(availability).sort((a, b) => {
     return b - a
   })
+  if(temp.length === 0) {
+    return (
+      <>
+      <span>No one can attend the event, try decreasing the length or wait for more RSVPs</span>
+      </>
+    )
+  }
   if (availability[rsvpNum]) {
     return (
       <>
@@ -20,6 +27,19 @@ const Options = (props) => {
       })}
       </div>
       </>
+    )
+  }
+  if (temp.length < 2) {
+    return (
+      <div>
+        <h1>Select a Time!</h1>
+        <p>{rsvpNum} people have responded to the event!</p>
+        <p>Select a time</p>
+        <span> {temp[0]} can make it at</span>
+        {availability[temp[0]].map( (time, key) => {
+        return <OptionsButton time={time} key={key} handleSetTime={props.handleSetTime}/>
+      })}
+      </div>
     )
   } else {
       return (

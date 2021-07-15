@@ -25,7 +25,7 @@ const LoginForm = () => {
             update();
             router.push('/home');
           } else {
-            console.log('failure', data);
+            console.log('ERROR TOOLTIP WITH:', data.message);
           }
         })
         .catch((err) => {
