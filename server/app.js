@@ -13,7 +13,7 @@ const handle = nextServer.getRequestHandler();
 nextServer.prepare().then(() => {
 
   httpServer.use(express.json({ limit: '3MB' }));
-  httpServer.use(express.urlencoded({extended:true}));
+  httpServer.use(express.urlencoded({extended: true}));
   httpServer.use(cors.corsPolicy);
   httpServer.use(session.sessionParser)
   httpServer.use(session.cookieParser);
