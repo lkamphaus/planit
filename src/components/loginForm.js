@@ -18,9 +18,9 @@ const LoginForm = () => {
       axios.post('/login', { email, password })
         .then((data) => {
           if (data.status === 200) {
-            router.push('/home');
+            router.push('/home')
           } else {
-            console.log('failure', data);
+            console.log('ERROR TOOLTIP WITH:', data.message);
           }
         })
         .catch((err) => {
