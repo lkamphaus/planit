@@ -19,6 +19,7 @@ const mockEvent = {
   rsvps: [
     {
       name: 'Philbert',
+      email: 'philly@coolguy.com',
       availability: [
         {
           start: '2021-07-10T22:30:00.002Z',
@@ -48,6 +49,7 @@ const mockEvent = {
     },
     {
       name: 'Shrek',
+      eamil: 'GetOutOf@my.swamp',
       availability: [
         {
           start: '2021-07-10T23:00:00.002Z',
