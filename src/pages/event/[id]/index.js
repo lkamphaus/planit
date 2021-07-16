@@ -54,6 +54,10 @@ const Event = ({event}) => {
   const handleOpen = () => {
     setOpen(true)
   }
+  const cancelPhoto = () => {
+    setUploaded(false);
+    setUploads('')
+  }
   const savePhoto = async () => {
     const data = {
       "updates": [
@@ -90,6 +94,7 @@ const Event = ({event}) => {
     <div className={styles.container}>
       <div>
         {uploaded && uploads ?
+        <>
         <Image
         className={generalStyles.photo}
         src={uploads}
@@ -98,8 +103,17 @@ const Event = ({event}) => {
         width={1050}
         alt="event-image"
         />
+        <label>
+          <Button variant="contained" component="span" onClick={savePhoto}>  Save
+            </Button>
+        </label>
+        <label>
+          <Button variant="contained" component="span" onClick={cancelPhoto}>  Cancel
+            </Button>
+        </label>
+        </>
         :
-
+        <>
         <Image
         src={test.photo_url ? test.photo_url : testImage}
         className={generalStyles.photo}
@@ -108,7 +122,6 @@ const Event = ({event}) => {
         width={1050}
         alt="event-image"
         />
-        }
         <div>
           <input
             className={styles.hidden}
@@ -120,11 +133,9 @@ const Event = ({event}) => {
             <Button variant="contained" component="span">  Upload
             </Button>
           </label>
-          <label>
-          <Button variant="contained" component="span" onClick={savePhoto}>  Save
-            </Button>
-          </label>
         </div>
+        </>
+        }
       </div>
       <div className={styles.mainsection}>
         <div className={styles.col}>
