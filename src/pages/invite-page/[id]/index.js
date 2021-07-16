@@ -1,20 +1,29 @@
+import Availability from '../../../components/Availability.js';
 import styles from '../../../styles/invite-page.module.css';
-import Script from 'next/script';
-import React, { useState, useEffect } from 'react';
+
 import axios from 'axios';
-import { useForm } from 'react-hook-form';
-import { makeStyles } from '@material-ui/core/styles';
-import Modal from '@material-ui/core/Modal';
+import React, { useState, useEffect } from 'react';
 import Backdrop from '@material-ui/core/Backdrop';
-import Fade from '@material-ui/core/Fade';
-import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
+import CloseIcon from '@material-ui/icons/Close';
+import IconButton from '@material-ui/core/IconButton';
+import Fade from '@material-ui/core/Fade';
+import Dialog from '@material-ui/core/Dialog';
+import MuiDialog from '@material-ui/core/Dialog';
+import MuiDialogTitle from '@material-ui/core/DialogTitle';
+import MuiDialogContent from '@material-ui/core/DialogContent';
+import MuiDialogActions from '@material-ui/core/DialogActions';
+import Modal from '@material-ui/core/Modal';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
+import { makeStyles, withStyles} from '@material-ui/core/styles';
 import { shadows } from '@material-ui/system';
 import { TextField } from '@material-ui/core';
+import { useForm } from 'react-hook-form';
 
 import Head from 'next/head';
 import Image from 'next/image';
-import Availability from '../../../components/Availability.js';
+import Script from 'next/script';
 
 const sampleImg = 'https://wallpaperaccess.com/full/632782.jpg';
 
@@ -24,7 +33,6 @@ const useStyles = makeStyles({
     margin: '10px 0 5px 0',
     '&:hover': {
       color: 'white',
-      background: '#98609c'
     }
   },
   input: {
@@ -33,15 +41,53 @@ const useStyles = makeStyles({
   }
 });
 
+const modalStyles = (theme) => ({
+  root: {
+    margin: 0,
+    padding: theme.spacing(2),
+  },
+  closeButton: {
+    position: 'absolute',
+    right: theme.spacing(1),
+    top: theme.spacing(1),
+    color: theme.palette.grey[500],
+  },
+});
+
+// RSVP Confirmation Modal window
+const DialogTitle = withStyles(modalStyles)((props) => {
+  const { children, classes, onClose, ...other } = props;
+  return (
+    <MuiDialogTitle disableTypography className={classes.root} {...other}>
+      <Typography variant="h6">{children}</Typography>
+    </MuiDialogTitle>
+  );
+});
+
+const DialogContent = withStyles((theme) => ({
+  root: {
+    padding: theme.spacing(2),
+  },
+}))(MuiDialogContent);
+
+const DialogActions = withStyles((theme) => ({
+  root: {
+    margin: 0,
+    padding: theme.spacing(1),
+  },
+}))(MuiDialogActions);
+
 const InvitePage = ({event, googleClientId}, ...props) => {
   event = event[0]
 
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const [avail, setAvail] = useState([]); // pass this down to modal
+  const [rsvp, setRsvp] = useState(false);
+  const [confirmed, setConfirmed] = useState(false);
   const { status } = event;
 
-  const { register, handleSubmit } = useForm({
+  const { register, handleSubmit, formState: { errors } } = useForm({
     revalidateMode: 'onSubmit',
     shouldUseNativeValidation: true
   });
@@ -59,10 +105,10 @@ const InvitePage = ({event, googleClientId}, ...props) => {
             'value': event._id
           },
           'what': {
-            method: '$push',
             field: 'rsvps',
-            value: data,
-          },
+            method: '$push',
+            value: data
+          }
         }]
       } else {
         updates = [{
@@ -71,19 +117,23 @@ const InvitePage = ({event, googleClientId}, ...props) => {
             'value': event._id
           },
           'what': {
-            method: '$push',
             field: 'rsvps',
-            value: data,
-          },
+            method: '$push',
+            value: data
+          }
         }]
       }
       axios.put('/api/events', { updates })
-        .then(response => console.log('Success!'))
+        .then(response => {
+          setRsvp(true);
+          setConfirmed(true);
+        })
         .catch(err => console.error(err));
     }
   }
 
-  const dateDay = (date) => {
+  // Event time helper functions
+  const getDay = (date) => {
     date = date.substring(10, 8);
     if (date[0] === '0') {
       return date[1]
@@ -91,7 +141,16 @@ const InvitePage = ({event, googleClientId}, ...props) => {
       return date;
     }
   }
-  dateDay(event.window.start)
+
+  const getMonth = (date) => {
+    date = new Date(date);
+    date = new Date(date);
+    const month = new Intl.DateTimeFormat("en-US", { month: "long" }).format;
+    return month(date);
+  };
+
+  const day = getDay(event.window.start);
+  const month = getMonth(event.window.start);
 
   const handleOpen = (e) => {
     e.preventDefault();
@@ -103,8 +162,39 @@ const InvitePage = ({event, googleClientId}, ...props) => {
     setAvail(timeSlots);
   };
 
+  const handleRSVPClose = () => {
+    setRsvp(false);
+  }
+
   return (
     <div className={styles.window}>
+
+      <Dialog onClose={handleRSVPClose} aria-labelledby="rsvp-confirmed-title" open={rsvp}>
+        <DialogTitle id="rsvp-confirmed-title" onClose={handleRSVPClose}>
+          RSVP Confirmed!
+        </DialogTitle>
+        {status === 'pending' &&
+        <DialogContent dividers>
+          <Typography gutterBottom>
+            Your availability for <b>{event.name}</b> has been sent to <b>{event.owner}</b>.
+          </Typography>
+          <Typography gutterBottom>
+            Please close this window.
+          </Typography>
+        </DialogContent>
+        }
+        {status === 'confirmed' &&
+          <DialogContent dividers>
+            <Typography gutterBottom>
+              You will be attending <b>{event.name}</b> on <b>{month} {day}</b>.
+            </Typography>
+            <Typography gutterBottom>
+              Please close this window.
+            </Typography>
+        </DialogContent>
+        }
+      </Dialog>
+
       <div className={styles.container}>
         <Script src="https://apis.google.com/js/api.js" strategy="beforeInteractive" />
         <Image
@@ -119,7 +209,7 @@ const InvitePage = ({event, googleClientId}, ...props) => {
         {status === 'confirmed' &&
           <Paper className={styles.date_box} Papershadow={3}>
             <div className={styles.date_banner}></div>
-            <div className={styles.date}>{dateDay(event.window.start)}</div>
+            <div className={styles.date}>{day}</div>
           </Paper>
         }
 
@@ -141,22 +231,31 @@ const InvitePage = ({event, googleClientId}, ...props) => {
             </div>
         </div>
 
-          <Paper className={styles.form} PaperShadow={3}>
-            <form onSubmit={handleSubmit(onSubmit)} PaperShadow={3}>
-              <TextField id="outlined-basic" label="Name" variant="outlined" className={classes.input} {...register('name', { required: 'Please enter your name.' })} />
-              <TextField id="outlined-basic" label="Email" variant="outlined" type="email" className={classes.input} {...register('email', { required: 'Please enter your email.' })} />
+          <Paper className={styles.form} PaperShadow={3} >
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <TextField disabled={confirmed} id="outlined-basic" label="Name" variant="outlined" className={classes.input} {...register('name', { required: true })} />
+
+              {errors.name && errors.name.type === 'required' &&
+              <div className={styles.error}>Please enter your name.</div>}
+
+              <TextField disabled={confirmed} id="outlined-basic" label="Email" variant="outlined" type="email" className={classes.input} {...register('email', { required: true})} />
+
+              {errors.email && errors.email.type === 'required' &&
+              <div className={styles.error}>Please enter your email.</div>}
+
               {status === 'pending' &&
-              <Button variant="contained" className={classes.button} onClick={handleOpen}>Add Availability</Button>
+              <Button disabled={confirmed} variant="contained" className={classes.button} onClick={handleOpen}>Add Availability</Button>
               }
               <Availability
+                disabled={confirmed}
                 googleClientId={googleClientId}
                 handleClose={handleClose}
                 handleClickOpen={handleOpen}
-                open={open}
-              />
-              <Button type="submit" variant="contained" className={classes.button}>RSVP</Button>
+                open={open}/>
+              <Button disabled={confirmed} type="submit" variant="contained" className={classes.button}>RSVP</Button>
             </form>
           </Paper>
+
         </div>
       </div>
     </div>
