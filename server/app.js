@@ -2,6 +2,7 @@ const { app: httpServer, initRoutes } = require('./index.js');
 const express = require('express');
 const { session, cors, login: passport } = require('./middleware');
 const db = require('../database');
+const fileupload = require('express-fileupload');
 
 const { parse } = require('url');
 const next = require('next');
@@ -13,7 +14,8 @@ const handle = nextServer.getRequestHandler();
 nextServer.prepare().then(() => {
 
   httpServer.use(express.json({ limit: '3MB' }));
-  httpServer.use(express.urlencoded({extended: true}));
+  httpServer.use(express.urlencoded({extended:true}));
+  httpServer.use(fileupload({useTempFiles: true}));
   httpServer.use(cors.corsPolicy);
   httpServer.use(session.sessionParser)
   httpServer.use(session.cookieParser);

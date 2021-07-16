@@ -45,3 +45,6 @@ src/.vercel
 
 # package-lock
 package-lock.json
+
+#cloudinary
+/tmp/
