@@ -54,6 +54,7 @@ eventRouter.post('/photos', (req, res) => {
     api_secret: `${process.env.API_SECRET}`,
   };
   cloudinary.config(confObj);
+
   cloudinary.uploader.upload(fileData.tempFilePath, (error, result) => {
     if (error) {
       console.error(err);
