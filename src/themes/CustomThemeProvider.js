@@ -68,6 +68,11 @@ const CustomThemeProvider = ({ children }) => {
       root: {
         margin: '10px',
       }
+    },
+    MuiButton: {
+      root: {
+        margin: '1em 0',
+      }
     }
   }
 
