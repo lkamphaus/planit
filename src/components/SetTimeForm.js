@@ -18,7 +18,7 @@ const styles = (theme) => ({
   root: {
     margin: 0,
     padding: theme.spacing(2),
-    backgroundColor: '#f1e4f4',
+    backgroundColor: theme.palette.background.default,
     textAlign: 'center',
   },
   closeButton: {
@@ -126,7 +126,7 @@ const SetTimeForm = (props) => {
       <Button variant="contained" component="span" onClick={handleOpen}>
           Set Event Time
         </Button>
-      <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open} maxWidth='700px'>
+      <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open} maxWidth='lg'>
       <DialogTitle id="customized-dialog-title" onClose={handleClose}>
           Set Event Time
         </DialogTitle>
