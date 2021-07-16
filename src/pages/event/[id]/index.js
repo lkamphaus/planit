@@ -41,7 +41,7 @@ const Event = ({event}) => {
         body: formData
       })
       const url = await response.text();
-      console.log(url)
+//       console.log(url)
       setUploaded(true);
       setUploads(url);
     } catch(err) {
