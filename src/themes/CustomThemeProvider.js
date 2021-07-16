@@ -71,7 +71,7 @@ const CustomThemeProvider = ({ children }) => {
     },
     MuiButton: {
       root: {
-        margin: '1em 0',
+        marginTop: '1em',
       }
     }
   }
