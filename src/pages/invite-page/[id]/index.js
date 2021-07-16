@@ -1,3 +1,7 @@
+import Availability from '../../../components/Availability.js';
+import styles from '../../../styles/invite-page.module.css';
+
+import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import Backdrop from '@material-ui/core/Backdrop';
 import Button from '@material-ui/core/Button';
@@ -9,20 +13,17 @@ import MuiDialog from '@material-ui/core/Dialog';
 import MuiDialogTitle from '@material-ui/core/DialogTitle';
 import MuiDialogContent from '@material-ui/core/DialogContent';
 import MuiDialogActions from '@material-ui/core/DialogActions';
-import Typography from '@material-ui/core/Typography';
 import Modal from '@material-ui/core/Modal';
 import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
 import { makeStyles, withStyles} from '@material-ui/core/styles';
 import { shadows } from '@material-ui/system';
 import { TextField } from '@material-ui/core';
 import { useForm } from 'react-hook-form';
 
-import axios from 'axios';
-import styles from '../../../styles/invite-page.module.css';
-
 import Head from 'next/head';
 import Image from 'next/image';
-import Availability from '../../../components/Availability.js';
+import Script from 'next/script';
 
 const sampleImg = 'https://wallpaperaccess.com/full/632782.jpg';
 
@@ -77,7 +78,7 @@ const DialogActions = withStyles((theme) => ({
   },
 }))(MuiDialogActions);
 
-const InvitePage = ({event}) => {
+const InvitePage = ({event, googleClientId}, ...props) => {
   event = event[0]
 
   const classes = useStyles();
@@ -196,6 +197,7 @@ const InvitePage = ({event}) => {
       </Dialog>
 
       <div className={styles.container}>
+        <Script src="https://apis.google.com/js/api.js" strategy="beforeInteractive" />
         <Image
           src={sampleImg}
           className={styles.photo}
@@ -245,8 +247,14 @@ const InvitePage = ({event}) => {
               {status === 'pending' &&
               <Button disabled={confirmed} variant="contained" className={classes.button} onClick={handleOpen}>Add Availability</Button>
               }
-              <Availability disabled={confirmed} handleClose={handleClose} handleClickOpen={handleOpen} open={open}/>
+              <Availability
+                disabled={confirmed}
+                googleClientId={googleClientId}
+                handleClose={handleClose}
+                handleClickOpen={handleOpen}
+                open={open}/>
               <Button disabled={confirmed} type="submit" variant="contained" className={classes.button}>RSVP</Button>
+              <Button type="submit" variant="contained" className={classes.button}>RSVP</Button>
             </form>
           </Paper>
 
@@ -289,8 +297,11 @@ export async function getServerSideProps(context) {
   }
 
   return {
-    props: { event: data }
+    props: {
+      event: data,
+      googleClientId: process.env.GOOGLE_CLIENT_ID,
+    }
   }
-}
+};
 
 export default InvitePage;
