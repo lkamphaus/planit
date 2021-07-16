@@ -36,10 +36,10 @@ const Event = ({event}) => {
   return (
   <div className={generalStyles.window}>
     {/* <div className={generalStyles.title}>P L A N . I T</div> */}
-    <div className={generalStyles.container}>
+    <div className={styles.container}>
       <div>
         <Image
-        src={testImage}
+        src={test.photo_url ? test.photo_url : testImage}
         className={generalStyles.photo}
         layout="responsive"
         height={144}

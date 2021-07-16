@@ -1,8 +1,11 @@
 
 
 .container {
-  width: 600px;
-  background-color: beige;
+  display: flex;
+  flex-flow: column;
+  align-self: center;
+  min-height: 45vh;
+  width: 75%;
 }
 /*
   ========================================
