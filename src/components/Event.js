@@ -9,7 +9,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import EditIcon from '@material-ui/icons/Edit';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import React from 'react';
-import {useRouter} from 'next/router';
+import { useRouter } from 'next/router';
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -34,9 +34,12 @@ const Event = (props) => {
   const router = useRouter();
 
   const {
-    name, description, owner, location, duration, status, time, window, rsvps, _id
+    name, description, owner, location, duration, status, time, window, rsvps, _id, photo_url
   } = props;
+
+  const photo = photo_url;
   console.log(props);
+  console.log(photo);
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
 
@@ -45,39 +48,43 @@ const Event = (props) => {
   };
 
   return (
-      <Card color="primary" className={classes.card}>
-        <CardMedia
-          image="https://www.colesclassroom.com/wp-content/uploads/2020/03/white-and-red-cherry-blossom-flowers-3979186.jpg"
-        />
-        <CardContent className={classes.cardContent}>
-          <Typography variant="h6">{name}</Typography>
-        </CardContent>
-        <CardActions disableSpacing>
-          <IconButton aria-label="share">
-            <ShareIcon onClick={() => {navigator.clipboard.writeText(`http://localhost:3000/invite-page/${_id}`)}}/>
-          </IconButton>
-          <IconButton aria-label="edit" onClick={()=>{router.push(`/event/${_id}`)}}>
-            <EditIcon />
-          </IconButton>
-          <IconButton
-            className={clsx(classes.expand, {
-              [classes.expandOpen]: expanded,
-            })}
-            onClick={handleExpandClick}
-            aria-expanded={expanded}
-            aria-label="show more"
-          >
-            <ExpandMoreIcon />
-          </IconButton>
-        </CardActions>
-        <Collapse in={expanded} timeout="auto" unmountOnExit>
-          <CardContent>
+    <Card color="primary" className={classes.card}>
+      {photo && <CardMedia
+        image={photo}
+      />}
+      <CardContent className={classes.cardContent}>
+        <Typography
+          variant="h6"
+          align="center"
+          color="inherit"
+        >{name}</Typography>
+      </CardContent>
+      <CardActions disableSpacing>
+        <IconButton aria-label="share">
+          <ShareIcon onClick={() => { navigator.clipboard.writeText(`http://localhost:3000/invite-page/${_id}`) }} />
+        </IconButton>
+        <IconButton aria-label="edit" onClick={() => { router.push(`/event/${_id}`) }}>
+          <EditIcon />
+        </IconButton>
+        <IconButton
+          className={clsx(classes.expand, {
+            [classes.expandOpen]: expanded,
+          })}
+          onClick={handleExpandClick}
+          aria-expanded={expanded}
+          aria-label="show more"
+        >
+          <ExpandMoreIcon />
+        </IconButton>
+      </CardActions>
+      <Collapse in={expanded} timeout="auto" unmountOnExit>
+        <CardContent>
           <Typography variant="body1" component="p">
-              {description}
-            </Typography>
-          </CardContent>
-        </Collapse>
-      </Card >
+            {description}
+          </Typography>
+        </CardContent>
+      </Collapse>
+    </Card >
   )
 }
 
