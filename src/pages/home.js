@@ -1,33 +1,68 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { TextField, Grid, makeStyles, Button } from '@material-ui/core';
-import { MultipleEventsData } from '../../MockData/EventData.js';
+import axios from 'axios';
 import Link from 'next/link'
+
 import Event from '../components/Event';
-
-
- const useStyles = makeStyles({
-   root: {
-     marginRight: '1rem',
-     width: '100%',
-   },
-   gridHeader: {
-     width: '100%',
-   },
-   button: {
-     marginLeft: '1em',
-   }
-
- })
+import Account from '../accountContext';
 
 
 
+const useStyles = makeStyles({
+  root: {
+    marginRight: '1rem',
+    width: '100%',
+  },
+  gridHeader: {
+    width: '100%',
+  },
+  button: {
+    marginLeft: '1em',
+  }
 
+})
 
-
-
-
-const Home = () => {
+const Home = (props) => {
   const classes = useStyles();
+  const { name, loggedIn } = useContext(Account);
+  const [state, setState] = useState({
+    initialized: false,
+    events: [],
+  });
+
+  useEffect(() => {
+    if (!state.initialized && loggedIn) {
+
+      let data = {
+        "options": {
+          "count": 20,
+          "where": {
+            "property": "owner",
+            "value": name
+          }
+        }
+      };
+
+      let config = {
+        method: 'get',
+        url: '/api/events',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        params: data
+      };
+
+      axios(config)
+        .then(res => res.data)
+        .then(events => {
+          setState({
+            initialized: true,
+            events,
+          })
+        })
+    }
+  }, [state, name, loggedIn]);
+
 
   return (
     <>
@@ -48,12 +83,12 @@ const Home = () => {
             />
           </Grid>
           <Grid item xs={1}>
-            <Button className={classes.button} >Test</Button>
+            <Button className={classes.button} color="primary">Search</Button>
           </Grid>
         </Grid>
-        {MultipleEventsData.map( event => (
-          <Grid item key={Math.random()} xs={6}>
-            <Event {...event['1']}/>
+        {state.events.map(event => (
+          <Grid item key={Math.random()} xs={6} >
+            <Event {...event} />
           </Grid>
         ))}
       </Grid>
