@@ -52,7 +52,7 @@ const UpdateEventForm = (props) => {
   }
   if(open) {
     return (
-      <>
+      <div className={styles.info}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <label>
             <h3>
@@ -64,7 +64,9 @@ const UpdateEventForm = (props) => {
             <h3>
               Duration:
             </h3>
-            <input step="0.5" type="number" {...register("duration")}/> hours
+            <div className={styles.flex}>
+            <input className={styles.info} step="0.5" type="number" {...register("duration")}/> hours
+            </div>
           </label>
           <label>
             <h3>Description:</h3>
@@ -74,16 +76,16 @@ const UpdateEventForm = (props) => {
             <Button type="submit">
               Save
             </Button>
+            <Button onClick={() => {setOpen(false)}}>
+              Cancel
+            </Button>
           </div>
         </form>
-        <Button onClick={() => {setOpen(false)}}>
-          Cancel
-        </Button>
-      </>
+      </div>
     )
   }
   return (
-    <div>
+    <div className={styles.info}>
       <div>
         <h3>Location:</h3><p>{props.data.location}</p>
       </div>
@@ -92,9 +94,12 @@ const UpdateEventForm = (props) => {
       </div>
       <h3>Description:</h3>
       <p>{props.data.description}</p>
+      <div>
+
       <Button onClick={() => {setOpen(true)}}>
         Edit
       </Button>
+      </div>
     </div>
   )
 }

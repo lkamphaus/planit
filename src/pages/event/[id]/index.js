@@ -4,7 +4,7 @@ import mockData from '../../../../MockData/EventData.js';
 import Button from '@material-ui/core/Button';
 import Modal from '@material-ui/core/Modal';
 import IconButton from '@material-ui/core/IconButton';
-import Box from '@material-ui/core/Box';
+import Paper from '@material-ui/core/Paper';
 import { shadows } from '@material-ui/system';
 import Image from 'next/image';
 import axios from 'axios'
@@ -139,35 +139,31 @@ const Event = ({event}) => {
       </div>
       <div className={styles.mainsection}>
         <div className={styles.col}>
-          <Box className={styles.header} boxshadow={3}>
+          <Paper className={styles.header} papershadow={3}>
           <h1>
               {test.name}
             </h1>
             <div className={styles.info}>
-              <span> Status: {test.status}
+              <span> <b>Status:</b> {test.status}
               </span>
-              <span>Time Frame: {formatedStartWindow} to {formatedEndWindow} </span>
+              <span> <b>Time Frame:</b> {formatedStartWindow} to {formatedEndWindow} </span>
               <span>
-                Event Time: {test.time ? formatedDate : 'Not set'}
+                <b>Event Time:</b> {test.time ? formatedDate : 'Not set'}
               </span>
               <span>
-                Current RSVPs: {rsvpList.join(', ')}
+                <b>Current RSVPs:</b> {rsvpList.join(', ')}
               </span>
             </div>
-          </Box>
-          <Box >
+          </Paper>
             <Button variant="contained" component="span" onClick={() => {navigator.clipboard.writeText(`http://localhost:3000/invite-page/${test._id}`)}}>
               Copy Link to Event
             </Button>
-          </Box>
-          <Box >
             <SetTimeForm data={test} refeshData={refeshData}/>
-          </Box>
         </div>
         <div className={styles.col}>
-          <Box className={generalStyles.description} boxshadow={3}>
+          <Paper className={generalStyles.description} papershadow={3}>
             <UpdateEventForm data={test} refeshData={refeshData}/>
-          </Box>
+          </Paper>
         </div>
       </div>
     </div>
