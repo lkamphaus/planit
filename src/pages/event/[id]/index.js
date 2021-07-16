@@ -192,10 +192,10 @@ export async function getServerSideProps(context) {
   };
   const response = await axios(config);
   const data = response.data
-  if (!data) {
+  if (!data || data.length === 0) {
     return {
       redirect: {
-        destination: '/',
+        destination: '/home',
         permanent: false,
       },
     }
