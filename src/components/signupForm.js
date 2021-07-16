@@ -8,6 +8,7 @@ const SignupForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
+  const [isProcessingSignup, setIsProcesseingSignup] = useState(false);
   const router = useRouter();
 
   const handleChange = (setStateFunc) => (e) => {
@@ -17,6 +18,7 @@ const SignupForm = () => {
   const createAccount = (e) => {
     e.preventDefault();
     if (email && password && name) {
+      setIsProcesseingSignup(true);
       // Submit user credentials to create account
       axios.post('/signup', {email, name, password})
         .then(res => {
@@ -35,6 +37,7 @@ const SignupForm = () => {
         })
         .catch(err => {
           console.log('Registration failed');
+          setIsProcesseingSignup(false);
         });
     } else {
       console.log('FIELD VALIDATION FAILED');
@@ -78,8 +81,9 @@ const SignupForm = () => {
         variant="contained"
         color="primary"
         onClick={createAccount}
+        disabled={isProcessingSignup}
       >
-        Create account
+        {isProcessingSignup ? 'Creating account...' : 'Create account'}
       </Button>
     </form>
   );
