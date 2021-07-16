@@ -75,7 +75,7 @@ const Event = ({event}) => {
             </div>
           </Box>
           <Box >
-            <Button variant="contained" component="span" onClick={() => {navigator.clipboard.writeText('http://localhost:3000/invite-page')}}>
+            <Button variant="contained" component="span" onClick={() => {navigator.clipboard.writeText(`http://localhost:3000/invite-page/${test._id}`)}}>
               Copy to Clipboard
             </Button>
           </Box>
@@ -104,9 +104,7 @@ export async function getServerSideProps(context) {
       }
     }
   })
-  //console.log(eventData)
-  // res = await fetch(`http://localhost:3000/api/events`, {method: 'get', body: eventData})
-  //const data = await res.json()
+
   var config = {
     method: 'get',
     url: 'http://localhost:3000/api/events',
