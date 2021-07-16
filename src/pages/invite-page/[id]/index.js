@@ -198,7 +198,7 @@ const InvitePage = ({ event, googleClientId }, ...props) => {
       <div className={styles.container}>
         <Script src="https://apis.google.com/js/api.js" strategy="beforeInteractive" />
         <Image
-          src={sampleImg}
+          src={event.photo_url || sampleImg}
           className={styles.photo}
           layout="responsive"
           height={144}
@@ -263,8 +263,6 @@ const InvitePage = ({ event, googleClientId }, ...props) => {
 };
 
 export async function getServerSideProps(context) {
-  console.log('params.id:', context.params.id);
-
   var eventData = JSON.stringify({
     "options": {
       "count": 1,
