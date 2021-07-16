@@ -136,17 +136,12 @@ export default function CreateEvent() {
     e.preventDefault()
 
     form.duration = form.duration * 3600;
-
-    console.log('dur', form.duration)
-
     form.window = {
       start: windowStart,
       end: windowEnd
     };
     form.photo_url = uploads;
     form.owner = name;
-
-    console.log('name', form.owner);
 
     let event = JSON.stringify(form);
 
