@@ -1,6 +1,6 @@
 import {useRouter} from 'next/router';
 import React, { useState, useContext } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
 import { shadows } from '@material-ui/system';
@@ -17,6 +17,10 @@ import axios from 'axios';
 import DateFnsUtils from '@date-io/date-fns';
 import { DatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 import accountContext from '.././accountContext.js';
+import Dialog from '@material-ui/core/Dialog';
+import Typography from '@material-ui/core/Typography';
+import MuiDialogContent from '@material-ui/core/DialogContent';
+import MuiDialogTitle from '@material-ui/core/DialogTitle';
 
 import styles from '.././styles/Create.module.css';
 
@@ -75,6 +79,34 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
+const modalStyles = (theme) => ({
+  root: {
+    margin: 0,
+    padding: theme.spacing(2),
+  },
+  closeButton: {
+    position: 'absolute',
+    right: theme.spacing(1),
+    top: theme.spacing(1),
+    color: theme.palette.grey[500],
+  },
+});
+
+const DialogContent = withStyles((theme) => ({
+  root: {
+    padding: theme.spacing(2),
+  },
+}))(MuiDialogContent);
+
+const DialogTitle = withStyles(modalStyles)((props) => {
+  const { children, classes, onClose, ...other } = props;
+  return (
+    <MuiDialogTitle disableTypography className={classes.root} {...other}>
+      <Typography variant="h6">{children}</Typography>
+    </MuiDialogTitle>
+  );
+});
+
 
 export default function CreateEvent() {
   const classes = useStyles();
@@ -88,11 +120,12 @@ export default function CreateEvent() {
         description: ""
   });
 
-  const [windowStart, setWindowStart] = useState(new Date());
-  const [windowEnd, setWindowEnd] = useState(new Date());
+  let [windowStart, setWindowStart] = useState(new Date());
+  let [windowEnd, setWindowEnd] = useState(new Date());
 
   const [uploads, setUploads] = useState('');
   const [uploaded, setUploaded] = useState(false);
+  const [confirmed, setConfirmed] = useState(false);
 
   const handleChange = () => (event) => {
 
@@ -135,6 +168,9 @@ export default function CreateEvent() {
   const createNewEvent = async (e) => {
     e.preventDefault()
 
+    windowStart.setHours(0, 0, 0, 0);
+    windowEnd.setHours(0, 0, 0, 0);
+
     form.duration = form.duration * 3600;
     form.window = {
       start: windowStart,
@@ -142,6 +178,8 @@ export default function CreateEvent() {
     };
     form.photo_url = uploads;
     form.owner = name;
+    form.status = 'pending';
+    form.time = null;
 
     let event = JSON.stringify(form);
 
@@ -155,11 +193,16 @@ export default function CreateEvent() {
           body: event,
         }
       )
+      setConfirmed(true);
     } catch(err) {
       console.log(err);
     }
   };
 
+
+  const handleConfirmClose = () => {
+    setConfirmed(false);
+  }
 
 
   return (
@@ -188,7 +231,7 @@ export default function CreateEvent() {
                   id="contained-button-file"
                   type="file"
                   onChange={onFileChange}
-                />
+                  accept=".jpg, .jpeg, .png, .svg"/>
                 <label htmlFor="contained-button-file">
                   <Button color="primary"
                     variant="contained"
@@ -302,6 +345,20 @@ export default function CreateEvent() {
           </Grid>
         </Grid>
       </form>
+      <Dialog  onClose={handleConfirmClose} aria-labelledby="created-title" open={confirmed}>
+        <DialogTitle id="created-title" onClose={handleConfirmClose}>
+            Event Created!
+          </DialogTitle>
+          <DialogContent dividers>
+            <Typography gutterBottom>
+              Event: <b>{form.name}</b> will be held at <b>{form.location}</b>!
+            </Typography>
+            <Typography gutterBottom>
+              Please send the invitation to your guests now.
+            </Typography>
+        </DialogContent>
+      </Dialog>
+
     </div>
   )
 }
