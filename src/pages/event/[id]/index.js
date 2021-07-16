@@ -84,8 +84,13 @@ const Event = ({event}) => {
           body: JSON.stringify(data),
         }
       )
+
     } catch(err) {
       console.log(err);
+    } finally {
+      await refeshData();
+      setUploaded(false);
+      setUploads('')
     }
   }
   return (

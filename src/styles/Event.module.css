@@ -75,6 +75,7 @@
   justify-content: space-around;
   grid-auto-rows: 40px;
   grid-template-columns: 215px 215px 215px;
+  padding-bottom: 25px;
 }
 .test {
   width: 198px;
