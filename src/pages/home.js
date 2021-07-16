@@ -24,13 +24,14 @@ const useStyles = makeStyles({
 
 const Home = (props) => {
   const classes = useStyles();
-  const { name, loggedIn } = useContext(Account);
+  const { name, loggedIn, update } = useContext(Account);
   const [state, setState] = useState({
     initialized: false,
     events: [],
   });
 
   useEffect(() => {
+    update();
     if (!state.initialized && loggedIn) {
 
       let data = {
