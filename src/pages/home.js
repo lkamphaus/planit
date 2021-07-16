@@ -28,75 +28,90 @@ const Home = (props) => {
   const [state, setState] = useState({
     initialized: false,
     events: [],
+    displayedEvents: [],
   });
 
   useEffect(() => {
-    if (typeof update === 'function' ) {
-    update();
-  }
-  if (!state.initialized && loggedIn) {
+    if (typeof update === 'function') {
+      update();
+    }
+    if (!state.initialized && loggedIn) {
 
-    let data = {
-      "options": {
-        "count": 20,
-        "where": {
-          "property": "owner",
-          "value": name
+      let data = {
+        "options": {
+          "count": 20,
+          "where": {
+            "property": "owner",
+            "value": name
+          }
         }
-      }
-    };
+      };
 
-    let config = {
-      method: 'get',
-      url: '/api/events',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      params: data
-    };
+      let config = {
+        method: 'get',
+        url: '/api/events',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        params: data
+      };
 
-    axios(config)
-      .then(res => res.data)
-      .then(events => {
-        setState({
-          initialized: true,
-          events,
+      axios(config)
+        .then(res => res.data)
+        .then(events => {
+          setState({
+            initialized: true,
+            events,
+            displayedEvents: events,
+          })
         })
+    }
+  }, [loggedIn, name, update, state.initialized]);
+
+
+  const search = (e) => {
+    console.log(e.key);
+    if (e.key === 'Enter') {
+      const query = document.getElementById('search-bar').value;
+      console.log(query)
+      const newDisplayed = state.events.filter((event) => {
+        return event.name.indexOf(query) >= 0;
       })
+      setState({
+        ...state,
+        displayedEvents: newDisplayed,
+      })
+    }
   }
-}, [loggedIn, name, update, state.initialized]);
 
-
-return (
-  <>
-    <Grid container direction="column" alignItems="center" spacing={6}>
-      <Grid container
-        className={classes.gridHeader}
-        alignItems="center"
-        justifyContent="center"
-        direction="row"
-      >
-        <Grid item xs={2}>
-          <TextField
-            margin="dense"
-            className={classes.root}
-            id="outlined-basic"
-            label="Search"
-            variant="outlined"
-          />
+  return (
+    <>
+      <Grid container direction="column" alignItems="center" spacing={6}>
+        <Grid container
+          className={classes.gridHeader}
+          alignItems="center"
+          justifyContent="center"
+          direction="row"
+        >
+          <Grid item xs={2}>
+            <TextField
+              margin="dense"
+              className={classes.root}
+              id="search-bar"
+              label="Search"
+              variant="outlined"
+              onKeyUp={search}
+            />
+          </Grid>
         </Grid>
-        <Grid item xs={1}>
-          <Button className={classes.button} color="primary">Search</Button>
-        </Grid>
+        {state.displayedEvents.map(event => (
+          <Grid item key={Math.random()} xs={6} >
+            <Event {...event} />
+          </Grid>
+        ))}
       </Grid>
-      {state.events.map(event => (
-        <Grid item key={Math.random()} xs={6} >
-          <Event {...event} />
-        </Grid>
-      ))}
-    </Grid>
-  </>
-);
+    </>
+  );
 }
 
 export default Home;

@@ -8,7 +8,7 @@ import Theme from './theme';
 const colors = {
   light: {
     primary: { main: '#fff' },
-    background: { default: '#fff' }
+    background: { default: '#cac4ce' }
   },
   dark: {
     primary: { main: '#000' },
@@ -73,7 +73,7 @@ const CustomThemeProvider = ({ children }) => {
       root: {
         marginTop: '1em',
       }
-    }
+    },
   }
 
   return (
