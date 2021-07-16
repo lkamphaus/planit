@@ -22,7 +22,7 @@ const LoginForm = () => {
       axios.post('/login', { email, password })
         .then((data) => {
           if (data.status === 200) {
-            update();
+            // update();
             router.push('/home');
           } else {
             console.log('ERROR TOOLTIP WITH:', data.message);

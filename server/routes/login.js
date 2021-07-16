@@ -15,7 +15,8 @@ loginRouter.get('/login', (req, res, next) => {
 
 loginRouter.post('/login',
 passport.authenticate('local'), (req, res) => {
-  res.status(200).send('/home');
+  // res.status(200).send('/home');
+  res.redirect('/home')
 });
 
 loginRouter.get('/logout', (req, res) => {
