@@ -77,17 +77,17 @@ const DialogActions = withStyles((theme) => ({
   },
 }))(MuiDialogActions);
 
-const InvitePage = ({event, googleClientId}, ...props) => {
+const InvitePage = ({ event, googleClientId }, ...props) => {
   event = event[0]
 
   const classes = useStyles();
-  const [open, setOpen] = useState(false);
-  const [avail, setAvail] = useState([]); // pass this down to modal
-  const [rsvp, setRsvp] = useState(false);
+  const [avail, setAvail] = useState([]);
   const [confirmed, setConfirmed] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [rsvp, setRsvp] = useState(false);
   const { status } = event;
 
-  const { register, handleSubmit } = useForm({
+  const { register, handleSubmit, formState: { errors } } = useForm({
     revalidateMode: 'onSubmit',
     shouldUseNativeValidation: true
   });
@@ -144,7 +144,6 @@ const InvitePage = ({event, googleClientId}, ...props) => {
 
   const getMonth = (date) => {
     date = new Date(date);
-    date = new Date(date);
     const month = new Intl.DateTimeFormat("en-US", { month: "long" }).format;
     return month(date);
   };
@@ -198,7 +197,7 @@ const InvitePage = ({event, googleClientId}, ...props) => {
       <div className={styles.container}>
         <Script src="https://apis.google.com/js/api.js" strategy="beforeInteractive" />
         <Image
-          src={sampleImg}
+          src={event.photo_url || sampleImg}
           className={styles.photo}
           layout="responsive"
           height={144}
@@ -285,7 +284,7 @@ export async function getServerSideProps(context) {
   const response = await axios(config);
   const data = response.data
 
-  if (!data) {
+  if (!data || data.length === 0) {
     return {
       redirect: {
         destination: '/',
@@ -293,6 +292,7 @@ export async function getServerSideProps(context) {
       },
     }
   }
+
 
   return {
     props: {
