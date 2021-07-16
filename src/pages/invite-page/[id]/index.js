@@ -144,7 +144,6 @@ const InvitePage = ({ event, googleClientId }, ...props) => {
 
   const getMonth = (date) => {
     date = new Date(date);
-    date = new Date(date);
     const month = new Intl.DateTimeFormat("en-US", { month: "long" }).format;
     return month(date);
   };
@@ -284,7 +283,6 @@ export async function getServerSideProps(context) {
 
   const response = await axios(config);
   const data = response.data
-  console.log('data:', data);
 
   if (!data || data.length === 0) {
     return {
