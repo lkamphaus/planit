@@ -9,7 +9,7 @@ const withTM = require('next-transpile-modules')([
 module.exports = withTM({
   reactStrictMode: true,
   images: {
-    domains: ['wallpaperaccess.com']
+    domains: ['wallpaperaccess.com', 'res.cloudinary.com']
   }
 })
 
