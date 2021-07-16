@@ -19,9 +19,10 @@ const FetchGoogleCalendar = ({
   const [showNoCalendarDataMsg, setShowNoCalendarDataMsg] = useState(false);
 
   // Initialize Google API auth once component has mounted
-  useEffect(() => {
-    gapi.load('client:auth2', initClient);
-  });
+  // (Now gapi.load() runs outside this useEffect)
+  // useEffect(() => {
+  //   gapi.load('client:auth2', initClient);
+  // }, [initClient]);
 
   // Clear the 'no calendar data' message after three seconds
   useEffect(() => {
@@ -41,7 +42,7 @@ const FetchGoogleCalendar = ({
       discoveryDocs: DISCOVERY_DOCS,
       scope: SCOPES
     })
-      .then(() => {}, (error) => {
+      .then(() => { }, (error) => {
         console.log(error);
       });
   }
@@ -103,6 +104,9 @@ const FetchGoogleCalendar = ({
         }
       });
   };
+
+  // Initialize Google API auth once component has mounted
+  gapi.load('client:auth2', initClient);
 
   return (
     <div className={styles.container}>
