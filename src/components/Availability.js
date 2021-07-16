@@ -66,7 +66,9 @@ const DialogActions = withStyles((theme) => ({
 export default function Availability({
   handleClose,
   open,
-  googleClientId
+  googleClientId,
+  windowStart,
+  windowEnd
 }) {
 
   return (
@@ -84,7 +86,12 @@ export default function Availability({
             Add Availability
           </DialogTitle>
           <DialogContent>
-            <TimeBlock googleClientId={googleClientId} onClose={handleClose}/>
+            <TimeBlock
+              googleClientId={googleClientId}
+              onClose={handleClose}
+              windowStart={windowStart}
+              windowEnd={windowEnd}
+            />
           </DialogContent>
         </Dialog>
       </ThemeProvider>

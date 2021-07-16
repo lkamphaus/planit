@@ -54,13 +54,17 @@ export default function TimeBlock(props) {
       <FetchGoogleCalendar
         googleClientId={props.googleClientId}
         storeGoogleAvailability={storeGoogleAvailability}
-        // windowStart={}
-        // windowEnd={}
+        windowStart={props.windowStart}
+        windowEnd={props.windowEnd}
       />
       <FullCalendar
         plugins={[interactionPlugin, timeGridPlugin, dayGridPlugin]}
         // key={initialEvents}
         initialView='timeGridWeek'
+        validRange={{
+          start: props.windowStart,
+          end: props.windowEnd,
+        }}
         editable={true}
         selectable={true}
         selectMirror={true}
