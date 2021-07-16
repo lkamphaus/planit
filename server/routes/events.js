@@ -2,7 +2,9 @@ const express = require('express');
 const cloudinary = require('cloudinary').v2;
 const { fetchEvents, addEvent, updateEvent } = require('../../database/controllers/eventController');
 const eventRouter = express.Router();
+
 require('dotenv').config();
+
 
 eventRouter.get('/', async (req, res) => {
   let { options } = req.body.options === undefined ?
@@ -44,25 +46,22 @@ eventRouter.post('/', async (req, res) => {
   }
 });
 
-eventRouter.post('/photos', async (req, res) => {
-  const { fileData } = req.body;
+eventRouter.post('/photos', (req, res) => {
+  const {0: fileData} = req.files
   let confObj = {
     cloud_name: `${process.env.CLOUD_NAME}`,
     api_key: `${process.env.API_KEY}`,
     api_secret: `${process.env.API_SECRET}`,
   };
   cloudinary.config(confObj);
-  cloudinary.uploader.upload(fileData, (err, result) => {
-    if (err) {
+  cloudinary.uploader.upload(fileData.tempFilePath, (error, result) => {
+    if (error) {
       console.error(err);
       res.sendStatus(400);
     } else {
-      const transform = 'w_400,c_scale/';
-      const insertInd = result.url.indexOf('upload/') + 7;
-      const transformedUrl = result.url.slice(0, insertInd) + transform + result.url.slice(insertInd);
-      res.status(200).send(transformedUrl);
+      res.send(result.secure_url);
     }
   });
-})
+});
 
 module.exports.eventRouter = eventRouter;

@@ -87,7 +87,9 @@ const InvitePage = ({event, googleClientId}, ...props) => {
   const [confirmed, setConfirmed] = useState(false);
   const { status } = event;
 
-  const { register, handleSubmit, formState: { errors } } = useForm({
+  console.log('status', status)
+
+  const { register, handleSubmit } = useForm({
     revalidateMode: 'onSubmit',
     shouldUseNativeValidation: true
   });
@@ -297,7 +299,7 @@ export async function getServerSideProps(context) {
   return {
     props: {
       event: data,
-      googleClientId: process.env.GOOGLE_CLIENT_ID,
+      googleClientId: process.env.GOOGLE_CLIENT_ID || null,
     }
   }
 };
