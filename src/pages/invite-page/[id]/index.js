@@ -77,17 +77,17 @@ const DialogActions = withStyles((theme) => ({
   },
 }))(MuiDialogActions);
 
-const InvitePage = ({event, googleClientId}, ...props) => {
+const InvitePage = ({ event, googleClientId }, ...props) => {
   event = event[0]
 
   const classes = useStyles();
-  const [open, setOpen] = useState(false);
-  const [avail, setAvail] = useState([]); // pass this down to modal
-  const [rsvp, setRsvp] = useState(false);
+  const [avail, setAvail] = useState([]);
   const [confirmed, setConfirmed] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [rsvp, setRsvp] = useState(false);
   const { status } = event;
 
-  const { register, handleSubmit } = useForm({
+  const { register, handleSubmit, formState: { errors } } = useForm({
     revalidateMode: 'onSubmit',
     shouldUseNativeValidation: true
   });
@@ -263,6 +263,8 @@ const InvitePage = ({event, googleClientId}, ...props) => {
 };
 
 export async function getServerSideProps(context) {
+  console.log('params.id:', context.params.id);
+
   var eventData = JSON.stringify({
     "options": {
       "count": 1,
@@ -284,8 +286,9 @@ export async function getServerSideProps(context) {
 
   const response = await axios(config);
   const data = response.data
+  console.log('data:', data);
 
-  if (!data) {
+  if (!data || data.length === 0) {
     return {
       redirect: {
         destination: '/',
@@ -293,6 +296,7 @@ export async function getServerSideProps(context) {
       },
     }
   }
+
 
   return {
     props: {
