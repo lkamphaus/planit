@@ -1,11 +1,14 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, TextField, Input, Button } from '@material-ui/core';
+import axios from 'axios';
+import { useRouter } from 'next/router'
 
 const SignupForm = () => {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
+  const router = useRouter();
 
   const handleChange = (setStateFunc) => (e) => {
     setStateFunc(e.currentTarget.value);
@@ -14,10 +17,25 @@ const SignupForm = () => {
   const createAccount = (e) => {
     e.preventDefault();
     if (email && password && name) {
-      console.log('ACCOUNT SUBMIT');
-      console.log('email:', email);
-      console.log('password:', password);
-      console.log('name:', name);
+      // Submit user credentials to create account
+      axios.post('/signup', {email, name, password})
+        .then(res => {
+          if (res.status === 200) {
+
+            // immediately log the use in
+            axios.post('/login', {email, password})
+              .then(login => {
+                if (login.status === 200) {
+                  router.push('/home')
+                }
+              })
+          } else {
+
+          }
+        })
+        .catch(err => {
+          console.log('Registration failed');
+        });
     } else {
       console.log('FIELD VALIDATION FAILED');
     }
