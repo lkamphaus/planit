@@ -7,7 +7,7 @@ const LoginForm = () => {
   const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
+  const [isLoggingIn, setIsLoggingIn] = useState(false);
 
   const handleChange = (setStateFunc) => (e) => {
     setStateFunc(e.currentTarget.value);
@@ -16,6 +16,7 @@ const LoginForm = () => {
   const submitLogin = (e) => {
     e.preventDefault();
     if (email && password) {
+      setIsLoggingIn(true);
       axios.post('/login', { email, password })
         .then((data) => {
           if (data.status === 200) {
@@ -27,6 +28,7 @@ const LoginForm = () => {
         })
         .catch((err) => {
           console.log(err);
+          setIsLoggingIn(false);
         });
     } else {
       // TODO: logic for when login input is invalid
@@ -60,8 +62,9 @@ const LoginForm = () => {
         variant="contained"
         color="primary"
         onClick={submitLogin}
+        disabled={isLoggingIn}
       >
-        Log in
+        {isLoggingIn ? 'Logging in...' : 'Log in'}
       </Button>
     </form>
   );

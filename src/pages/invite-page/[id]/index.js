@@ -77,7 +77,7 @@ const DialogActions = withStyles((theme) => ({
   },
 }))(MuiDialogActions);
 
-const InvitePage = ({ event, googleClientId }, ...props) => {
+const InvitePage = ({ event, googleClientId, windowStart, windowEnd }, ...props) => {
   event = event[0]
 
   const classes = useStyles();
@@ -248,6 +248,8 @@ const InvitePage = ({ event, googleClientId }, ...props) => {
               <Availability
                 disabled={confirmed}
                 googleClientId={googleClientId}
+                windowStart={windowStart}
+                windowEnd={windowEnd}
                 handleClose={handleClose}
                 handleClickOpen={handleOpen}
                 open={open}/>
@@ -298,6 +300,8 @@ export async function getServerSideProps(context) {
     props: {
       event: data,
       googleClientId: process.env.GOOGLE_CLIENT_ID || null,
+      windowStart: data[0].window.start,
+      windowEnd: data[0].window.end,
     }
   }
 };

@@ -5,9 +5,11 @@
   "scripts": {
     "client-dev": "next dev ./src -p 8080",
     "client-build": "next build",
+    "client-debug": "NODE_OPTIONS='--inspect' next dev ./src -p 8080",
     "client-start": "next start ./src -p 8080",
     "client-lint": "next lint ./src",
     "server": "node ./server/app",
+    "server-debug": "NODE_OPTIONS='--inspect' node ./server/app",
     "dev": "nodemon ./server/app",
     "test": "jest --watch",
     "seed": "node ./database/seed.js"
