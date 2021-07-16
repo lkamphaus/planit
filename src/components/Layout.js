@@ -58,8 +58,8 @@ export default function ButtonAppBar({ children }) {
           <Typography variant="h3" className={classes.title} onClick={() => { router.push('/home') }}>
             P L A N . I T
           </Typography>
-          <Button color="inherit"><Link href="/create-event">Create Event</Link></Button>
-          {!cookie.loggedIn && <Button color="inherit"><Link href="/login">Login</Link></Button>}
+          {cookie.loggedIn && <Button color="inherit"><Link href="/create-event">Create Event</Link></Button>}
+          {cookie.loggedIn && <Button color="inherit"><Link href="/logout">Logout</Link></Button>}
         </Toolbar>
       </AppBar>
       <br />
