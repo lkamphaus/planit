@@ -62,7 +62,7 @@ const Home = (props) => {
           })
         })
     }
-  }, [state, name, loggedIn]);
+  });
 
 
   return (

@@ -75,7 +75,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default function createEvent() {
+export default function CreateEvent() {
   const classes = useStyles();
 
   const [form, setForm] = useState({

@@ -8,7 +8,6 @@ const LoginForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  console.log(update);
 
   const handleChange = (setStateFunc) => (e) => {
     setStateFunc(e.currentTarget.value);

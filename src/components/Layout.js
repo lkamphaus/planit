@@ -35,8 +35,6 @@ export default function ButtonAppBar({ children }) {
   const classes = useStyles();
   const [cookie, setCookie] = useState({ loggedIn: false });
 
-
-
   //on page render, set cookie state
   useEffect(() => {
     const updateCookies = () => {
