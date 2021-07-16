@@ -27,6 +27,7 @@ const addUser = (user) => {
       resolve(response)
     }).catch((err) => {
       console.error(err);
+      reject(err);
     });
   })
 }

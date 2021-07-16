@@ -10,6 +10,13 @@ const Options = (props) => {
   let temp = Object.keys(availability).sort((a, b) => {
     return b - a
   })
+  if(temp.length === 0) {
+    return (
+      <>
+      <span>No one can attend the event, try decreasing the length or wait for more RSVPs</span>
+      </>
+    )
+  }
   if (availability[rsvpNum]) {
     return (
       <>
@@ -21,21 +28,41 @@ const Options = (props) => {
       </div>
       </>
     )
-  } else {
-      return (
-      <div>
+  }
+  if (temp.length < 2) {
+    return (
+      <>
         <h1>Select a Time!</h1>
         <p>{rsvpNum} people have responded to the event!</p>
-        <p>Select a time</p>
         <span> {temp[0]} can make it at</span>
+        <div className={styles.buttonlist}>
+
         {availability[temp[0]].map( (time, key) => {
-        return <OptionsButton time={time} key={key} handleSetTime={props.handleSetTime}/>
-      })}
+          return <OptionsButton time={time} key={key} handleSetTime={props.handleSetTime}/>
+        })}
+        </div>
+      </>
+    )
+  } else {
+      return (
+      <>
+        <h1>Select a Time!</h1>
+        <p>{rsvpNum} people have responded to the event!</p>
+        <span> {temp[0]} can make it at</span>
+        <div className={styles.buttonlist}>
+
+        {availability[temp[0]].map( (time, key) => {
+          return <OptionsButton time={time} key={key} handleSetTime={props.handleSetTime}/>
+        })}
+        </div>
         <span> {temp[1]} can make it at</span>
+        <div className={styles.buttonlist}>
+
         {availability[temp[1]].map( (time, key) => {
-        return <OptionsButton time={time} key={key} handleSetTime={props.handleSetTime}/>
-      })}
-      </div>
+          return <OptionsButton time={time} key={key} handleSetTime={props.handleSetTime}/>
+        })}
+        </div>
+      </>
     )
     }
   }

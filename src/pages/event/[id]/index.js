@@ -24,6 +24,8 @@ const Event = ({event}) => {
   //console.log(event)
   const test = event[0];
   const formatedDate = new Date(test.time).toLocaleString();
+  const formatedStartWindow = new Date(test.window.start).toLocaleString();
+  const formatedEndWindow = new Date(test.window.end).toLocaleString();
   const rsvpList = helpers.listRSVPs(test.rsvps, 'name')
   const handleClose = () => {
     setOpen(false)
@@ -66,6 +68,7 @@ const Event = ({event}) => {
             <div className={styles.info}>
               <span> Status: {test.status}
               </span>
+              <span>Time Frame: {formatedStartWindow} to {formatedEndWindow} </span>
               <span>
                 Event Time: {test.time ? formatedDate : 'Not set'}
               </span>
@@ -75,8 +78,8 @@ const Event = ({event}) => {
             </div>
           </Box>
           <Box >
-            <Button variant="contained" component="span" onClick={() => {navigator.clipboard.writeText('http://localhost:3000/invite-page')}}>
-              Copy to Clipboard
+            <Button variant="contained" component="span" onClick={() => {navigator.clipboard.writeText(`http://localhost:3000/invite-page/${test._id}`)}}>
+              Copy Link to Event
             </Button>
           </Box>
           <Box >
@@ -104,9 +107,7 @@ export async function getServerSideProps(context) {
       }
     }
   })
-  //console.log(eventData)
-  // res = await fetch(`http://localhost:3000/api/events`, {method: 'get', body: eventData})
-  //const data = await res.json()
+
   var config = {
     method: 'get',
     url: 'http://localhost:3000/api/events',

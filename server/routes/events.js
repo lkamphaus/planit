@@ -2,14 +2,23 @@ const express = require('express');
 const cloudinary = require('cloudinary').v2;
 const { fetchEvents, addEvent, updateEvent } = require('../../database/controllers/eventController');
 const eventRouter = express.Router();
+
 require('dotenv').config();
 
+
 eventRouter.get('/', async (req, res) => {
-  const { options } = req.body; // object
+  let { options } = req.body.options === undefined ?
+    req.query :
+    req.body;
+
+  options = typeof options === 'string' ?
+    JSON.parse(options) :
+    options;
+
   try {
     let eventData = await fetchEvents(options);
     res.status(200).send(eventData);
-  } catch(err) {
+  } catch (err) {
     console.error(err);
     res.sendStatus(400);
   }
@@ -20,7 +29,7 @@ eventRouter.put('/', async (req, res) => {
   try {
     await updateEvent(updates);
     res.sendStatus(201);
-  } catch(err) {
+  } catch (err) {
     console.error(err);
     res.sendStatus(400);
   }
@@ -31,31 +40,32 @@ eventRouter.post('/', async (req, res) => {
   try {
     let response = await addEvent(event, req.user.email);
     res.send(response);
-  } catch(err) {
+  } catch (err) {
     console.error(err);
     res.sendStatus(400);
   }
 });
 
-eventRouter.post('/photos', async (req, res) => {
-  const { fileData } = req.body;
+eventRouter.post('/photos', (req, res) => {
+  const {0: fileData} = req.files
   let confObj = {
     cloud_name: `${process.env.CLOUD_NAME}`,
     api_key: `${process.env.API_KEY}`,
     api_secret: `${process.env.API_SECRET}`,
   };
   cloudinary.config(confObj);
-  cloudinary.uploader.upload(fileData, (err, result) => {
-    if (err) {
+
+  cloudinary.uploader.upload(fileData.tempFilePath, (error, result) => {
+    if (error) {
       console.error(err);
       res.sendStatus(400);
     } else {
-      const transform = 'w_400,c_scale/';
-      const insertInd = result.url.indexOf('upload/') + 7;
-      const transformedUrl = result.url.slice(0, insertInd) + transform + result.url.slice(insertInd);
-      res.status(200).send(transformedUrl);
+      const transform = 'w_1050,h_144,c_scale/';
+      const insertInd = result.secure_url.indexOf('upload/') + 7;
+      const transformedUrl = result.secure_url.slice(0, insertInd) + transform + result.secure_url.slice(insertInd);
+      res.send(transformedUrl);
     }
   });
-})
+});
 
 module.exports.eventRouter = eventRouter;

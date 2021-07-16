@@ -2,8 +2,8 @@ const { app: httpServer, initRoutes } = require('./index.js');
 const express = require('express');
 const { session, cors, login: passport } = require('./middleware');
 const db = require('../database');
+const fileupload = require('express-fileupload');
 
-console.log(session);
 const { parse } = require('url');
 const next = require('next');
 
@@ -15,6 +15,7 @@ nextServer.prepare().then(() => {
 
   httpServer.use(express.json({ limit: '3MB' }));
   httpServer.use(express.urlencoded({extended:true}));
+  httpServer.use(fileupload({useTempFiles: true}));
   httpServer.use(cors.corsPolicy);
   httpServer.use(session.sessionParser)
   httpServer.use(session.cookieParser);
@@ -24,6 +25,17 @@ nextServer.prepare().then(() => {
   httpServer.use(passport.initialize());
   httpServer.use(passport.session());
   httpServer.use(session.sessionManager);
+
+  // Middleware to pass the next renderer onto the req object
+  httpServer.use((req, res, next) => {
+    const nextRender = (pathname) => {
+      const parsedUrl = parse(req.url, true);
+      const { query } = parsedUrl;
+      nextServer.render(req, res, pathname, query);
+    };
+    res.nextRender = nextRender;
+    next();
+  });
   initRoutes(httpServer);
 
   // server-sided rendering
@@ -47,5 +59,6 @@ nextServer.prepare().then(() => {
 
   httpServer.listen(3000, () => {
     console.log('Listening on localhost:3000');
-  })
+  });
+
 });
