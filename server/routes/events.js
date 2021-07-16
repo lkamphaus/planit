@@ -57,8 +57,8 @@ eventRouter.post('/photos', (req, res) => {
   };
   cloudinary.config(confObj);
 
-  cloudinary.uploader.upload(fileData.tempFilePath, (error, result) => {
-    if (error) {
+  cloudinary.uploader.upload(fileData.tempFilePath, (err, result) => {
+    if (err) {
       console.error(err);
       res.sendStatus(400);
     } else {

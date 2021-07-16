@@ -10,57 +10,55 @@ options = {
   }
 }
 */
-//passing in no options will give you all of the events limited to 30, that way nothing breaks
+
 const fetchEvents = async (options = { count: 30, where: null }) => {
   const { count, where } = options;
-  return new Promise((resolve, reject) => {
-      if (where) {
-        const { property, value } = where
-        Event.find({}).limit(count).where(property).equals(value)
-        .then((response) => {
-          resolve(response);
-        }).catch((err) => {
-          console.error(err);
-          reject(err);
-        })
-      } else {
-        Event.find({}).limit(count)
-        .then((response) => {
-          resolve(response);
-        }).catch((err) => {
-          console.error(err);
-          reject(err);
-        })
-      }
-    })
+  if (where) {
+    try{
+      const { property, value } = where;
+      let data = await Event.find({}).where(property).equals(value).limit(count);
+      return data;
+    } catch(err) {
+      console.error(err);
+      throw err;
+    }
+  } else {
+    try {
+      let data = await Event.find({}).limit(count);
+      return data;
+    } catch(err) {
+      console.error(err);
+      throw err;
+    }
+  }
 }
 
 const addEvent = async (event, email) => {
-  return new Promise((resolve, reject) => {
-    Event.create(event)
-    .then(({ _id }) => {
-      let whereParam = { email };
-      User.updateOne(whereParam, { $push: { events: _id }})
-      .then((res) => {
-        resolve({ message: "Event Added", event_id: _id });
-      })
-    }).catch((err) => {
-      console.error(err);
-      reject(err);
-    })
-  })
+  try {
+    const { _id } = await Event.create(event);
+    const whereParam = { email };
+    const whatParam = { $push: { events: _id }};
+    await User.updateOne(whereParam, whatParam);
+    return {
+      message: "Event Added",
+      event_id: _id
+    }
+  } catch(err) {
+    console.error(err);
+    throw err;
+  }
 }
 
 const deleteAllEvents = async () => {
-  return new Promise((resolve, reject) => {
-    Event.deleteMany({})
-    .then((response) => {
-      resolve(response);
-    }).catch((err) => {
-      console.error(err);
-      reject(err);
-    })
-  })
+  try {
+    await Event.deleteMany({});
+    return {
+      message: "Events Deleted"
+    }
+  } catch(err) {
+    console.error(err);
+    throw err;
+  }
 }
 
 //This will take in an array of options objects, and do all of the updates asynchronously
@@ -79,35 +77,30 @@ const deleteAllEvents = async () => {
     }
   ]
 */
-const updateEvent = (updateArr) => {
-  return new Promise((resolve, reject) => {
-    const promiseArray = [];
-    for (let i = 0; i < updateArr.length; i++) {
-      let { where, what } = updateArr[i];
-      let whereParam = {};
-      whereParam[where.property] = where.value;
-      let whatParam = {};
-      whatParam[what.method] = {};
-      whatParam[what.method][what.field] = what.value;
-      let currentPromise = new Promise((resolve, reject) => {
-        Event.updateOne(whereParam, whatParam)
-        .then((res) => {
-          resolve(res);
-        }).catch((err) => {
-          console.error(err);
-          reject(err);
-        })
-      })
-      promiseArray.push(currentPromise);
+
+const updateEvent = async (updateArr) => {
+  try{
+    await Promise.all(updateArr.map(async (update) => {
+      try {
+        let { what, where } = update;
+        let whereParam = {};
+        whereParam[where.property] = where.value;
+        let whatParam = {};
+        whatParam[what.method] = {};
+        whatParam[what.method][what.field] = what.value;
+        let res = await Event.updateOne(whereParam, whatParam);
+      } catch(err) {
+        console.error(err);
+        throw err;
+      }
+    }))
+    return {
+      message: "all updates complete"
     }
-    Promise.all(promiseArray)
-    .then((res) => {
-      resolve(res);
-    }).catch((err) => {
-      console.error(err);
-      reject(err);
-    })
-  })
+  } catch(err) {
+    console.error(err);
+    throw err;
+  }
 }
 
 module.exports = {

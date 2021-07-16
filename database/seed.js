@@ -2,77 +2,10 @@ const db = require('./index.js');
 const { fetchEvents, addEvent, deleteAllEvents, updateEvent } = require('./controllers/eventController.js');
 const { addUser, fetchUser, deleteUser } = require('./controllers/userController.js');
 const { addSession, fetchSession, deleteSession, deleteAllSessions } = require('./controllers/sessionController.js');
+const { mockEvent1, mockEvent2, mockEvent3 } = require('../MockData/EventData.js');
 
-const mockEvent = {
-  name: 'Tarvent',
-  description: 'Hey everybody come to my event, it\'s going to be lit!',
-  owner: 'Tarrin',
-  ownerEmail: "tarrinneal@gmail.com",
-  location: 'Tarrin\'s house',
-  duration: 7200,
-  status: 'pending',
-  time: null,
-  window: {
-    start: '2021-07-10T22:30:00.002Z',
-    end: '2021-07-17T22:30:00.002Z',
-  },
-  rsvps: [
-    {
-      name: 'Philbert',
-      availability: [
-        {
-          start: '2021-07-10T22:30:00.002Z',
-          end: '2021-07-11T00:30:00.002Z',
-        },
-        {
-          start: '2021-07-10T02:00:00.002Z',
-          end: '2021-07-10T04:00:00.002Z',
-        },
-        {
-          start: '2021-07-10T21:00:00.002Z',
-          end: '2021-07-11T02:30:00.002Z',
-        },
-        {
-          start: '2021-07-12T04:00:00.002Z',
-          end: '2021-07-12T10:00:00.002Z',
-        },
-        {
-          start: '2021-07-15T06:30:00.002Z',
-          end: '2021-07-15T10:30:00.002Z',
-        },
-        {
-          start: '2021-07-16T10:00:00.002Z',
-          end: '2021-07-16T12:00:00.002Z',
-        },
-      ],
-    },
-    {
-      name: 'Shrek',
-      availability: [
-        {
-          start: '2021-07-10T23:00:00.002Z',
-          end: '2021-07-11T02:00:00.002Z',
-        },
-        {
-          start: '2021-07-10T03:00:00.002Z',
-          end: '2021-07-10T06:00:00.002Z',
-        },
-        {
-          start: '2021-07-12T04:30:00.002Z',
-          end: '2021-07-12T10:00:00.002Z',
-        },
-        {
-          start: '2021-07-14T04:00:00.002Z',
-          end: '2021-07-15T10:30:00.002Z',
-        },
-        {
-          start: '2021-07-16T08:00:00.002Z',
-          end: '2021-07-16T10:30:00.002Z',
-        },
-      ],
-    },
-  ]
-}
+
+
 
 const mockUser = {
   name: 'Tarrin',
@@ -139,9 +72,11 @@ const seed = async () => {
     await addUser(mockUser);
     console.log('User added successfully');
     let user = await fetchUser({ property: 'email', value: 'tarrinneal@gmail.com'});
-    await addEvent(mockEvent, 'tarrinneal@gmail.com');
-    let userbyId = await fetchUser({ property: '_id', value: user[0]._id});
-    console.log(userbyId)
+    await addEvent(mockEvent1, 'tarrinneal@gmail.com');
+    await addEvent(mockEvent2, 'jacobsantala@email.com');
+    await addEvent(mockEvent3, 'tommy@boy.com');
+    // let userbyId = await fetchUser({ property: '_id', value: user[0]._id});
+    // console.log(userbyId)
     // console.log('Event added successfully');
     // let events = await fetchEvents({ where: { property: 'name', value: 'Tarvent'}, count: 1});
     // console.log(events);
@@ -152,7 +87,7 @@ const seed = async () => {
     // let res = await updateEvent(updateArr);
     // console.log(res);
     // let events = await fetchEvents();
-    // console.log(JSON.stringify(events[0], null, 2));
+    // console.log(JSON.stringify(events, null, 2));
   } catch(err) {
     console.error('Seed Failed', err);
   } finally {
