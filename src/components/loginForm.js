@@ -2,13 +2,11 @@ import React, { useState, useEffect, useContext } from 'react';
 import { Container, TextField, Input, Button } from '@material-ui/core';
 import { useRouter } from 'next/router'
 import axios from 'axios';
-import Account from '../accountContext';
 
 const LoginForm = () => {
   const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { update }= useContext(Account);
 
   console.log(update);
 
