@@ -62,7 +62,7 @@ eventRouter.post('/photos', (req, res) => {
       console.error(err);
       res.sendStatus(400);
     } else {
-      const transform = 'w_1050,h_144,c_scale/';
+      const transform = '/c_fill,g_auto,h_150,w_1050/';
       const insertInd = result.secure_url.indexOf('upload/') + 7;
       const transformedUrl = result.secure_url.slice(0, insertInd) + transform + result.secure_url.slice(insertInd);
       res.send(transformedUrl);
