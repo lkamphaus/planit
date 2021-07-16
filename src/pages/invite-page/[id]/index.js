@@ -254,7 +254,6 @@ const InvitePage = ({event, googleClientId}, ...props) => {
                 handleClickOpen={handleOpen}
                 open={open}/>
               <Button disabled={confirmed} type="submit" variant="contained" className={classes.button}>RSVP</Button>
-              <Button type="submit" variant="contained" className={classes.button}>RSVP</Button>
             </form>
           </Paper>
 
