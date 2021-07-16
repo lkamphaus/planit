@@ -68,7 +68,7 @@ const Event = ({event}) => {
             <div className={styles.info}>
               <span> Status: {test.status}
               </span>
-              <span>Window: {formatedStartWindow} to {formatedEndWindow} </span>
+              <span>Time Frame: {formatedStartWindow} to {formatedEndWindow} </span>
               <span>
                 Event Time: {test.time ? formatedDate : 'Not set'}
               </span>
@@ -79,7 +79,7 @@ const Event = ({event}) => {
           </Box>
           <Box >
             <Button variant="contained" component="span" onClick={() => {navigator.clipboard.writeText(`http://localhost:3000/invite-page/${test._id}`)}}>
-              Copy to Clipboard
+              Copy Link to Event
             </Button>
           </Box>
           <Box >

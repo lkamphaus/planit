@@ -126,7 +126,7 @@ const SetTimeForm = (props) => {
       <Button variant="contained" component="span" onClick={handleOpen}>
           Set Event Time
         </Button>
-      <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
+      <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open} maxWidth='700px'>
       <DialogTitle id="customized-dialog-title" onClose={handleClose}>
           Set Event Time
         </DialogTitle>
