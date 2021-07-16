@@ -132,8 +132,6 @@ export default function createEvent() {
   const createNewEvent = async (event) => {
     event.preventDefault()
 
-    console.log('window', windowStart, windowEnd);
-
     form.window = window;
     form.imageurl = uploads
     try {
@@ -160,15 +158,16 @@ export default function createEvent() {
         <Grid container spacing={3} >
         <Grid item xs={12}>
           { uploaded && uploads ?
-             <Card className={classes.cardPhoto}>
+            //  <Card className={classes.cardPhoto}>
               <Image
                 className={classes.coverPhoto}
                 src={uploads}
-                height={'100%'}
-                width={'100%'}
+                layout="responsive"
+                height={144}
+                width={1050}
                 alt="event-image"
               />
-              </Card>
+              // </Card>
             :
               <Card className={classes.cardPhoto}>
                 <ImageIcon
@@ -178,7 +177,7 @@ export default function createEvent() {
                   className={styles.hidden}
                   id="contained-button-file"
                   type="file"
-                  onChange={onFileChange}y
+                  onChange={onFileChange}
                 />
                 <label htmlFor="contained-button-file">
                   <Button variant="outlined" color="primary"

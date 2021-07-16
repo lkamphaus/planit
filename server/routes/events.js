@@ -59,7 +59,10 @@ eventRouter.post('/photos', (req, res) => {
       console.error(err);
       res.sendStatus(400);
     } else {
-      res.send(result.secure_url);
+      const transform = 'w_1050,h_144,c_scale/';
+      const insertInd = result.secure_url.indexOf('upload/') + 7;
+      const transformedUrl = result.secure_url.slice(0, insertInd) + transform + result.secure_url.slice(insertInd);
+      res.send(transformedUrl);
     }
   });
 });

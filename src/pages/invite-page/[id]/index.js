@@ -87,8 +87,6 @@ const InvitePage = ({event, googleClientId}, ...props) => {
   const [confirmed, setConfirmed] = useState(false);
   const { status } = event;
 
-  console.log('status', status)
-
   const { register, handleSubmit } = useForm({
     revalidateMode: 'onSubmit',
     shouldUseNativeValidation: true
