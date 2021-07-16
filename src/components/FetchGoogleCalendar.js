@@ -21,7 +21,7 @@ const FetchGoogleCalendar = ({
   // Initialize Google API auth once component has mounted
   useEffect(() => {
     gapi.load('client:auth2', initClient);
-  }, []);
+  });
 
   // Clear the 'no calendar data' message after three seconds
   useEffect(() => {
