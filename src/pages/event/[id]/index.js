@@ -21,23 +21,85 @@ const Event = ({event}) => {
     router.replace(router.asPath);
   }
   const [open, setOpen] = useState(false);
+  const [uploads, setUploads] = useState('');
+  const [uploaded, setUploaded] = useState(false);
   //console.log(event)
   const test = event[0];
   const formatedDate = new Date(test.time).toLocaleString();
   const formatedStartWindow = new Date(test.window.start).toLocaleString();
   const formatedEndWindow = new Date(test.window.end).toLocaleString();
   const rsvpList = helpers.listRSVPs(test.rsvps, 'name')
+  const onFileChange = async (event) => {
+    const image = event.target.files[0];
+
+    const formData = new FormData();
+    formData.append(0, image);
+
+    try {
+      const response = await fetch('/api/events/photos', {
+        method: 'POST',
+        body: formData
+      })
+      const url = await response.text();
+      console.log(url)
+      setUploaded(true);
+      setUploads(url);
+    } catch(err) {
+      console.log(err)
+    }
+  }
   const handleClose = () => {
     setOpen(false)
   }
   const handleOpen = () => {
     setOpen(true)
   }
+  const savePhoto = async () => {
+    const data = {
+      "updates": [
+        {
+            "where": {
+                "property": "_id",
+                "value": test._id
+            },
+            "what": {
+                "method": "$set",
+                "field": "photo_url",
+                "value": uploads
+            }
+        }
+    ]
+    }
+    try {
+      const res = await fetch('/api/events',
+        {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data),
+        }
+      )
+    } catch(err) {
+      console.log(err);
+    }
+  }
   return (
   <div className={generalStyles.window}>
     {/* <div className={generalStyles.title}>P L A N . I T</div> */}
     <div className={styles.container}>
       <div>
+        {uploaded && uploads ?
+        <Image
+        className={generalStyles.photo}
+        src={uploads}
+        layout="responsive"
+        height={144}
+        width={1050}
+        alt="event-image"
+        />
+        :
+
         <Image
         src={test.photo_url ? test.photo_url : testImage}
         className={generalStyles.photo}
@@ -46,15 +108,20 @@ const Event = ({event}) => {
         width={1050}
         alt="event-image"
         />
+        }
         <div>
           <input
             className={styles.hidden}
             id="contained-button-file"
-            multiple
+            onChange={onFileChange}
             type="file"
             />
           <label htmlFor="contained-button-file">
             <Button variant="contained" component="span">  Upload
+            </Button>
+          </label>
+          <label>
+          <Button variant="contained" component="span" onClick={savePhoto}>  Save
             </Button>
           </label>
         </div>
