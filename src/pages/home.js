@@ -70,10 +70,8 @@ const Home = (props) => {
 
 
   const search = (e) => {
-    console.log(e.key);
     if (e.key === 'Enter') {
       const query = document.getElementById('search-bar').value;
-      console.log(query)
       const newDisplayed = state.events.filter((event) => {
         return event.name.indexOf(query) >= 0;
       })
