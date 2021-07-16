@@ -33,7 +33,6 @@ const useStyles = makeStyles({
     margin: '10px 0 5px 0',
     '&:hover': {
       color: 'white',
-      background: '#98609c'
     }
   },
   input: {
