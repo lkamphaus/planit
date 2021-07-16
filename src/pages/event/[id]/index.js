@@ -24,6 +24,8 @@ const Event = ({event}) => {
   //console.log(event)
   const test = event[0];
   const formatedDate = new Date(test.time).toLocaleString();
+  const formatedStartWindow = new Date(test.window.start).toLocaleString();
+  const formatedEndWindow = new Date(test.window.end).toLocaleString();
   const rsvpList = helpers.listRSVPs(test.rsvps, 'name')
   const handleClose = () => {
     setOpen(false)
@@ -66,6 +68,7 @@ const Event = ({event}) => {
             <div className={styles.info}>
               <span> Status: {test.status}
               </span>
+              <span>Window: {formatedStartWindow} to {formatedEndWindow} </span>
               <span>
                 Event Time: {test.time ? formatedDate : 'Not set'}
               </span>
