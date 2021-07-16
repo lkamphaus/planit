@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
     width: '800px',
   },
   cardContent: {
-    padding: "2px 16px"
+    padding: "1em"
   },
   expand: {
     transform: 'rotate(0deg)',
@@ -55,7 +55,6 @@ const Event = (props) => {
       <CardContent className={classes.cardContent}>
         <Typography
           variant="h6"
-          align="center"
           color="inherit"
         >{name}</Typography>
       </CardContent>
