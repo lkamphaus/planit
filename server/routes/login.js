@@ -4,6 +4,22 @@ const passport = require('../middleware/').login;
 const nextServer = require('../app.js');
 const {addUser} = require('../../database/controllers/userController');
 
+loginRouter.get('/', (req, res, next) => {
+  if (req.isAuthenticated()) {
+    res.redirect('/home');
+  } else {
+    res.redirect('/login');
+  }
+});
+
+loginRouter.get('/home', (req, res, next) => {
+  if (req.isAuthenticated()) {
+    next();
+  } else {
+    res.redirect('/login');
+  }
+});
+
 loginRouter.get('/login', (req, res, next) => {
   if (req.isAuthenticated()) {
     console.log('got with user - redirecting');
@@ -15,7 +31,8 @@ loginRouter.get('/login', (req, res, next) => {
 
 loginRouter.post('/login',
 passport.authenticate('local'), (req, res) => {
-  res.send(200);
+  // res.status(200).send('/home');
+  res.redirect('/home')
 });
 
 loginRouter.get('/logout', (req, res) => {

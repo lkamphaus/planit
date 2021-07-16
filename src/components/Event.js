@@ -74,7 +74,6 @@ const Event = (props) => {
           <CardContent>
           <Typography variant="body1" component="p">
               {description}
-              {owner}
             </Typography>
           </CardContent>
         </Collapse>

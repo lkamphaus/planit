@@ -37,9 +37,11 @@ eventRouter.put('/', async (req, res) => {
 
 eventRouter.post('/', async (req, res) => {
   const { event } = req.body; // event object
+
   try {
-    let response = await addEvent(event, req.user.email);
-    res.send(response);
+    let response = await addEvent(req.body, 'tarrinneal@gmail.com');
+    // res.send(response);
+    res.sendStatus(200);
   } catch (err) {
     console.error(err);
     res.sendStatus(400);

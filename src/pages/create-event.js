@@ -1,5 +1,5 @@
 import {useRouter} from 'next/router';
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
@@ -15,7 +15,8 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import Image from 'next/image';
 import axios from 'axios';
 import DateFnsUtils from '@date-io/date-fns';
-import { DatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
+import { DatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
+import accountContext from '.././accountContext.js';
 
 import styles from '.././styles/Create.module.css';
 
@@ -75,8 +76,10 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default function createEvent() {
+export default function CreateEvent() {
   const classes = useStyles();
+
+  const { name } = useContext(accountContext);
 
   const [form, setForm] = useState({
         name: "",
@@ -129,11 +132,19 @@ export default function createEvent() {
     }
   }
 
-  const createNewEvent = async (event) => {
-    event.preventDefault()
+  const createNewEvent = async (e) => {
+    e.preventDefault()
 
-    form.window = window;
-    form.imageurl = uploads
+    form.duration = form.duration * 3600;
+    form.window = {
+      start: windowStart,
+      end: windowEnd
+    };
+    form.photo_url = uploads;
+    form.owner = name;
+
+    let event = JSON.stringify(form);
+
     try {
       const res = await fetch('/api/events',
         {
@@ -141,13 +152,12 @@ export default function createEvent() {
           headers: {
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify(form),
+          body: event,
         }
       )
     } catch(err) {
       console.log(err);
     }
-
   };
 
 
@@ -180,7 +190,8 @@ export default function createEvent() {
                   onChange={onFileChange}
                 />
                 <label htmlFor="contained-button-file">
-                  <Button variant="outlined" color="primary"
+                  <Button color="primary"
+                    variant="contained"
                     component="span">
                       Choose File
                     </Button>
@@ -261,7 +272,7 @@ export default function createEvent() {
               }
             />
             </Card>
-            <Button type="submit" variant="outlined" color="primary" className={classes.createButton}>
+            <Button type="submit" variant="contained"  color="primary" className={classes.createButton}>
               Create Event
             </Button>
           </Grid>
