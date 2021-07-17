@@ -13,9 +13,13 @@ Optionally, the following commands may be useful
 
 1. Set `dev` to `false` in `server/app.js`
 2. Run the client build:
-```yarn client-build```
+```
+$ yarn client-build
+```
 3. Run the server
-```yarn server```
+```
+$ yarn server
+```
 
 ### API
 ------------
