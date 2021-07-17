@@ -9,6 +9,13 @@ Clone the project and run the following commands:
 Optionally, the following commands may be useful
 - `yarn seed` to populate some sample data into the database
 
+### Running a production build
+
+1. Set `dev` to `false` in `server/app.js`
+2. Run the client build:
+```yarn client-build```
+3. Run the server
+```yarn server```
 
 ### API
 ------------
@@ -51,7 +58,7 @@ updates: [
 	// ... include additional updates
   ]
 ```
-returns 
+returns
 `200 // - if successful `
 
 POST - */api/events*
