@@ -11,8 +11,9 @@ Optionally, the following commands may be useful
 
 ### Running a production build
 
-1. Set `dev` to `false` in `server/app.js`
-2. Run the client build:
+1. Delete the contents of the `.next/` directory
+2. Set `dev` to `false` in `server/app.js`
+3. Run the client build:
 ```
 $ yarn client-build
 ```
