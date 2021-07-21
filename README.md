@@ -4,6 +4,9 @@
  **[Plan.It](https://github.com/Kirk-Blue-Ocean/planit "Plan.It")** aims to solve the issue of scheduling events between groups of people with varying schedules.
  
 ### ✨ Demo
+
+
+### 🧪 Technologies
 * Axios : Version 0.21.1,
 * Babel-jest : Version 27.0.6,
 * Babel-plugin-transform-require-ignore : Version 0.1.1,
@@ -34,9 +37,6 @@
 * React-hook-form : Version 7.11.0,
 * Sass : Version 1.35.2,
 * Uuid : Version 8.3.2
-
-### 🧪 Technologies
-
 
 ### 🚀 Installation and Setup
 Clone the project and run the following commands:
