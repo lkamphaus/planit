@@ -122,4 +122,11 @@ event: {
 ```
 returns `200 // - if successful`
 
-
+### 🤝 Contributors
+- [Laura Kamphaus](https://github.com/lkamphaus)
+- [Derek Malone](https://github.com/dgmalone)
+- [Noshua Setzer](https://github.com/Noshuas)
+- [Eric Sadur](https://github.com/chefferson)
+- [Ivan Bailey](https://github.com/ivangbailey)
+- [Jacob Santala](https://github.com/Artey8)
+- [Jacky Chen](https://github.com/jackychen19)
