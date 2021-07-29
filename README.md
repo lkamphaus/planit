@@ -4,7 +4,8 @@
  **[Plan.It](https://github.com/Kirk-Blue-Ocean/planit "Plan.It")** aims to solve the issue of scheduling events between groups of people with varying schedules.
  
 ### ✨ Demo
-
+Create Event 
+![Create Event] (create-event.gif)
 
 ### 🧪 Technologies
 * Axios : Version 0.21.1,
