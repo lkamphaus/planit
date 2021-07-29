@@ -5,7 +5,7 @@
  
 ### ✨ Demo
 Create Event 
-![Create Event] (create-event.gif)
+![Create Event](create-event.gif)
 
 ### 🧪 Technologies
 * Axios : Version 0.21.1,
