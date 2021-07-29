@@ -6,6 +6,8 @@
 ### ✨ Demo
 Create Event 
 ![Create Event](create-event.gif)
+Add Availablity 
+![Add Availablity ](add-availability.gif)
 
 ### 🧪 Technologies
 * Axios : Version 0.21.1,
