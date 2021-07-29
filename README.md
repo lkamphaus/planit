@@ -1,7 +1,7 @@
 # Planit
 
 ### General Info
- **[Plan.It](https://github.com/Kirk-Blue-Ocean/planit "Plan.It")** aims to solve the issue of scheduling events between groups of people with varying schedules.
+ **[Plan.It](https://github.com/Kirk-Blue-Ocean/planit "Plan.It")** aims to solve the issue of scheduling events between groups of people with varying schedules. We built an interactive scheduling application built by a group of 6 software engineers that utilized the following technologies: Next.js, React.js, Express, and MongoDB.
  
 ### ✨ Demo
 Create Event 
