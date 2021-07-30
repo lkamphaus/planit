@@ -6,6 +6,7 @@
 ### ✨ Demo
 Create Event 
 ![Create Event](create-event.gif)
+<br />
 Add Availablity 
 ![Add Availablity ](add-availability.gif)
 
