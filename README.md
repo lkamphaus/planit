@@ -13,6 +13,7 @@ Create Event
 <br />
 
 Add Availablity 
+
 ![Add Availablity ](add-availability.gif)
 
 ### 🧪 Technologies
